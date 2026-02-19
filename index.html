@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Actual Assistant™ | AI Front Office for Contractors</title>
+  <meta name="description" content="Actual Assistant™ replaces your front office with AI. Never miss a lead again. Built for contractors." />
+
+  <style>
+    :root {
+      --bg:#0b1020;
+      --panel:#101a33;
+      --text:#e8ecff;
+      --muted:#b8c0ffcc;
+      --accent:#79a7ff;
+      --accent2:#7cffc3;
+      --line: rgba(255,255,255,.10);
+      --radius:18px;
+      --shadow:0 18px 50px rgba(0,0,0,.35);
+      --danger:#ff6b6b;
+    }
+    * { box-sizing:border-box }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background:
+        radial-gradient(1000px 600px at 20% -10%, rgba(121,167,255,.25), transparent 60%),
+        radial-gradient(900px 600px at 90% 10%, rgba(124,255,195,.18), transparent 55%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.5;
+    }
+    a { color:inherit; text-decoration:none }
+    .wrap { max-width:1100px; margin:0 auto; padding:28px 18px 70px }
+    header {
+      display:flex; justify-content:space-between; align-items:center; gap:14px;
+      padding-bottom:18px; border-bottom:1px solid var(--line);
+      flex-wrap:wrap;
+    }
+    .brand { display:flex; gap:12px; align-items:center }
+    .logo {
+      width:42px; height:42px; border-radius:14px;
+      background: linear-gradient(135deg, #79a7ff, #7cffc3);
+      box-shadow: var(--shadow);
+    }
+    .navlinks { display:flex; gap:10px; flex-wrap:wrap; align-items:center }
+    .pill {
+      font-size:12px; color:var(--muted);
+      border:1px solid rgba(255,255,255,.16);
+      padding:6px 10px; border-radius:999px;
+    }
+    .btn {
+      padding:12px 16px; border-radius:14px;
+      border:1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.05);
+      font-weight:600;
+      display:inline-flex; align-items:center; justify-content:center;
+      transition: transform .05s ease, background .15s ease, border-color .15s ease;
+      cursor:pointer;
+    }
+    .btn:hover { background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.28); }
+    .btn:active { transform: translateY(1px); }
+    .btn.primary {
+      background: linear-gradient(135deg, rgba(121,167,255,.35), rgba(124,255,195,.22));
+      border-color: rgba(121,167,255,.6);
+    }
+
+    h1 { font-size:48px; line-height:1.08; margin:34px 0 14px }
+    h2 { font-size:28px; margin:44px 0 14px }
+    h3 { margin:0 0 10px }
+    p.sub { color:var(--muted); font-size:18px; max-width:780px; margin:0 0 18px }
+
+    .hero {
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:18px;
+      align-items:start;
+      margin-top:10px;
+    }
+    @media (max-width: 900px){
+      .hero { grid-template-columns: 1fr; }
+      h1 { font-size:40px; }
+    }
+
+    .grid { display:grid; gap:18px }
+    .two { grid-template-columns:1fr 1fr }
+    @media (max-width:900px){ .two{grid-template-columns:1fr} }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+    ul { margin:0; padding-left:18px; color:var(--muted) }
+    li { margin:8px 0 }
+    .tagrow { display:flex; flex-wrap:wrap; gap:8px; margin-top:14px }
+    .tag {
+      display:inline-block;
+      font-size:12px;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,.16);
+      padding:6px 10px;
+      border-radius:999px;
+      background: rgba(0,0,0,.10);
+    }
+    .cta {
+      margin-top:20px;
+      padding:20px;
+      border-radius:var(--radius);
+      background: linear-gradient(135deg, rgba(121,167,255,.18), rgba(124,255,195,.12));
+      border:1px solid rgba(121,167,255,.35);
+      display:flex; justify-content:space-between; align-items:center; gap:14px;
+      flex-wrap:wrap;
+    }
+    .kpiGrid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:6px; }
+    .mini {
+      padding:14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.12);
+    }
+    .mini b { display:block; font-size:16px; }
+    .mini span { color:var(--muted); font-size:13px; }
+    .money { font-size:34px; margin:0; }
+    .fine { color:var(--muted); font-size:13px; margin-top:10px; }
+    .divider { height:1px; background: rgba(255,255,255,.08); margin:18px 0; }
+
+    /* Modal + form inputs */
+    .input{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      outline:none;
+    }
+    .input::placeholder{ color: rgba(184,192,255,.55); }
+    .input:focus{ border-color: rgba(121,167,255,.6); }
+    textarea.input{ resize: vertical; }
+    select.input{ appearance:none; }
+    label.fine { display:block; margin-bottom:6px; }
+
+    .status-ok { color: rgba(124,255,195,.95); }
+    .status-bad { color: var(--danger); }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <strong>Actual Assistant™</strong><br />
+          <span class="pill">AI Front Office for Contractors</span>
+        </div>
+      </div>
+
+      <nav class="navlinks" aria-label="primary">
+        <a class="btn" href="#how-it-works">See how it works</a>
+        <a class="btn" href="#menu">Menu items</a>
+        <a class="btn" href="#pricing">Pricing</a>
+        <a class="btn primary" href="#" data-open-demo="1">Book a 20-Min Demo</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div>
+          <h1>Replace your front office with AI.<br />Never miss a lead again.</h1>
+          <p class="sub">
+            Actual Assistant™ answers calls, captures leads, follows up automatically, and syncs directly to your CRM — 24/7.
+            Built by contractors to replace labor, reduce overhead, and eliminate missed opportunities.
+          </p>
+
+          <div class="navlinks">
+            <a class="btn primary" href="#" data-open-demo="1">Book a 20-Min Demo</a>
+            <a class="btn" href="#how-it-works">See how it works</a>
+          </div>
+
+          <div class="tagrow">
+            <span class="tag">24/7 answering</span>
+            <span class="tag">Instant follow-up</span>
+            <span class="tag">CRM integration</span>
+            <span class="tag">Storm market ready</span>
+            <span class="tag">Contractor-built</span>
+          </div>
+        </div>
+
+        <aside class="card">
+          <h3>What it replaces</h3>
+          <p class="sub" style="margin:0 0 12px;">
+            Missed calls, slow follow-up, admin turnover, and disorganized lead handling.
+          </p>
+
+          <div class="kpiGrid">
+            <div class="mini"><b>Missed calls</b><span>become missed jobs</span></div>
+            <div class="mini"><b>Slow follow-up</b><span>kills close rate</span></div>
+            <div class="mini"><b>Admin overhead</b><span>salary + taxes + comp</span></div>
+            <div class="mini"><b>Turnover</b><span>retraining forever</span></div>
+          </div>
+
+          <div class="divider"></div>
+          <p class="sub" style="margin:0;">
+            If one missed job pays for the system, it’s already worth it.
+          </p>
+        </aside>
+      </section>
+
+      <section>
+        <div class="cta">
+          <div>
+            <strong>Start with revenue generators today</strong><br />
+            <span style="color:var(--muted)">SEO Visibility Platform + Instant Roof Estimator are available now.</span>
+          </div>
+          <a class="btn primary" href="#menu">View the menu</a>
+        </div>
+      </section>
+
+      <section id="how-it-works">
+        <h2>See how it works</h2>
+        <p class="sub">
+          Actual Assistant™ is a system — not a single tool. It captures demand, responds instantly, and keeps your pipeline moving
+          without relying on human follow-up.
+        </p>
+
+        <div class="grid two">
+          <div class="card">
+            <h3>Step 1 — Capture</h3>
+            <ul>
+              <li><b>SEO + landing</b> turns searches into inbound calls and form leads</li>
+              <li><b>Instant Estimator</b> qualifies leads before you waste time</li>
+              <li><b>Lead capture</b> is always on (even when you’re busy)</li>
+            </ul>
+            <p class="fine"><b>Benefit:</b> No more “missed calls = missed jobs.”</p>
+          </div>
+
+          <div class="card">
+            <h3>Step 2 — Respond</h3>
+            <ul>
+              <li>Immediate text + call follow-up</li>
+              <li>Consistent qualification questions</li>
+              <li>Routing to the right person instantly</li>
+            </ul>
+            <p class="fine"><b>Benefit:</b> Faster response wins the job — even against bigger companies.</p>
+          </div>
+
+          <div class="card">
+            <h3>Step 3 — Organize</h3>
+            <ul>
+              <li>CRM sync (API-based)</li>
+              <li>Lead tagging, notes, and status tracking</li>
+              <li>Automated reminders so nothing goes cold</li>
+            </ul>
+            <p class="fine"><b>Benefit:</b> Leads don’t fall through cracks — your pipeline becomes predictable.</p>
+          </div>
+
+          <div class="card">
+            <h3>Step 4 — Scale</h3>
+            <ul>
+              <li>Storm mode: ZIP-level outreach after weather events</li>
+              <li>Add locations, numbers, and teams without rebuilding systems</li>
+              <li>Modules snap into the same system (no duct-taping tools)</li>
+            </ul>
+            <p class="fine"><b>Benefit:</b> You grow without adding payroll and admin overhead.</p>
+          </div>
+        </div>
+
+        <div class="cta">
+          <div>
+            <strong>Want a quick walkthrough?</strong><br />
+            <span style="color:var(--muted)">Request a demo and we’ll map your deployment scope.</span>
+          </div>
+          <a class="btn primary" href="#" data-open-demo="1">Book a 20-Min Demo</a>
+        </div>
+      </section>
+
+      <section id="menu">
+        <h2>Menu items</h2>
+        <p class="sub">
+          Start with what you need today. Add modules as you scale.
+        </p>
+
+        <div class="grid two">
+          <div class="card">
+            <h3>✅ SEO Visibility Platform</h3>
+            <p class="sub" style="margin:0 0 12px;">
+              <b>What it does:</b> Improves how you show up on Google + DuckDuckGo and converts search traffic into calls.
+            </p>
+            <ul>
+              <li><b>Features:</b> Local visibility structure, on-page optimization checklist, conversion-first guidance</li>
+              <li><b>Benefit:</b> You show up where competitors don’t — and you turn clicks into calls</li>
+              <li><b>Outcome:</b> More inbound leads without paying weak agency retainers</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>✅ Instant Roof Estimator</h3>
+            <p class="sub" style="margin:0 0 12px;">
+              <b>What it does:</b> Gives a fast ballpark estimate and captures qualified lead info automatically.
+            </p>
+            <ul>
+              <li><b>Features:</b> Estimate flow, lead capture, CRM-ready payload</li>
+              <li><b>Benefit:</b> Filters tire-kickers and speeds up serious buyers</li>
+              <li><b>Outcome:</b> Fewer wasted inspections, more closes per week</li>
+            </ul>
+          </div>
+
+          <div class="card">
+            <h3>🔜 Weather Event Lead Generator</h3>
+            <p class="sub" style="margin:0 0 12px;">
+              <b>What it does:</b> Detects storm events and triggers ZIP-level outreach so you hit neighborhoods before competitors.
+            </p>
+            <ul>
+              <li><b>Features:</b> Event detection, targeting lists, outreach triggers</li>
+              <li><b>Benefit:</b> You capture the surge while everyone else is reacting</li>
+              <li><b>Outcome:</b> More storm jobs with less canvassing and lower labor risk</li>
+            </ul>
+            <p class="fine"><b>Early access available for Phase A clients.</b></p>
+          </div>
+
+          <div class="card">
+            <h3>🔜 Add-on Modules (Soon)</h3>
+            <ul>
+              <li><b>AI Call Answering + Intake</b> — 24/7 capture and qualification</li>
+              <li><b>Follow-Up Automation</b> — instant texts/calls/emails to close faster</li>
+              <li><b>GC Target Builder</b> — commercial prospecting workflows</li>
+            </ul>
+            <p class="sub" style="margin:12px 0 0;">
+              These modules roll into the same system — no new logins, no duct-taping tools together.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="pricing">
+        <h2>Pricing</h2>
+        <p class="sub">Simple, transparent, and built for contractors who want outcomes — not software clutter.</p>
+
+        <div class="grid two">
+          <div class="card">
+            <h3>One-time deployment</h3>
+            <p class="money"><b>$8,500</b></p>
+            <p class="sub" style="margin:0 0 12px;">Required to go live. This is infrastructure deployment, not “onboarding.”</p>
+            <ul>
+              <li>Branding to your company</li>
+              <li>CRM integration (API)</li>
+              <li>Phone provisioning + routing</li>
+              <li>SEO platform setup</li>
+              <li>Instant estimator deployment</li>
+              <li>Billing activation</li>
+            </ul>
+            <p class="fine">Larger/custom deployments: $6k–$12k depending on scope.</p>
+          </div>
+
+          <div class="card">
+            <h3>Monthly subscription</h3>
+            <p class="money"><b>$1,500</b><span style="color:var(--muted); font-size:16px;"> / month</span></p>
+            <p class="sub" style="margin:0 0 12px;">Keeps your system live, monitored, and improving.</p>
+            <ul>
+              <li>Hosting + monitoring</li>
+              <li>AI answering + follow-up</li>
+              <li>CRM syncing</li>
+              <li>Ongoing optimization</li>
+              <li>Support + tuning</li>
+            </ul>
+            <p class="fine">Storm + commercial modules available as upgrades.</p>
+          </div>
+        </div>
+
+        <div class="cta">
+          <div>
+            <strong>Ready to see your deployment plan?</strong><br />
+            <span style="color:var(--muted)">Request a demo — we’ll ask a few questions and follow up fast.</span>
+          </div>
+          <a class="btn primary" href="#" data-open-demo="1">Book Demo</a>
+        </div>
+      </section>
+
+      <footer class="fine" style="margin-top:60px; padding-top:18px; border-top:1px solid rgba(255,255,255,.08);">
+        © <span id="y"></span> Actual Assistant™ · Owned by Anti AI LLC<br />
+        Results vary by market and call volume. Built to replace labor and improve response speed.
+      </footer>
+    </main>
+  </div>
+
+  <!-- Demo Request Modal -->
+  <div id="demoModal" style="display:none; position:fixed; inset:0; z-index:9999;">
+    <div id="demoBackdrop" style="position:absolute; inset:0; background:rgba(0,0,0,.65);"></div>
+
+    <div style="position:relative; margin:6vh auto; max-width:760px; width:calc(100% - 28px);">
+      <div class="card" style="padding:18px 18px 16px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+          <div>
+            <h3 style="margin:0 0 6px;">Request a Demo</h3>
+            <p class="sub" style="margin:0;">Tell us a bit about your company. We’ll follow up quickly.</p>
+          </div>
+          <button id="demoClose" class="btn" type="button" style="padding:10px 12px;">Close</button>
+        </div>
+
+        <div class="divider"></div>
+
+        <form id="demoForm" class="grid" style="gap:12px;">
+          <div class="grid two" style="gap:12px;">
+            <div>
+              <label class="fine">Company name</label>
+              <input name="company" required class="input" placeholder="ABC Roofing LLC" />
+            </div>
+            <div>
+              <label class="fine">Your name</label>
+              <input name="name" required class="input" placeholder="Jane Smith" />
+            </div>
+          </div>
+
+          <div class="grid two" style="gap:12px;">
+            <div>
+              <label class="fine">Email</label>
+              <input name="email" type="email" required class="input" placeholder="you@company.com" />
+            </div>
+            <div>
+              <label class="fine">Phone</label>
+              <input name="phone" required class="input" placeholder="(555) 555-5555" />
+            </div>
+          </div>
+
+          <div>
+            <label class="fine">Company address</label>
+            <input name="address" class="input" placeholder="Street, City, State, ZIP" />
+          </div>
+
+          <div class="grid two" style="gap:12px;">
+            <div>
+              <label class="fine">Primary service</label>
+              <select name="service" class="input">
+                <option value="roofing">Roofing</option>
+                <option value="general_contractor">General Contractor</option>
+                <option value="remodeling">Remodeling</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+            <div>
+              <label class="fine">CRM (if any)</label>
+              <input name="crm" class="input" placeholder="JobNimbus, JobProgress, Leap, etc." />
+            </div>
+          </div>
+
+          <div class="grid two" style="gap:12px;">
+            <div>
+              <label class="fine">Monthly lead volume (estimate)</label>
+              <select name="leadVolume" class="input">
+                <option value="under_25">Under 25</option>
+                <option value="25_100">25–100</option>
+                <option value="100_250">100–250</option>
+                <option value="250_plus">250+</option>
+              </select>
+            </div>
+            <div>
+              <label class="fine">What do you want first?</label>
+              <select name="startWith" class="input">
+                <option value="seo">SEO Visibility Platform</option>
+                <option value="estimator">Instant Roof Estimator</option>
+                <option value="weather">Weather Event Lead Generator</option>
+                <option value="full_system">Full Actual Assistant System</option>
+              </select>
+            </div>
+          </div>
+
+          <div>
+            <label class="fine">Initial questions / goals</label>
+            <textarea name="questions" class="input" rows="5" placeholder="What are you trying to improve? Missed calls, slow follow-up, storm response, commercial work…"></textarea>
+          </div>
+
+          <div style="display:flex; gap:10px; align-items:center; justify-content:flex-end; flex-wrap:wrap;">
+            <span id="demoStatus" class="fine" style="margin-right:auto;"></span>
+            <button class="btn" type="button" id="demoCancel">Cancel</button>
+            <button class="btn primary" type="submit">Send request</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Footer year
+    document.getElementById("y").textContent = new Date().getFullYear();
+
+    (function(){
+      const modal = document.getElementById('demoModal');
+      const backdrop = document.getElementById('demoBackdrop');
+      const closeBtn = document.getElementById('demoClose');
+      const cancelBtn = document.getElementById('demoCancel');
+      const statusEl = document.getElementById('demoStatus');
+      const form = document.getElementById('demoForm');
+
+      function openModal(){
+        statusEl.textContent = "";
+        statusEl.className = "fine";
+        modal.style.display = "block";
+        document.body.style.overflow = "hidden";
+      }
+      function closeModal(){
+        modal.style.display = "none";
+        document.body.style.overflow = "";
+      }
+
+      document.querySelectorAll('[data-open-demo="1"]').forEach(el=>{
+        el.addEventListener('click', (e)=>{ e.preventDefault(); openModal(); });
+      });
+
+      backdrop.addEventListener('click', closeModal);
+      closeBtn.addEventListener('click', closeModal);
+      cancelBtn.addEventListener('click', closeModal);
+
+      form.addEventListener('submit', async (e)=>{
+        e.preventDefault();
+        statusEl.textContent = "Sending…";
+        statusEl.className = "fine";
+
+        const data = Object.fromEntries(new FormData(form).entries());
+
+        try {
+          const res = await fetch('/api/demo', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+
+          if(!res.ok){
+            const msg = await res.text();
+            throw new Error(msg || 'Request failed');
+          }
+
+          statusEl.textContent = "Sent! We’ll reach out shortly.";
+          statusEl.className = "fine status-ok";
+          form.reset();
+          setTimeout(closeModal, 900);
+        } catch (err){
+          statusEl.textContent = "Error sending. Please try again or email hello@actualassistant.com";
+          statusEl.className = "fine status-bad";
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
+
