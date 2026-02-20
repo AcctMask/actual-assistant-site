@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Actual Assistant™ | Menu-Based Growth Tools for Contractors</title>
-  <meta name="description" content="Actual Assistant™ is a menu of revenue tools for contractors: SEO overhaul, instant roof estimator, storm lead generator, and AI follow-up." />
+  <meta name="description" content="Buy contractor growth tools individually: SEO visibility overhaul, instant roof estimator, storm lead generation, and AI follow-up." />
 
   <style>
     :root{
@@ -14,13 +14,11 @@
       --line: rgba(255,255,255,.10);
       --radius:18px;
       --shadow:0 18px 50px rgba(0,0,0,.35);
-      --danger:#ff6b6b;
     }
     *{ box-sizing:border-box; }
-    html{ scroll-behavior:smooth; }
     body{
       margin:0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
       background:
         radial-gradient(1000px 600px at 20% -10%, rgba(121,167,255,.25), transparent 60%),
         radial-gradient(900px 600px at 90% 10%, rgba(124,255,195,.18), transparent 55%),
@@ -30,6 +28,7 @@
     }
     a{ color:inherit; text-decoration:none; }
     .wrap{ max-width:1100px; margin:0 auto; padding:28px 18px 70px; }
+
     header{
       display:flex; justify-content:space-between; align-items:center; gap:14px;
       padding-bottom:18px; border-bottom:1px solid var(--line);
@@ -45,10 +44,8 @@
       font-size:12px; color:var(--muted);
       border:1px solid rgba(255,255,255,.16);
       padding:6px 10px; border-radius:999px;
-      display:inline-block;
-      margin-top:2px;
     }
-    .navlinks{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .nav{ display:flex; gap:10px; flex-wrap:wrap; }
 
     .btn{
       padding:12px 16px;
@@ -56,38 +53,29 @@
       border:1px solid rgba(255,255,255,.2);
       background: rgba(255,255,255,.05);
       font-weight:600;
-      display:inline-flex; align-items:center; justify-content:center;
-      transition: transform .05s ease, background .15s ease, border-color .15s ease;
       cursor:pointer;
     }
-    .btn:hover{ background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.28); }
-    .btn:active{ transform: translateY(1px); }
     .btn.primary{
       background: linear-gradient(135deg, rgba(121,167,255,.35), rgba(124,255,195,.22));
       border-color: rgba(121,167,255,.6);
     }
-    .btn.small{ padding:10px 12px; border-radius:12px; font-size:14px; }
+    .btn:hover{ background: rgba(255,255,255,.08); }
 
-    h1{ font-size:48px; line-height:1.08; margin:34px 0 14px; }
-    h2{ font-size:28px; margin:44px 0 14px; }
-    h3{ margin:0 0 10px; }
-    p.sub{ color:var(--muted); font-size:18px; max-width:820px; margin:0 0 18px; }
+    h1{ font-size:46px; line-height:1.1; margin:34px 0 14px; }
+    h2{ font-size:28px; margin:48px 0 14px; }
+    h3{ margin:0 0 8px; }
+    p.sub{ color:var(--muted); font-size:18px; max-width:820px; }
 
     .hero{
       display:grid;
-      grid-template-columns: 1.15fr .85fr;
+      grid-template-columns:1.1fr .9fr;
       gap:18px;
-      align-items:start;
-      margin-top:10px;
+      margin-top:14px;
     }
     @media (max-width:900px){
       .hero{ grid-template-columns:1fr; }
-      h1{ font-size:40px; }
+      h1{ font-size:38px; }
     }
-
-    .grid{ display:grid; gap:18px; }
-    .two{ grid-template-columns:1fr 1fr; }
-    @media (max-width:900px){ .two{ grid-template-columns:1fr; } }
 
     .card{
       background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
@@ -96,317 +84,121 @@
       padding:18px;
       box-shadow:var(--shadow);
     }
-    .divider{ height:1px; background: rgba(255,255,255,.08); margin:18px 0; }
-    ul{ margin:0; padding-left:18px; color:var(--muted); }
+
+    .grid{ display:grid; gap:18px; }
+    .two{ grid-template-columns:1fr 1fr; }
+    @media (max-width:900px){ .two{ grid-template-columns:1fr; } }
+
+    .price{ font-size:26px; margin:6px 0; }
+    .muted{ color:var(--muted); }
+    ul{ padding-left:18px; color:var(--muted); }
     li{ margin:8px 0; }
 
-    .tagrow{ display:flex; flex-wrap:wrap; gap:8px; margin-top:14px; }
-    .tag{
-      display:inline-block;
-      font-size:12px;
+    footer{
+      margin-top:60px;
+      padding-top:18px;
+      border-top:1px solid rgba(255,255,255,.08);
       color:var(--muted);
-      border:1px solid rgba(255,255,255,.16);
-      padding:6px 10px;
-      border-radius:999px;
-      background: rgba(0,0,0,.10);
+      font-size:13px;
     }
-
-    .cta{
-      margin-top:20px;
-      padding:20px;
-      border-radius:var(--radius);
-      background: linear-gradient(135deg, rgba(121,167,255,.18), rgba(124,255,195,.12));
-      border:1px solid rgba(121,167,255,.35);
-      display:flex; justify-content:space-between; align-items:center; gap:14px;
-      flex-wrap:wrap;
-    }
-
-    .kpiGrid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:6px; }
-    .mini{
-      padding:14px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.12);
-    }
-    .mini b{ display:block; font-size:16px; }
-    .mini span{ color:var(--muted); font-size:13px; }
-
-    .fine{ color:var(--muted); font-size:13px; margin-top:10px; }
-
-    .price{
-      font-size:28px;
-      margin:8px 0 8px;
-    }
-    .muted{
-      color:var(--muted);
-    }
-    .row{
-      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
-    }
-    .spacer{ flex:1; }
-
-    /* Simple section anchors offset for header */
-    section{ scroll-margin-top: 18px; }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
-          <strong>Actual Assistant™</strong><br />
-          <span class="pill">Menu-Based Growth Tools for Contractors</span>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <div class="logo"></div>
+      <div>
+        <strong>Actual Assistant™</strong><br />
+        <span class="pill">Menu-Based Growth Tools for Contractors</span>
+      </div>
+    </div>
+    <nav class="nav">
+      <a class="btn" href="#menu">Menu</a>
+      <a class="btn primary" href="#menu">Buy now</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>Buy one tool today.<br />Add the full system later.</h1>
+      <p class="sub">
+        Actual Assistant™ is a menu of contractor-built growth tools.
+        Start with SEO or estimating. Expand when ready.
+      </p>
+      <div class="nav">
+        <a class="btn primary" href="#menu">View menu + pricing</a>
+      </div>
+    </div>
+
+    <aside class="card">
+      <h3>What this replaces</h3>
+      <ul>
+        <li>Weak SEO retainers</li>
+        <li>Wasted inspections</li>
+        <li>Door-knocking risk</li>
+        <li>Missed follow-up</li>
+      </ul>
+      <p class="sub">Start small. Prove value fast.</p>
+    </aside>
+  </section>
+
+  <section id="menu">
+    <h2>Menu + Pricing</h2>
+    <p class="sub">Secure Stripe checkout. Buy individually.</p>
+
+    <div class="grid two">
+
+      <!-- SEO -->
+      <div class="card">
+        <h3>✅ SEO Visibility Overhaul (Annual)</h3>
+        <div class="price"><b>$5,000</b> <span class="muted">one-time</span></div>
+        <p class="sub">Contractor-focused SEO overhaul for Google, DuckDuckGo, and AI search.</p>
+        <ul>
+          <li>Structural SEO fixes</li>
+          <li>Visibility + conversion focus</li>
+          <li>No monthly retainer</li>
+        </ul>
+        <a class="btn primary" target="_blank" rel="noreferrer"
+           href="https://buy.stripe.com/fZu14m5ih3Ek9XL1Ld2Ry00">
+          Buy SEO Overhaul
+        </a>
+      </div>
+
+      <!-- Estimator -->
+      <div class="card">
+        <h3>✅ Instant Roof Estimator</h3>
+        <div class="price"><b>$2,500</b> <span class="muted">setup</span></div>
+        <div class="price" style="font-size:20px;"><b>$500/mo</b> <span class="muted">platform</span></div>
+        <p class="sub">Install a branded estimator that qualifies leads before you roll a truck.</p>
+        <ul>
+          <li>Website install + branding</li>
+          <li>Lead routing configured</li>
+          <li>Better close rate</li>
+        </ul>
+        <div class="nav">
+          <a class="btn primary" target="_blank" rel="noreferrer"
+             href="https://buy.stripe.com/7sY9AS4ed7UA0nb89B2Ry01">
+            Buy Setup
+          </a>
+          <a class="btn" target="_blank" rel="noreferrer"
+             href="https://buy.stripe.com/fZufZg5ih4Ioee189B2Ry02">
+            Start Monthly
+          </a>
         </div>
       </div>
 
-      <nav class="navlinks" aria-label="primary">
-        <a class="btn" href="#menu">Menu</a>
-        <a class="btn" href="#how-it-works">How it works</a>
-        <a class="btn" href="#faq">FAQ</a>
-        <a class="btn primary" href="#menu">Buy now</a>
-      </nav>
-    </header>
+    </div>
+  </section>
 
-    <main>
-      <section class="hero">
-        <div>
-          <h1>Buy one tool today.<br />Add the full system later.</h1>
-          <p class="sub">
-            Actual Assistant™ is a menu of contractor-focused revenue tools you can deploy independently:
-            SEO visibility, instant estimating, storm lead generation, and (soon) a full AI front office.
-          </p>
+  <footer>
+    © <span id="y"></span> Actual Assistant™ · Owned by Anti AI LLC
+  </footer>
+</div>
 
-          <div class="navlinks">
-            <a class="btn primary" href="#menu">View menu + pricing</a>
-            <a class="btn" href="#how-it-works">See how it works</a>
-          </div>
-
-          <div class="tagrow">
-            <span class="tag">Contractor-built</span>
-            <span class="tag">Fast ROI</span>
-            <span class="tag">No long sales cycles</span>
-            <span class="tag">Buy what you need</span>
-          </div>
-        </div>
-
-        <aside class="card">
-          <h3>What it replaces</h3>
-          <p class="sub" style="margin:0 0 12px;">
-            Weak SEO retainers, wasted inspections, risky door-knocking, and missed follow-up.
-          </p>
-
-          <div class="kpiGrid">
-            <div class="mini"><b>Bad SEO spend</b><span>with no results</span></div>
-            <div class="mini"><b>Wasted inspections</b><span>on tire-kickers</span></div>
-            <div class="mini"><b>Door-knocking</b><span>labor + comp risk</span></div>
-            <div class="mini"><b>Missed follow-up</b><span>lost close rate</span></div>
-          </div>
-
-          <div class="divider"></div>
-          <p class="sub" style="margin:0;">
-            Start small. Prove value fast. Expand when ready.
-          </p>
-        </aside>
-      </section>
-
-      <section id="menu">
-        <h2>Menu + pricing</h2>
-        <p class="sub">
-          Purchase individually. You can add modules as you scale.
-          (Stripe checkout — secure payment.)
-        </p>
-
-        <!-- IMPORTANT: Replace the REPLACE_ME_* links with your real Stripe Payment Links -->
-        <div class="grid two">
-
-          <!-- SEO -->
-          <div class="card">
-            <h3>✅ SEO Visibility Overhaul (Annual)</h3>
-            <div class="price"><b>$5,000</b> <span class="muted">one-time annual</span></div>
-            <p class="sub" style="margin:0 0 12px;">
-              A contractor-focused SEO overhaul that improves visibility across Google, DuckDuckGo, and AI search.
-            </p>
-            <ul>
-              <li><b>Outcome:</b> More inbound calls without weak agency retainers.</li>
-              <li><b>What you get:</b> Structure fixes, visibility upgrades, conversion-first guidance.</li>
-            </ul>
-
-            <div class="divider"></div>
-            <div class="row">
-              <a class="btn primary" href="REPLACE_ME_SEO_OVERHAUL_LINK" target="_blank" rel="noreferrer">Buy SEO Overhaul</a>
-              <span class="fine">Annual purchase. Renewal optional.</span>
-            </div>
-          </div>
-
-          <!-- Estimator -->
-          <div class="card">
-            <h3>✅ Instant Roof Estimator</h3>
-            <div class="price"><b>$2,500</b> <span class="muted">setup</span></div>
-            <div class="price" style="font-size:22px; margin-top:0;"><b>$500/mo</b> <span class="muted">platform</span></div>
-            <p class="sub" style="margin:0 0 12px;">
-              Branded estimator installed on your website to qualify leads and reduce wasted site visits.
-            </p>
-            <ul>
-              <li><b>Outcome:</b> Better leads, fewer wasted inspections, faster close rates.</li>
-              <li><b>Includes:</b> Install + branding + lead routing payload configuration.</li>
-            </ul>
-
-            <div class="divider"></div>
-            <div class="row">
-              <a class="btn primary" href="REPLACE_ME_ESTIMATOR_SETUP_LINK" target="_blank" rel="noreferrer">Buy Setup ($2,500)</a>
-              <a class="btn" href="REPLACE_ME_ESTIMATOR_MONTHLY_LINK" target="_blank" rel="noreferrer">Start Monthly ($500/mo)</a>
-            </div>
-            <p class="fine">Tip: Most customers purchase setup first, then activate monthly immediately after install.</p>
-          </div>
-
-          <!-- Weather -->
-          <div class="card">
-            <h3>🔜 Weather Event Lead Generator</h3>
-            <div class="price"><b>$5,000</b> <span class="muted">setup</span></div>
-            <div class="price" style="font-size:22px; margin-top:0;"><b>$800/mo</b> <span class="muted">monitoring</span></div>
-            <p class="sub" style="margin:0 0 12px;">
-              Storm response lead system designed to hit neighborhoods before competitors.
-              <b>Seasonal pause supported.</b>
-            </p>
-            <ul>
-              <li><b>Outcome:</b> More storm jobs with less labor risk than door-knocking.</li>
-              <li><b>Includes:</b> Monitoring + targeting + outreach trigger readiness.</li>
-            </ul>
-
-            <div class="divider"></div>
-            <div class="row">
-              <a class="btn primary" href="REPLACE_ME_WEATHER_SETUP_LINK" target="_blank" rel="noreferrer">Buy Weather Setup</a>
-              <a class="btn" href="REPLACE_ME_WEATHER_MONTHLY_LINK" target="_blank" rel="noreferrer">Start Monthly ($800/mo)</a>
-            </div>
-            <p class="fine">If you want to wait until it’s “dope,” keep these links as placeholders for now.</p>
-          </div>
-
-          <!-- AI Front Office -->
-          <div class="card">
-            <h3>⭐ AI Front Office (Coming Next)</h3>
-            <div class="price"><b>$8,000</b> <span class="muted">setup</span></div>
-            <div class="price" style="font-size:22px; margin-top:0;"><b>$500/mo</b> <span class="muted">platform</span></div>
-            <p class="sub" style="margin:0 0 12px;">
-              The icing: answers calls, routes messages, and runs follow-up (texts/emails) to tie everything together.
-              This is best deployed after at least one module is live.
-            </p>
-            <ul>
-              <li><b>Outcome:</b> Faster response, fewer missed leads, predictable pipeline.</li>
-              <li><b>Demo required:</b> We tune intake questions and routing to your ops.</li>
-            </ul>
-
-            <div class="divider"></div>
-            <div class="row">
-              <a class="btn primary" href="#how-it-works">See how it works</a>
-              <a class="btn" href="mailto:info@actualassistant.com">Request demo via email</a>
-            </div>
-            <p class="fine">We can turn this into a direct Stripe purchase once your demo form is finalized.</p>
-          </div>
-
-        </div>
-
-        <div class="cta">
-          <div>
-            <strong>Want help choosing the first module?</strong><br />
-            <span class="muted">Start with SEO or the Estimator — then add Weather + AI Front Office when ready.</span>
-          </div>
-          <a class="btn primary" href="mailto:info@actualassistant.com">Contact</a>
-        </div>
-      </section>
-
-      <section id="how-it-works">
-        <h2>How it works</h2>
-        <p class="sub">
-          You don’t buy a “platform” first. You buy one tool that pays for itself — then you expand.
-        </p>
-
-        <div class="grid two">
-          <div class="card">
-            <h3>Step 1 — Choose a module</h3>
-            <ul>
-              <li>SEO Visibility Overhaul (annual)</li>
-              <li>Instant Roof Estimator (setup + monthly)</li>
-              <li>Weather Lead Generator (setup + monthly)</li>
-            </ul>
-            <p class="fine"><b>Benefit:</b> Low friction. Easy ROI story.</p>
-          </div>
-
-          <div class="card">
-            <h3>Step 2 — Install & configure</h3>
-            <ul>
-              <li>Branding aligned to your business</li>
-              <li>Lead routing set up</li>
-              <li>Operating instructions included</li>
-            </ul>
-            <p class="fine"><b>Benefit:</b> You get a working asset, not a “project.”</p>
-          </div>
-
-          <div class="card">
-            <h3>Step 3 — Operate</h3>
-            <ul>
-              <li>Monthly hosting + monitoring for live modules</li>
-              <li>Updates and stability maintenance</li>
-              <li>Seasonal pause supported for Weather</li>
-            </ul>
-            <p class="fine"><b>Benefit:</b> Predictable cost, predictable results.</p>
-          </div>
-
-          <div class="card">
-            <h3>Step 4 — Upgrade to the full system</h3>
-            <ul>
-              <li>AI Front Office ties everything together</li>
-              <li>Calls + texts + follow-up automation</li>
-              <li>Best when your lead flow is already active</li>
-            </ul>
-            <p class="fine"><b>Benefit:</b> Higher close rate without payroll.</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="faq">
-        <h2>FAQ</h2>
-
-        <div class="grid two">
-          <div class="card">
-            <h3>Can I buy just one item?</h3>
-            <p class="sub" style="margin:0;">
-              Yes. That’s the point. Start with SEO or the Estimator, then add Weather + AI Front Office later.
-            </p>
-          </div>
-
-          <div class="card">
-            <h3>Can Weather be paused in slow season?</h3>
-            <p class="sub" style="margin:0;">
-              Yes. Many contractors pause during slow months and reactivate when storms or demand return.
-            </p>
-          </div>
-
-          <div class="card">
-            <h3>Do I need a demo?</h3>
-            <p class="sub" style="margin:0;">
-              Not for SEO or Estimator purchases. AI Front Office is demo-required because it’s customized to your intake + routing.
-            </p>
-          </div>
-
-          <div class="card">
-            <h3>Is payment secure?</h3>
-            <p class="sub" style="margin:0;">
-              Yes. Checkout is handled by Stripe.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <footer class="fine" style="margin-top:60px; padding-top:18px; border-top:1px solid rgba(255,255,255,.08);">
-        © <span id="y"></span> Actual Assistant™ · Owned by Anti AI LLC
-      </footer>
-    </main>
-  </div>
-
-  <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
-  </script>
+<script>
+  document.getElementById("y").textContent = new Date().getFullYear();
+</script>
 </body>
 </html>
