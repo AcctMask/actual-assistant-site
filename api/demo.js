@@ -1,95 +1,112 @@
-export default async function handler(req, res) {
+// api/demo.js
+// Single, clean demo endpoint
+// POST /api/demo
+
+module.exports = async (req, res) => {
+  // CORS (safe)
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  if (req.method === "OPTIONS") return res.status(204).end();
+  if (req.method === "OPTIONS") {
+    return res.status(204).end();
+  }
+
   if (req.method !== "POST") {
-    res.setHeader("Allow", "POST, OPTIONS");
-    return res.status(405).send("Method Not Allowed");
+    return res.status(405).json({ error: "Method Not Allowed" });
   }
-
-  const body = req.body || {};
-
-  const company = (body.company || "").toString().trim();
-  const name = (body.name || "").toString().trim();
-  const email = (body.email || "").toString().trim();
-  const phone = (body.phone || "").toString().trim();
-
-  if (!company || !name || !email || !phone) {
-    return res.status(400).send("Missing required fields: company, name, email, phone");
-  }
-
-  const address = (body.address || "").toString().trim();
-  const service = (body.service || "").toString().trim();
-  const crm = (body.crm || "").toString().trim();
-  const leadVolume = (body.leadVolume || "").toString().trim();
-  const startWith = (body.startWith || "").toString().trim();
-  const questions = (body.questions || "").toString().trim();
-
-  // Default destination (can be overridden by Vercel env var DEMO_TO_EMAIL)
-  const TO_EMAIL = process.env.DEMO_TO_EMAIL || "support@actualassistance.com";
-
-  // For Resend, FROM must be verified in Resend
-  const FROM_EMAIL = process.env.DEMO_FROM_EMAIL || "no-reply@actualassistance.com";
 
   const RESEND_API_KEY = process.env.RESEND_API_KEY;
+  const DEMO_FROM_EMAIL = process.env.DEMO_FROM_EMAIL;
+  const DEMO_TO_EMAIL = process.env.DEMO_TO_EMAIL;
 
-  console.log("Demo request received:", {
-    company, name, email, phone, address, service, crm, leadVolume, startWith,
-    questionsPreview: questions ? questions.slice(0, 200) : ""
-  });
-
-  if (!RESEND_API_KEY) {
-    // Still succeed to avoid losing leads during setup; check Vercel function logs
-    return res.status(200).json({ ok: true, note: "RESEND_API_KEY not set. Lead logged." });
+  if (!RESEND_API_KEY || !DEMO_FROM_EMAIL || !DEMO_TO_EMAIL) {
+    return res.status(500).json({
+      error: "Missing server configuration",
+      missing: {
+        RESEND_API_KEY: !RESEND_API_KEY,
+        DEMO_FROM_EMAIL: !DEMO_FROM_EMAIL,
+        DEMO_TO_EMAIL: !DEMO_TO_EMAIL,
+      },
+    });
   }
 
-  const subject = `Actual Assistance Demo Request — ${company}`;
+  let body = req.body;
+  try {
+    if (typeof body === "string") body = JSON.parse(body);
+  } catch {
+    return res.status(400).json({ error: "Invalid JSON body" });
+  }
 
-  const text =
-`New demo request:
+  const payload = body || {};
 
-Company: ${company}
-Name: ${name}
-Email: ${email}
-Phone: ${phone}
-Address: ${address}
+  const company = String(payload.company || "").trim();
+  const name = String(payload.name || "").trim();
+  const email = String(payload.email || "").trim();
+  const phone = String(payload.phone || "").trim();
+  const primaryService = String(payload.primaryService || "").trim();
+  const crm = String(payload.crm || "").trim();
+  const leadVolume = String(payload.leadVolume || "").trim();
+  const message = String(payload.message || "").trim();
 
-Primary service: ${service}
-CRM: ${crm}
-Monthly lead volume: ${leadVolume}
-Wants to start with: ${startWith}
+  if (!company || !name || !email) {
+    return res.status(400).json({
+      error: "Missing required fields",
+      required: ["company", "name", "email"],
+    });
+  }
 
-Questions / goals:
-${questions}
-`;
+  const subject = `Demo Request — ${company} (${name})`;
+
+  const text = [
+    "New demo request received:",
+    "",
+    `Company: ${company}`,
+    `Name: ${name}`,
+    `Email: ${email}`,
+    phone ? `Phone: ${phone}` : null,
+    primaryService ? `Primary service: ${primaryService}` : null,
+    crm ? `CRM: ${crm}` : null,
+    leadVolume ? `Monthly lead volume: ${leadVolume}` : null,
+    message ? `Message: ${message}` : null,
+    "",
+    `Submitted at: ${new Date().toISOString()}`
+  ]
+    .filter(Boolean)
+    .join("\n");
 
   try {
     const resp = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${RESEND_API_KEY}`,
-        "Content-Type": "application/json"
+        Authorization: `Bearer ${RESEND_API_KEY}`,
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: FROM_EMAIL,
-        to: [TO_EMAIL],
+        from: DEMO_FROM_EMAIL,
+        to: [DEMO_TO_EMAIL],
+        reply_to: email,
         subject,
         text,
-        reply_to: email
-      })
+      }),
     });
 
+    const data = await resp.json().catch(() => ({}));
+
     if (!resp.ok) {
-      const errText = await resp.text();
-      console.error("Resend error:", errText);
-      return res.status(500).send("Email send failed");
+      return res.status(500).json({
+        error: "Resend send failed",
+        status: resp.status,
+        details: data,
+      });
     }
 
-    return res.status(200).json({ ok: true });
+    return res.status(200).json({ ok: true, id: data.id || null });
+
   } catch (err) {
-    console.error("Server error:", err);
-    return res.status(500).send("Server error");
+    return res.status(500).json({
+      error: "Server error sending email",
+      message: err?.message || String(err),
+    });
   }
-}
+};
