@@ -7,3 +7,5 @@ index.BACKUP.*.html
 
 # ignore stray folder unless you intentionally use it
 app/
+index.BACKUP.*
+index.html.bak
