@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Book a Demo | Actual Assistance</title>
+  <meta name="description" content="Request a demo of Actual Assistance tools for contractors." />
+  <style>
+    :root{
+      --bg:#0b1020;
+      --text:#e8ecff;
+      --muted:#b8c0ffcc;
+      --line: rgba(255,255,255,.10);
+      --radius:18px;
+      --shadow:0 18px 50px rgba(0,0,0,.35);
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background:
+        radial-gradient(1000px 600px at 20% -10%, rgba(121,167,255,.25), transparent 60%),
+        radial-gradient(900px 600px at 90% 10%, rgba(124,255,195,.18), transparent 55%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.5;
+    }
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ max-width:860px; margin:0 auto; padding:28px 18px 70px; }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+    header{
+      display:flex; justify-content:space-between; align-items:center; gap:14px;
+      padding-bottom:18px; border-bottom:1px solid var(--line);
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+    .brand{ display:flex; gap:12px; align-items:center; }
+    .logo{
+      width:42px; height:42px; border-radius:14px;
+      background: linear-gradient(135deg, #79a7ff, #7cffc3);
+      box-shadow: var(--shadow);
+    }
+    .pill{
+      font-size:12px; color:var(--muted);
+      border:1px solid rgba(255,255,255,.16);
+      padding:6px 10px; border-radius:999px;
+      display:inline-block;
+      margin-top:2px;
+    }
+    h1{ font-size:34px; margin:10px 0 8px; line-height:1.15; }
+    p.sub{ color:var(--muted); font-size:16px; margin:0 0 16px; }
+
+    .btn{
+      padding:12px 16px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.05);
+      font-weight:600;
+      cursor:pointer;
+      display:inline-flex; align-items:center; justify-content:center;
+      transition: transform .05s ease, background .15s ease, border-color .15s ease;
+    }
+    .btn:hover{ background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.28); }
+    .btn:active{ transform: translateY(1px); }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(121,167,255,.35), rgba(124,255,195,.22));
+      border-color: rgba(121,167,255,.6);
+    }
+
+    .grid{ display:grid; gap:12px; }
+    .two{ grid-template-columns:1fr 1fr; }
+    @media (max-width:760px){ .two{ grid-template-columns:1fr; } }
+
+    label{ display:block; font-size:13px; color:var(--muted); margin:0 0 6px; }
+    .input{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.18);
+      color: var(--text);
+      outline:none;
+    }
+    .input::placeholder{ color: rgba(184,192,255,.55); }
+    .input:focus{ border-color: rgba(121,167,255,.6); }
+    textarea.input{ resize: vertical; }
+
+    .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
+    .status{ margin-right:auto; font-size:13px; color:var(--muted); }
+    .ok{ color: rgba(124,255,195,.95); }
+    .bad{ color: #ff6b6b; }
+
+    .fine{ margin-top:10px; font-size:13px; color:var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <strong>Actual Assistance™</strong><br />
+          <span class="pill">Contractor Growth Tools</span>
+        </div>
+      </div>
+      <a class="btn" href="/">Back to Menu</a>
+    </header>
+
+    <div class="card">
+      <h1>Request a Demo</h1>
+      <p class="sub">
+        Tell us a bit about your company and what you want to deploy first. We’ll follow up quickly.
+      </p>
+
+      <form id="demoForm" class="grid">
+        <div class="grid two">
+          <div>
+            <label>Company name</label>
+            <input class="input" name="company" required placeholder="ABC Roofing LLC" />
+          </div>
+          <div>
+            <label>Your name</label>
+            <input class="input" name="name" required placeholder="Jane Smith" />
+          </div>
+        </div>
+
+        <div class="grid two">
+          <div>
+            <label>Email</label>
+            <input class="input" name="email" type="email" required placeholder="you@company.com" />
+          </div>
+          <div>
+            <label>Phone</label>
+            <input class="input" name="phone" required placeholder="(555) 555-5555" />
+          </div>
+        </div>
+
+        <div>
+          <label>Company address</label>
+          <input class="input" name="address" placeholder="Street, City, State, ZIP" />
+        </div>
+
+        <div class="grid two">
+          <div>
+            <label>Primary service</label>
+            <select class="input" name="service">
+              <option value="roofing">Roofing</option>
+              <option value="general_contractor">General Contractor</option>
+              <option value="remodeling">Remodeling</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div>
+            <label>CRM (if any)</label>
+            <input class="input" name="crm" placeholder="AccuLynx, Leap, JobNimbus, etc." />
+          </div>
+        </div>
+
+        <div class="grid two">
+          <div>
+            <label>What do you want first?</label>
+            <select class="input" name="startWith">
+              <option value="seo">SEO Visibility Overhaul</option>
+              <option value="estimator">Instant Roof Estimator</option>
+              <option value="storm_targeting">Storm Targeting Intelligence</option>
+              <option value="social_engine">Storm Social Engine</option>
+              <option value="full_system">Full System (Later)</option>
+            </select>
+          </div>
+          <div>
+            <label>Monthly lead volume (estimate)</label>
+            <select class="input" name="leadVolume">
+              <option value="under_25">Under 25</option>
+              <option value="25_100">25–100</option>
+              <option value="100_250">100–250</option>
+              <option value="250_plus">250+</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label>Initial questions / goals</label>
+          <textarea class="input" name="questions" rows="6" placeholder="What are you trying to improve? Missed calls, storm speed, estimator usage, targeting, etc."></textarea>
+        </div>
+
+        <div class="row">
+          <span id="status" class="status"></span>
+          <a class="btn" href="/">Cancel</a>
+          <button class="btn primary" type="submit">Send request</button>
+        </div>
+
+        <div class="fine">
+          Or email us directly: <a href="mailto:support@actualassistance.com">support@actualassistance.com</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const form = document.getElementById('demoForm');
+      const statusEl = document.getElementById('status');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        statusEl.className = "status";
+        statusEl.textContent = "Sending…";
+
+        const data = Object.fromEntries(new FormData(form).entries());
+
+        try {
+          const res = await fetch('/api/demo', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+          });
+
+          if (!res.ok) {
+            const msg = await res.text();
+            throw new Error(msg || 'Request failed');
+          }
+
+          statusEl.textContent = "Sent! We’ll reach out shortly.";
+          statusEl.className = "status ok";
+          form.reset();
+        } catch (err) {
+          statusEl.textContent = "Error sending. Please email support@actualassistance.com";
+          statusEl.className = "status bad";
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

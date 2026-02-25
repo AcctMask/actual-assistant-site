@@ -1,13 +1,9 @@
 export default async function handler(req, res) {
-  // CORS (optional, but safe)
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  if (req.method === "OPTIONS") {
-    return res.status(204).end();
-  }
-
+  if (req.method === "OPTIONS") return res.status(204).end();
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST, OPTIONS");
     return res.status(405).send("Method Not Allowed");
@@ -15,7 +11,6 @@ export default async function handler(req, res) {
 
   const body = req.body || {};
 
-  // Required fields
   const company = (body.company || "").toString().trim();
   const name = (body.name || "").toString().trim();
   const email = (body.email || "").toString().trim();
@@ -25,7 +20,6 @@ export default async function handler(req, res) {
     return res.status(400).send("Missing required fields: company, name, email, phone");
   }
 
-  // Optional fields
   const address = (body.address || "").toString().trim();
   const service = (body.service || "").toString().trim();
   const crm = (body.crm || "").toString().trim();
@@ -33,31 +27,25 @@ export default async function handler(req, res) {
   const startWith = (body.startWith || "").toString().trim();
   const questions = (body.questions || "").toString().trim();
 
-  // NOTE: You said you want info@actualassitant.com
-  // Double-check spelling when you set up email. If the mailbox doesn't exist yet, leads can still be logged.
-  const TO_EMAIL = process.env.DEMO_TO_EMAIL || "info@actualassitant.com";
+  // Default destination (can be overridden by Vercel env var DEMO_TO_EMAIL)
+  const TO_EMAIL = process.env.DEMO_TO_EMAIL || "support@actualassistance.com";
 
-  // For Resend, FROM must be a verified domain/sender in Resend
-  // Keep this as a domain-based no-reply once domain is verified.
-  const FROM_EMAIL = process.env.DEMO_FROM_EMAIL || "no-reply@actualassistant.com";
+  // For Resend, FROM must be verified in Resend
+  const FROM_EMAIL = process.env.DEMO_FROM_EMAIL || "no-reply@actualassistance.com";
 
   const RESEND_API_KEY = process.env.RESEND_API_KEY;
 
-  // Always log lead server-side so you never lose it
   console.log("Demo request received:", {
     company, name, email, phone, address, service, crm, leadVolume, startWith,
     questionsPreview: questions ? questions.slice(0, 200) : ""
   });
 
-  // If email isn't configured yet, still return success (so form UX is good)
   if (!RESEND_API_KEY) {
-    return res.status(200).json({
-      ok: true,
-      note: "RESEND_API_KEY not set yet. Lead logged to Vercel function logs."
-    });
+    // Still succeed to avoid losing leads during setup; check Vercel function logs
+    return res.status(200).json({ ok: true, note: "RESEND_API_KEY not set. Lead logged." });
   }
 
-  const subject = `Actual Assistant Demo Request — ${company}`;
+  const subject = `Actual Assistance Demo Request — ${company}`;
 
   const text =
 `New demo request:
@@ -105,4 +93,3 @@ ${questions}
     return res.status(500).send("Server error");
   }
 }
-
