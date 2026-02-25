@@ -1,1 +1,9 @@
+.DS_Store
 .vercel
+
+# backups
+index.html.bak
+index.BACKUP.*.html
+
+# ignore stray folder unless you intentionally use it
+app/

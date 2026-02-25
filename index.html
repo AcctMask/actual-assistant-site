@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Actual Assistance™ | Contractor Growth Tools</title>
   <meta name="description" content="Contractor growth tools: SEO Visibility Overhaul, Instant Roof Estimator, Storm Targeting Intelligence, and Storm Social Engine." />
-  <meta name="robots" content="index,follow" />
 
   <style>
     :root{
@@ -13,204 +12,268 @@
       --panel:#101a33;
       --panel2:#0f1730;
       --text:#e8ecff;
-      --muted:#b8c0ffcc;
+      --muted:rgba(232,236,255,.72);
       --line: rgba(255,255,255,.10);
       --radius:18px;
       --shadow:0 18px 50px rgba(0,0,0,.35);
-      --btn:#1f3a63;
-      --btn2:#2a4a7e;
+      --btn:#233a66;
+      --btn2:#1c2f55;
+      --btnText:#eaf0ff;
+      --accent:#71c6ff;
+      --good:#2bd46c;
     }
     *{ box-sizing:border-box; }
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-      background: radial-gradient(1200px 800px at 20% 10%, rgba(45,96,175,.35), transparent 55%),
-                  radial-gradient(900px 700px at 80% 20%, rgba(80,160,255,.18), transparent 55%),
-                  linear-gradient(180deg, var(--bg), #070b16);
-      color: var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(900px 500px at 20% -10%, rgba(113,198,255,.18), transparent 60%),
+                  radial-gradient(700px 420px at 90% 10%, rgba(43,212,108,.10), transparent 55%),
+                  var(--bg);
+      color:var(--text);
     }
-    a{ color: inherit; text-decoration: none; }
-    .wrap{ max-width: 1100px; margin: 0 auto; padding: 28px 18px 60px; }
+    a{ color: inherit; }
+    .wrap{ max-width:1100px; margin:0 auto; padding:28px 16px 60px; }
+
+    /* Top bar */
     .top{
-      display:flex; align-items:center; justify-content:space-between; gap:16px;
-      padding: 10px 0 18px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px; padding:14px 16px;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background: rgba(16,26,51,.55);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 10px;
+      backdrop-filter: blur(10px);
+      z-index: 5;
     }
     .brand{
-      display:flex; flex-direction:column; line-height:1.1;
+      display:flex; align-items:center; gap:10px;
     }
-    .brand strong{ font-size: 18px; letter-spacing:.2px; }
-    .brand span{ font-size: 12px; color: var(--muted); margin-top:6px; }
+    .logo{
+      width:40px; height:40px; border-radius:12px;
+      display:grid; place-items:center;
+      background: linear-gradient(135deg, rgba(113,198,255,.25), rgba(43,212,108,.18));
+      border:1px solid rgba(255,255,255,.14);
+      font-weight:800;
+      letter-spacing:.02em;
+    }
+    .brand h1{ margin:0; font-size:14px; line-height:1.15; }
+    .brand p{ margin:0; font-size:12px; color:var(--muted); }
+
     .nav{
-      display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-end;
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
     }
     .pill{
       border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      padding: 9px 12px;
-      border-radius: 999px;
-      font-size: 13px;
-      color: var(--text);
+      background: rgba(255,255,255,.06);
+      color: var(--btnText);
+      padding:9px 12px;
+      border-radius:999px;
+      text-decoration:none;
+      font-size:12px;
+      font-weight:650;
+      transition: transform .12s ease, background .12s ease;
+      white-space: nowrap;
     }
+    .pill:hover{ transform: translateY(-1px); background: rgba(255,255,255,.09); }
+
+    /* Hero */
     .hero{
+      margin-top:18px;
       display:grid;
       grid-template-columns: 1.2fr .8fr;
-      gap: 16px;
-      margin-top: 10px;
-    }
-    @media (max-width: 900px){
-      .hero{ grid-template-columns: 1fr; }
-      .nav{ justify-content:flex-start; }
+      gap:16px;
+      align-items:stretch;
     }
     .heroCard{
       border:1px solid var(--line);
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      background: rgba(16,26,51,.45);
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 22px;
-      overflow:hidden;
-      position:relative;
+      padding:22px 20px;
     }
-    .heroCard:before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: radial-gradient(700px 500px at 30% 20%, rgba(100,160,255,.25), transparent 55%);
-      pointer-events:none;
-    }
-    .heroCard > *{ position:relative; }
-    h1{
+    .hero h2{
       margin:0 0 10px;
-      font-size: 40px;
-      letter-spacing: -.6px;
+      font-size: 28px;
+      line-height:1.1;
+      letter-spacing:-.02em;
     }
-    .lead{ margin: 0; color: var(--muted); font-size: 15px; line-height: 1.55; max-width: 60ch; }
-    .heroActions{ margin-top: 16px; display:flex; gap:10px; flex-wrap:wrap; }
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      border-radius: 12px;
-      padding: 10px 14px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      font-weight: 650;
-      font-size: 13px;
+    .hero p{
+      margin:0 0 14px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.55;
     }
-    .btn.primary{
-      background: linear-gradient(180deg, var(--btn2), var(--btn));
-      border-color: rgba(255,255,255,.14);
-    }
+    .bullets{ margin:0; padding-left:18px; color: var(--muted); font-size: 13px; }
+    .bullets li{ margin: 6px 0; }
+
     .miniCard{
       border:1px solid var(--line);
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      box-shadow: var(--shadow);
-      padding: 18px;
+      background: rgba(16,26,51,.30);
+      border-radius: var(--radius);
+      padding:18px 16px;
+      height:100%;
     }
-    .miniCard h3{ margin:0 0 8px; font-size: 16px; }
-    .miniCard ul{ margin: 10px 0 0; padding-left: 18px; color: var(--muted); line-height: 1.55; font-size: 13px; }
+    .miniCard h3{ margin:0 0 10px; font-size: 14px; }
+    .miniCard .small{ margin:0; color: var(--muted); font-size: 13px; line-height: 1.55; }
+
+    /* Grid */
     .sectionTitle{
-      margin: 26px 0 12px;
+      margin:26px 0 10px;
       font-size: 14px;
       color: var(--muted);
-      letter-spacing:.3px;
+      letter-spacing:.08em;
       text-transform: uppercase;
     }
     .grid{
       display:grid;
       grid-template-columns: repeat(2, minmax(0,1fr));
-      gap: 14px;
-    }
-    @media (max-width: 900px){
-      .grid{ grid-template-columns: 1fr; }
+      gap:16px;
     }
     .card{
       border:1px solid var(--line);
-      border-radius: 22px;
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      background: rgba(16,26,51,.45);
+      border-radius: var(--radius);
       box-shadow: var(--shadow);
-      padding: 18px;
+      padding:18px 18px 16px;
+      position:relative;
+      overflow:hidden;
     }
-    .card h3{ margin:0 0 8px; font-size: 18px; }
+    .card h3{
+      margin:0 0 8px;
+      font-size: 16px;
+    }
     .price{
-      display:flex; align-items:baseline; gap:10px;
-      margin: 8px 0 10px;
-      color: var(--text);
-      font-size: 15px;
+      margin:0 0 10px;
+      font-size: 14px;
+      color: var(--muted);
     }
-    .price b{ font-size: 26px; letter-spacing: -.3px; }
-    .sub{ margin: 0 0 10px; color: var(--muted); line-height: 1.55; font-size: 13px; }
-    .card ul{ margin: 10px 0 0; padding-left: 18px; color: var(--muted); line-height: 1.55; font-size: 13px; }
-    .cta{
-      margin-top: 14px;
-      padding: 14px;
-      border-radius: 16px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 12px;
-      flex-wrap:wrap;
-    }
-    .muted{ color: var(--muted); }
-    .footer{
-      margin-top: 26px;
-      padding-top: 18px;
-      border-top: 1px solid var(--line);
+    .sub{
+      margin:0 0 12px;
       color: var(--muted);
       font-size: 13px;
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      justify-content:space-between;
-      align-items:center;
+      line-height: 1.5;
     }
-    .smallLink{ text-decoration: underline; text-underline-offset: 3px; }
+    ul{
+      margin:0;
+      padding-left:18px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    ul li{ margin: 6px 0; }
+
+    .cta{
+      margin-top:14px;
+      padding:14px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .cta strong{ display:block; font-size: 13px; }
+    .cta .muted{ color: var(--muted); font-size: 12px; }
+
+    .btnRow{ display:flex; gap:10px; flex-wrap:wrap; }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 14px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.06);
+      color: var(--btnText);
+      text-decoration:none;
+      font-weight: 750;
+      font-size: 12px;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      white-space: nowrap;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); }
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(113,198,255,.18), rgba(35,58,102,.55));
+      border-color: rgba(113,198,255,.25);
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:12px;
+      color: var(--muted);
+      margin-bottom:10px;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: var(--good);
+      box-shadow: 0 0 0 4px rgba(43,212,108,.15);
+    }
+
+    .footer{
+      margin-top:26px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+      text-align:center;
+    }
+
+    @media (max-width: 860px){
+      .hero{ grid-template-columns: 1fr; }
+      .grid{ grid-template-columns: 1fr; }
+      .top{ position: static; }
+    }
   </style>
 </head>
-
 <body>
   <div class="wrap">
     <div class="top">
       <div class="brand">
-        <strong>Actual Assistance™</strong>
-        <span>Contractor growth tools you can buy and deploy fast.</span>
+        <div class="logo">AA</div>
+        <div>
+          <h1>Actual Assistance™</h1>
+          <p>Contractor Growth Tools</p>
+        </div>
       </div>
       <div class="nav">
-        <a class="pill" href="#pricing">Menu + Pricing</a>
+        <a class="pill" href="#menu">Menu + Pricing</a>
         <a class="pill" href="/demo.html">Book a Demo</a>
-        <a class="pill" target="_blank" rel="noreferrer" href="mailto:support@actualassistance.com">Support</a>
       </div>
     </div>
 
     <div class="hero">
       <div class="heroCard">
-        <h1>Buy one tool today.<br/>Add the full system later.</h1>
-        <p class="lead">
-          Actual Assistance™ is a menu of contractor-built growth tools.
-          Start with SEO or the Estimator. Add Storm Targeting, Social Engine, and more as you scale.
+        <h2>Buy one tool today. Add the full system later.</h2>
+        <p>
+          Actual Assistance™ is a menu of contractor-built growth tools. Start with SEO, the Instant Roof Estimator,
+          or storm targeting—then stack more modules when you’re ready.
         </p>
-        <div class="heroActions">
-          <a class="btn primary" href="#pricing">View menu + pricing</a>
-          <a class="btn" href="/demo.html">Book a demo</a>
-        </div>
+        <ul class="bullets">
+          <li>Made for real contractors (not generic “marketing software”)</li>
+          <li>Fast setup + clear outcomes</li>
+          <li>Designed to drive traffic back to your website + estimator</li>
+        </ul>
       </div>
 
       <div class="miniCard">
         <h3>What this replaces</h3>
-        <ul>
-          <li>Weeks of “research” and mystery results</li>
-          <li>Wasted inspections on tire-kickers</li>
-          <li>Door-knocking labor + campaign guesswork</li>
-          <li>Missed follow-up and slow response time</li>
-        </ul>
+        <p class="small">
+          Wasted ad spend, manual storm tracking, and “free inspections” that eat your week.
+          Build demand first—then choose where your time goes.
+        </p>
       </div>
     </div>
 
-    <div id="pricing" class="sectionTitle">Menu + Pricing</div>
+    <div id="menu" class="sectionTitle">Menu + Pricing</div>
 
     <div class="grid">
       <!-- SEO -->
       <div class="card">
+        <div class="tag"><span class="dot"></span> Ready now</div>
         <h3>✅ SEO Visibility Overhaul (Annual)</h3>
         <div class="price"><b>$5,000</b> <span class="muted">one-time annual</span></div>
         <p class="sub">Contractor-focused SEO overhaul for Google, DuckDuckGo, and AI search visibility.</p>
@@ -221,19 +284,22 @@
         </ul>
         <div class="cta">
           <div>
-            <strong>Purchase online</strong><br />
+            <strong>Purchase online</strong>
             <span class="muted">Annual overhaul. Renewal optional.</span>
           </div>
-          <a class="btn primary" target="_blank" rel="noreferrer"
-             href="https://buy.stripe.com/fZu14m5ih3Ek9XL1Ld2Ry00">Buy SEO Overhaul</a>
+          <div class="btnRow">
+            <a class="btn primary" target="_blank" rel="noreferrer"
+               href="https://buy.stripe.com/fZu14m5ih3Ek9XL1Ld2Ry00">Buy SEO Overhaul</a>
+          </div>
         </div>
       </div>
 
       <!-- Estimator -->
       <div class="card">
+        <div class="tag"><span class="dot"></span> Ready now</div>
         <h3>✅ Instant Roof Estimator</h3>
-        <div class="price"><b>$2,500</b> <span class="muted">setup</span> <span class="muted">+</span> <span class="muted">$500/mo platform</span></div>
-        <p class="sub">Branded estimator install + lead routing setup. Converts website traffic into qualified estimate requests.</p>
+        <div class="price"><b>$2,500</b> <span class="muted">setup</span> · <b>$500/mo</b> <span class="muted">platform</span></div>
+        <p class="sub">Branded estimator installed on your website. Captures leads and routes them to your workflow.</p>
         <ul>
           <li>Website install + branding</li>
           <li>Lead routing configured</li>
@@ -241,10 +307,10 @@
         </ul>
         <div class="cta">
           <div>
-            <strong>Purchase online</strong><br />
+            <strong>Purchase online</strong>
             <span class="muted">Setup + optional monthly platform.</span>
           </div>
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <div class="btnRow">
             <a class="btn primary" target="_blank" rel="noreferrer"
                href="https://buy.stripe.com/7sY9AS4ed7UA0nb89B2Ry01">Buy Setup ($2,500)</a>
             <a class="btn" target="_blank" rel="noreferrer"
@@ -253,43 +319,45 @@
         </div>
       </div>
 
-      <!-- Storm Targeting -->
+      <!-- Storm Targeting Intelligence (Weather App) -->
       <div class="card">
+        <div class="tag"><span class="dot"></span> Ready now</div>
         <h3>✅ Storm Targeting Intelligence</h3>
-        <div class="price"><b>$5,000</b> <span class="muted">setup</span> <span class="muted">+</span> <span class="muted">$800/mo monitoring</span></div>
-        <p class="sub">NOAA-verified storm detection + ZIP ranking + USPS carrier routes (EDDM-ready). Turn verified storm impact into high-ROI campaigns without guessing.</p>
+        <div class="price"><b>$5,000</b> <span class="muted">setup</span> · <b>$800/mo</b> <span class="muted">monitoring</span></div>
+        <p class="sub">
+          NOAA-verified storm detection + ZIP ranking + USPS carrier routes (EDDM-ready).
+          Turn verified storm impact into high-ROI campaigns without guessing.
+        </p>
         <ul>
           <li>ZIP-level targeting ranked by severity</li>
           <li>Carrier routes list + delivery counts</li>
           <li>Downloadable CSVs for mail, ads, canvassing, CRM uploads</li>
           <li>Seasonal pause supported</li>
         </ul>
+
         <div class="cta">
           <div>
-            <strong>Purchase online</strong><br />
-            <span class="muted">Setup + optional monthly monitoring.</span>
+            <strong>Purchase online</strong>
+            <span class="muted">Setup + monthly monitoring.</span>
           </div>
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <div class="btnRow">
             <a class="btn primary" target="_blank" rel="noreferrer"
                href="https://buy.stripe.com/fZuaEWaCBb6M3znblN2Ry04">Buy Setup ($5,000)</a>
             <a class="btn" target="_blank" rel="noreferrer"
                href="https://buy.stripe.com/bJeaEW8ut4Iob1PdtV2Ry03">Start Monitoring ($800/mo)</a>
           </div>
         </div>
-        <div class="cta" style="margin-top:12px;">
-          <div>
-            <strong>Not ready?</strong><br />
-            <span class="muted">Book a quick demo and we’ll map it to your market.</span>
-          </div>
-          <a class="btn" href="/demo.html">Book a Demo</a>
-        </div>
       </div>
 
       <!-- Storm Social Engine -->
       <div class="card">
-        <h3>➡️ Storm Social Engine (Year-Round)</h3>
-        <div class="price"><b>$2,500</b> <span class="muted">setup</span> <span class="muted">+</span> <span class="muted">$500/mo autoposting</span></div>
-        <p class="sub">Automatically posts consistent, contractor-approved content year-round — and triggers localized storm posts when events hit, driving traffic back to your website and estimator.</p>
+        <div class="tag"><span class="dot" style="background:#71c6ff; box-shadow: 0 0 0 4px rgba(113,198,255,.14);"></span> Coming soon</div>
+        <h3>⏳ Storm Social Engine (Year-Round)</h3>
+        <div class="price"><b>$2,500</b> <span class="muted">setup</span> · <b>$500/mo</b> <span class="muted">autoposting</span></div>
+        <p class="sub">
+          Automatically posts consistent, contractor-approved content year-round—and triggers localized storm posts
+          when events hit, driving traffic back to your website and estimator.
+        </p>
         <ul>
           <li>Facebook, Instagram, LinkedIn (year-round cadence)</li>
           <li>Google Business Profile posts (local SEO support)</li>
@@ -297,27 +365,26 @@
           <li>Tracks posts + clicks (UTM links)</li>
           <li>Does not manage comments/messages; it feeds demand</li>
         </ul>
+
         <div class="cta">
           <div>
-            <strong>Coming soon</strong><br />
-            <span class="muted">We’ll publish Stripe links when it’s ready.</span>
+            <strong>Early access</strong>
+            <span class="muted">We’ll turn this on when you’re ready.</span>
           </div>
-          <a class="btn primary" href="/demo.html">Join Early Access</a>
+          <div class="btnRow">
+            <a class="btn primary" href="/demo.html">Book a Demo</a>
+          </div>
         </div>
       </div>
     </div>
 
     <div class="footer">
-      <div>
-        © <span id="y"></span> Actual Assistance™ · Owned by Anti AI LLC · Support:
-        <a class="smallLink" href="mailto:support@actualassistance.com">support@actualassistance.com</a>
-      </div>
-      <div class="muted">Built for contractors. Sold as tools.</div>
+      © <span id="y"></span> Actual Assistance™. Pricing and availability may change. All purchases are processed via Stripe.
     </div>
   </div>
 
   <script>
-    document.getElementById("y").textContent = new Date().getFullYear();
+    document.getElementById('y').textContent = new Date().getFullYear();
   </script>
 </body>
 </html>
