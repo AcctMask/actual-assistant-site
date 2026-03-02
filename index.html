@@ -1,235 +1,733 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Actual Assistant™ Contractor Tech Platform</title>
 
-<title>Actual Assistant™ Contractor Tech Platform</title>
+  <style>
+    :root{
+      --bg1:#0b1220;
+      --bg2:#0f1b33;
+      --card:rgba(255,255,255,.06);
+      --card2:rgba(255,255,255,.08);
+      --border:rgba(255,255,255,.10);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.72);
+      --muted2:rgba(255,255,255,.60);
+      --shadow:0 18px 50px rgba(0,0,0,.45);
+      --radius:18px;
+      --blue:#2563eb;
+      --cyan:#0ea5e9;
+      --focus:rgba(37,99,235,.45);
+    }
 
-<style>
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      color:var(--text);
+      background: radial-gradient(1200px 600px at 20% 10%, rgba(14,165,233,.20), transparent 55%),
+                  radial-gradient(900px 500px at 80% 20%, rgba(37,99,235,.22), transparent 55%),
+                  linear-gradient(135deg, var(--bg1), var(--bg2));
+    }
 
-body{
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
-margin:0;
-background:linear-gradient(120deg,#0f172a,#1e293b);
-color:white;
-}
+    a{ color:inherit; text-decoration:none; }
 
-.container{
-max-width:1200px;
-margin:auto;
-padding:60px 20px;
-}
+    .wrap{
+      max-width:1200px;
+      margin:0 auto;
+      padding:32px 20px 26px;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
 
-h1{
-text-align:center;
-font-size:42px;
-margin-bottom:10px;
-}
+    header{
+      text-align:center;
+      padding-top:8px;
+    }
 
-.subtitle{
-text-align:center;
-opacity:.8;
-margin-bottom:60px;
-}
+    .title{
+      font-size:44px;
+      letter-spacing:.5px;
+      margin:8px 0 4px;
+      font-weight:800;
+    }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-gap:28px;
-}
+    .sub{
+      margin:0 auto;
+      max-width:920px;
+      color:var(--muted);
+      line-height:1.35;
+      font-size:15px;
+    }
 
-.card{
-background:rgba(255,255,255,0.05);
-border-radius:16px;
-padding:28px;
-backdrop-filter:blur(8px);
-box-shadow:0 10px 30px rgba(0,0,0,.4);
-}
+    .benefits{
+      margin:12px auto 0;
+      max-width:920px;
+      color:var(--muted2);
+      font-size:14px;
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:10px 18px;
+    }
+    .benefits span{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      border:1px solid var(--border);
+      border-radius:999px;
+      background:rgba(255,255,255,.03);
+    }
 
-.card h2{
-margin-top:0;
-font-size:22px;
-}
+    /* GRID: 2x2 so all four are visible without scrolling on typical laptop screens */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:16px;
+      align-content:stretch;
+      flex:1;
+      min-height:0;
+    }
 
-.price{
-font-size:24px;
-margin:8px 0;
-}
+    /* Card made clickable */
+    .card{
+      background:linear-gradient(180deg, var(--card), rgba(255,255,255,.04));
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:16px 16px 14px;
+      position:relative;
+      overflow:hidden;
+      cursor:pointer;
+      min-height:260px; /* keeps them wide + shorter, helps avoid scrolling */
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      transition:transform .12s ease, background .12s ease, border-color .12s ease;
+    }
 
-ul{
-padding-left:18px;
-opacity:.9;
-}
+    .card:hover{
+      transform:translateY(-2px);
+      background:linear-gradient(180deg, var(--card2), rgba(255,255,255,.05));
+      border-color:rgba(255,255,255,.16);
+    }
 
-.buttons{
-margin-top:20px;
-display:flex;
-gap:10px;
-flex-wrap:wrap;
-}
+    .card:focus-within{
+      outline:2px solid var(--focus);
+      outline-offset:2px;
+    }
 
-button{
-border:none;
-padding:10px 18px;
-border-radius:8px;
-font-size:14px;
-cursor:pointer;
-background:#2563eb;
-color:white;
-}
+    .cardTop{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:10px;
+    }
 
-button.secondary{
-background:#0ea5e9;
-}
+    .card h2{
+      margin:0;
+      font-size:18px;
+      line-height:1.2;
+      letter-spacing:.2px;
+    }
 
-button:hover{
-opacity:.9;
-}
+    .tag{
+      font-size:12px;
+      color:rgba(255,255,255,.80);
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.04);
+      white-space:nowrap;
+    }
 
-footer{
-text-align:center;
-opacity:.6;
-margin-top:80px;
-font-size:14px;
-}
+    .prices{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+      margin-top:2px;
+    }
+    .priceLine{
+      font-size:20px;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .priceLine small{
+      font-weight:600;
+      font-size:14px;
+      color:var(--muted);
+      margin-left:6px;
+    }
 
-</style>
+    .desc{
+      margin:4px 0 0;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.35;
+    }
+
+    .bullets{
+      margin:6px 0 0;
+      padding-left:18px;
+      color:rgba(255,255,255,.82);
+      font-size:13px;
+      line-height:1.28;
+      display:grid;
+      gap:4px;
+    }
+
+    .ctaRow{
+      margin-top:auto;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .btn{
+      appearance:none;
+      border:none;
+      background:var(--blue);
+      color:white;
+      padding:10px 14px;
+      border-radius:10px;
+      font-size:13px;
+      font-weight:700;
+      cursor:pointer;
+      transition:opacity .12s ease, transform .12s ease;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:160px;
+    }
+    .btn:hover{ opacity:.92; transform:translateY(-1px); }
+    .btn.secondary{ background:var(--cyan); }
+    .btn:focus{ outline:2px solid var(--focus); outline-offset:2px; }
+
+    .hint{
+      margin-left:auto;
+      color:rgba(255,255,255,.55);
+      font-size:12px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      user-select:none;
+    }
+
+    footer{
+      text-align:center;
+      color:rgba(255,255,255,.50);
+      font-size:12px;
+      padding:6px 0 0;
+    }
+
+    /* MODAL */
+    .modalOverlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.62);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:9999;
+    }
+    .modalOverlay.open{ display:flex; }
+
+    .modal{
+      width:min(880px, 100%);
+      background:linear-gradient(180deg, rgba(18,28,51,.96), rgba(12,18,32,.96));
+      border:1px solid rgba(255,255,255,.14);
+      border-radius:18px;
+      box-shadow:0 24px 80px rgba(0,0,0,.65);
+      overflow:hidden;
+    }
+
+    .modalHeader{
+      padding:16px 18px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+    }
+    .modalHeader h3{
+      margin:0;
+      font-size:18px;
+      line-height:1.2;
+    }
+    .modalHeader p{
+      margin:6px 0 0;
+      color:rgba(255,255,255,.72);
+      font-size:13px;
+      line-height:1.35;
+      max-width:650px;
+    }
+    .closeBtn{
+      border:none;
+      background:rgba(255,255,255,.08);
+      color:rgba(255,255,255,.90);
+      border:1px solid rgba(255,255,255,.14);
+      padding:10px 12px;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:800;
+    }
+    .closeBtn:hover{ background:rgba(255,255,255,.10); }
+
+    .modalBody{
+      padding:16px 18px 18px;
+      display:grid;
+      grid-template-columns: 1.3fr .9fr;
+      gap:14px;
+    }
+
+    .modalBlock{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:14px;
+      padding:14px;
+    }
+
+    .modalBlock h4{
+      margin:0 0 10px;
+      font-size:13px;
+      letter-spacing:.5px;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.75);
+    }
+
+    .modalList{
+      margin:0;
+      padding-left:18px;
+      color:rgba(255,255,255,.85);
+      font-size:13px;
+      line-height:1.35;
+      display:grid;
+      gap:6px;
+    }
+
+    .modalPrices{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      margin:0;
+      color:rgba(255,255,255,.92);
+      font-weight:800;
+      font-size:16px;
+    }
+    .modalPrices span{
+      color:rgba(255,255,255,.70);
+      font-weight:600;
+      font-size:13px;
+      margin-left:6px;
+    }
+
+    .modalCtas{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+
+    .note{
+      margin-top:10px;
+      color:rgba(255,255,255,.58);
+      font-size:12px;
+      line-height:1.35;
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .grid{ grid-template-columns:1fr; }
+      .card{ min-height:unset; }
+      .modalBody{ grid-template-columns:1fr; }
+      .hint{ margin-left:0; }
+    }
+
+    @media (max-height: 760px) and (min-width: 981px){
+      /* tighter vertical when screen height is short */
+      .wrap{ padding-top:20px; }
+      .title{ font-size:40px; }
+      .card{ min-height:240px; }
+    }
+
+  </style>
 </head>
 
 <body>
+  <div class="wrap">
+    <header>
+      <div class="title">Actual Assistant™</div>
+      <div class="sub">
+        A contractor growth system that turns storm activity into inbound leads — then routes, tracks, and automates follow-up so nothing slips through the cracks.
+      </div>
 
-<div class="container">
+      <div class="benefits">
+        <span>⚡ Storm-triggered demand</span>
+        <span>📍 Targeted by ZIP + routes</span>
+        <span>📈 More leads, less manual work</span>
+        <span>🧠 Built for AI orchestration</span>
+      </div>
+    </header>
 
-<h1>Actual Assistant™</h1>
-<div class="subtitle">AI-Powered Contractor Technology Platform</div>
+    <div class="grid">
 
-<div class="grid">
+      <!-- 1) SEO -->
+      <div class="card" role="button" tabindex="0"
+           data-title="SEO Visibility Overhaul (Annual)"
+           data-subtitle="Contractor-focused SEO overhaul to improve search visibility and conversion."
+           data-price1="$5,000"
+           data-price1label="one-time annual"
+           data-price2=""
+           data-price2label=""
+           data-why="Your website should show up when homeowners search after storms — and convert them into estimate requests."
+           data-points='["Technical + on-page SEO cleanup","Contractor keyword + city targeting","Conversion-first improvements","No monthly retainer","Clear before/after checklist + rollout"]'
+           data-setup-link="REPLACE_WITH_SEO_STRIPE_LINK"
+           data-setup-label="Buy SEO Overhaul">
 
-<!-- SEO VISIBILITY -->
+        <div class="cardTop">
+          <h2>SEO Visibility Overhaul (Annual)</h2>
+          <div class="tag">Visibility</div>
+        </div>
 
-<div class="card">
-<h2>SEO Visibility Overhaul (Annual)</h2>
-<div class="price">$5,000 one-time annual</div>
+        <div class="prices">
+          <div class="priceLine">$5,000 <small>one-time annual</small></div>
+        </div>
 
-<p>Contractor-focused SEO overhaul for Google, DuckDuckGo, and AI search visibility.</p>
+        <p class="desc">Contractor-focused SEO overhaul for Google, DuckDuckGo, and AI search visibility.</p>
 
-<ul>
-<li>Structural SEO fixes + visibility upgrades</li>
-<li>Conversion-first improvements</li>
-<li>No monthly retainer</li>
-</ul>
+        <ul class="bullets">
+          <li>Structural SEO fixes + visibility upgrades</li>
+          <li>Conversion-first improvements</li>
+          <li>No monthly retainer</li>
+        </ul>
 
-<div class="buttons">
-<a href="https://buy.stripe.com/YOUR-LINK-HERE">
-<button>Buy SEO Overhaul</button>
-</a>
-</div>
+        <div class="ctaRow">
+          <a href="REPLACE_WITH_SEO_STRIPE_LINK" class="btnLink" onclick="event.stopPropagation();">
+            <button class="btn" type="button">Buy SEO Overhaul</button>
+          </a>
+          <div class="hint">Click card for details →</div>
+        </div>
+      </div>
 
-</div>
+      <!-- 2) Estimator -->
+      <div class="card" role="button" tabindex="0"
+           data-title="Instant Roof Estimator"
+           data-subtitle="A branded estimator that qualifies leads before you roll a truck."
+           data-price1="$2,500"
+           data-price1label="setup"
+           data-price2="$500"
+           data-price2label="/mo platform"
+           data-why="Qualify leads instantly, capture full contact info, and route requests to your team without back-and-forth."
+           data-points='["Website install + branding","Lead routing configured","Higher close rate, less wasted time","Great for storm traffic campaigns","Pairs with Risk Assessment + CRM triggers"]'
+           data-setup-link="REPLACE_WITH_ESTIMATOR_SETUP_STRIPE_LINK"
+           data-setup-label="Buy Setup ($2,500)"
+           data-monthly-link="REPLACE_WITH_ESTIMATOR_MONTHLY_STRIPE_LINK"
+           data-monthly-label="Start Monthly ($500/mo)">
 
-<!-- ROOF ESTIMATOR -->
+        <div class="cardTop">
+          <h2>Instant Roof Estimator</h2>
+          <div class="tag">Leads</div>
+        </div>
 
-<div class="card">
+        <div class="prices">
+          <div class="priceLine">$2,500 <small>setup</small></div>
+        </div>
 
-<h2>Instant Roof Estimator</h2>
+        <p class="desc">Install a branded estimator that qualifies leads before you roll a truck.</p>
 
-<div class="price">$2,500 setup</div>
+        <ul class="bullets">
+          <li>Website install + branding</li>
+          <li>Lead routing configured</li>
+          <li>Higher close rate, less wasted time</li>
+        </ul>
 
-<p>Install a branded estimator that qualifies leads before you roll a truck.</p>
+        <div class="ctaRow">
+          <a href="REPLACE_WITH_ESTIMATOR_SETUP_STRIPE_LINK" onclick="event.stopPropagation();">
+            <button class="btn" type="button">Buy Setup ($2,500)</button>
+          </a>
+          <a href="REPLACE_WITH_ESTIMATOR_MONTHLY_STRIPE_LINK" onclick="event.stopPropagation();">
+            <button class="btn secondary" type="button">Start Monthly ($500/mo)</button>
+          </a>
+        </div>
+      </div>
 
-<ul>
-<li>Website install + branding</li>
-<li>Lead routing configured</li>
-<li>Higher close rate, less wasted time</li>
-</ul>
+      <!-- 3) Storm Targeting Intelligence -->
+      <div class="card" role="button" tabindex="0"
+           data-title="Storm Targeting Intelligence"
+           data-subtitle="NOAA-verified storm detection + ZIP ranking + USPS carrier routes."
+           data-price1="$5,000"
+           data-price1label="setup"
+           data-price2="$800"
+           data-price2label="/mo monitoring"
+           data-why="Know where the damage likely is — before your competitors — and market with precision instead of guessing."
+           data-points='["ZIP-level targeting ranked by severity","Carrier routes list + delivery counts","Downloadable CSVs for mail, ads, canvassing","CRM upload-ready exports","Seasonal pause supported"]'
+           data-setup-link="REPLACE_WITH_WEATHER_SETUP_STRIPE_LINK"
+           data-setup-label="Buy Setup ($5,000)"
+           data-monthly-link="REPLACE_WITH_WEATHER_MONTHLY_STRIPE_LINK"
+           data-monthly-label="Start Monitoring ($800/mo)">
 
-<div class="buttons">
+        <div class="cardTop">
+          <h2>Storm Targeting Intelligence</h2>
+          <div class="tag">Targeting</div>
+        </div>
 
-<a href="https://buy.stripe.com/YOUR-LINK-HERE">
-<button>Buy Setup ($2,500)</button>
-</a>
+        <div class="prices">
+          <div class="priceLine">$5,000 <small>setup</small></div>
+          <div class="priceLine">$800 <small>/mo monitoring</small></div>
+        </div>
 
-<a href="https://buy.stripe.com/YOUR-LINK-HERE">
-<button class="secondary">Start Monthly ($500/mo)</button>
-</a>
+        <p class="desc">NOAA-verified storm detection + ZIP ranking + USPS carrier routes.</p>
 
-</div>
+        <ul class="bullets">
+          <li>ZIP-level targeting ranked by severity</li>
+          <li>Carrier routes list + delivery counts</li>
+          <li>Downloadable CSVs + CRM uploads supported</li>
+        </ul>
 
-</div>
+        <div class="ctaRow">
+          <a href="REPLACE_WITH_WEATHER_SETUP_STRIPE_LINK" onclick="event.stopPropagation();">
+            <button class="btn" type="button">Buy Setup ($5,000)</button>
+          </a>
+          <a href="REPLACE_WITH_WEATHER_MONTHLY_STRIPE_LINK" onclick="event.stopPropagation();">
+            <button class="btn secondary" type="button">Start Monitoring ($800/mo)</button>
+          </a>
+        </div>
+      </div>
 
-<!-- WEATHER EVENT LEAD GENERATOR -->
+      <!-- 4) Automated Storm Marketing Engine (NEW LINKS PROVIDED) -->
+      <div class="card" role="button" tabindex="0"
+           data-title="Automated Storm Marketing Engine"
+           data-subtitle="Automatically publishes targeted posts after verified storm events in your service area."
+           data-price1="$2,500"
+           data-price1label="setup"
+           data-price2="$500"
+           data-price2label="/mo autoposting"
+           data-why="Storm hits → posts go live → homeowners click → leads enter your funnel — automatically."
+           data-points='["Storm-triggered marketing posts","Facebook + Google Business publishing","Built-in anti-spam safeguards","Minimum time between posts","Daily post limits + duplicate prevention","Drives traffic to your estimator + risk assessment"]'
+           data-setup-link="https://buy.stripe.com/3cI00ih0Z2Agfi59dF2Ry05"
+           data-setup-label="Buy Setup ($2,500)"
+           data-monthly-link="https://buy.stripe.com/6oUfZg121gr60nbahJ2Ry06"
+           data-monthly-label="Start Monthly ($500/mo)">
 
-<div class="card">
+        <div class="cardTop">
+          <h2>Automated Storm Marketing Engine</h2>
+          <div class="tag">Autopost</div>
+        </div>
 
-<h2>Storm Targeting Intelligence</h2>
+        <div class="prices">
+          <div class="priceLine">$2,500 <small>setup</small></div>
+          <div class="priceLine">$500 <small>/mo autoposting</small></div>
+        </div>
 
-<div class="price">$5,000 setup</div>
-<div class="price">$800 /mo monitoring</div>
+        <p class="desc">Automatically publishes targeted posts to Facebook and Google Business after storm events.</p>
 
-<p>NOAA-verified storm detection + ZIP ranking + USPS carrier routes.</p>
+        <ul class="bullets">
+          <li>Storm-triggered marketing + local messaging</li>
+          <li>Anti-spam guards (caps, spacing, duplicates)</li>
+          <li>Drives traffic back to your estimator</li>
+        </ul>
 
-<ul>
-<li>ZIP-level targeting ranked by severity</li>
-<li>Carrier routes list + delivery counts</li>
-<li>Downloadable CSVs for mail, ads, canvassing</li>
-<li>CRM uploads supported</li>
-</ul>
+        <div class="ctaRow">
+          <a href="https://buy.stripe.com/3cI00ih0Z2Agfi59dF2Ry05" onclick="event.stopPropagation();">
+            <button class="btn" type="button">Buy Setup ($2,500)</button>
+          </a>
+          <a href="https://buy.stripe.com/6oUfZg121gr60nbahJ2Ry06" onclick="event.stopPropagation();">
+            <button class="btn secondary" type="button">Start Monthly ($500/mo)</button>
+          </a>
+        </div>
+      </div>
 
-<div class="buttons">
+    </div>
 
-<a href="https://buy.stripe.com/YOUR-LINK-HERE">
-<button>Buy Setup ($5,000)</button>
-</a>
+    <footer>Actual Assistant™ Contractor Tech Platform</footer>
+  </div>
 
-<a href="https://buy.stripe.com/YOUR-LINK-HERE">
-<button class="secondary">Start Monitoring ($800/mo)</button>
-</a>
+  <!-- Modal -->
+  <div class="modalOverlay" id="modalOverlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modalHeader">
+        <div>
+          <h3 id="modalTitle"></h3>
+          <p id="modalSubtitle"></p>
+        </div>
+        <button class="closeBtn" id="closeModalBtn" type="button" aria-label="Close">✕</button>
+      </div>
 
-</div>
+      <div class="modalBody">
+        <div class="modalBlock">
+          <h4>What it does</h4>
+          <ul class="modalList" id="modalPoints"></ul>
+        </div>
 
-</div>
+        <div class="modalBlock">
+          <h4>Pricing</h4>
+          <div class="modalPrices" id="modalPrices"></div>
 
-<!-- AUTOMATED STORM MARKETING ENGINE -->
+          <div class="modalCtas" id="modalCtas"></div>
 
-<div class="card">
+          <div class="note">
+            Tip: The full card is clickable so contractors can quickly understand each tool before purchasing.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<h2>Automated Storm Marketing Engine</h2>
+  <script>
+    (function(){
+      const overlay = document.getElementById('modalOverlay');
+      const closeBtn = document.getElementById('closeModalBtn');
+      const titleEl = document.getElementById('modalTitle');
+      const subEl = document.getElementById('modalSubtitle');
+      const pointsEl = document.getElementById('modalPoints');
+      const pricesEl = document.getElementById('modalPrices');
+      const ctasEl = document.getElementById('modalCtas');
 
-<div class="price">$2,500 setup</div>
-<div class="price">$500/mo autoposting</div>
+      const openModal = (card) => {
+        const title = card.getAttribute('data-title') || '';
+        const subtitle = card.getAttribute('data-subtitle') || '';
+        const pointsJson = card.getAttribute('data-points') || '[]';
 
-<p>Automatically publishes targeted posts to Facebook and Google Business after storm events in your service area.</p>
+        const price1 = card.getAttribute('data-price1') || '';
+        const price1label = card.getAttribute('data-price1label') || '';
+        const price2 = card.getAttribute('data-price2') || '';
+        const price2label = card.getAttribute('data-price2label') || '';
 
-<ul>
-<li>Storm-triggered marketing posts</li>
-<li>Facebook + Google Business publishing</li>
-<li>Built-in anti-spam safeguards</li>
-<li>Minimum time between posts</li>
-<li>Drives homeowners to your Instant Roof Estimate</li>
-</ul>
+        const setupLink = card.getAttribute('data-setup-link') || '';
+        const setupLabel = card.getAttribute('data-setup-label') || 'Buy Setup';
+        const monthlyLink = card.getAttribute('data-monthly-link') || '';
+        const monthlyLabel = card.getAttribute('data-monthly-label') || 'Start Monthly';
 
-<div class="buttons">
+        titleEl.textContent = title;
+        subEl.textContent = subtitle;
 
-<a href="https://buy.stripe.com/3cI00ih0Z2Agfi59dF2Ry05">
-<button>Buy Setup ($2,500)</button>
-</a>
+        // points
+        pointsEl.innerHTML = '';
+        let points = [];
+        try { points = JSON.parse(pointsJson); } catch(e) { points = []; }
+        points.forEach(p => {
+          const li = document.createElement('li');
+          li.textContent = p;
+          pointsEl.appendChild(li);
+        });
 
-<a href="https://buy.stripe.com/6oUfZg121gr60nbahJ2Ry06">
-<button class="secondary">Start Monthly ($500/mo)</button>
-</a>
+        // prices
+        pricesEl.innerHTML = '';
+        if (price1) {
+          const div1 = document.createElement('div');
+          div1.textContent = price1;
+          if (price1label) {
+            const s1 = document.createElement('span');
+            s1.textContent = ' ' + price1label;
+            div1.appendChild(s1);
+          }
+          pricesEl.appendChild(div1);
+        }
+        if (price2) {
+          const div2 = document.createElement('div');
+          div2.textContent = price2;
+          if (price2label) {
+            const s2 = document.createElement('span');
+            s2.textContent = ' ' + price2label;
+            div2.appendChild(s2);
+          }
+          pricesEl.appendChild(div2);
+        }
 
-</div>
+        // CTAs
+        ctasEl.innerHTML = '';
+        if (setupLink && setupLink !== 'REPLACE_WITH_SEO_STRIPE_LINK' &&
+            setupLink !== 'REPLACE_WITH_ESTIMATOR_SETUP_STRIPE_LINK' &&
+            setupLink !== 'REPLACE_WITH_WEATHER_SETUP_STRIPE_LINK') {
+          const a1 = document.createElement('a');
+          a1.href = setupLink;
+          a1.target = '_blank';
+          a1.rel = 'noopener noreferrer';
+          const b1 = document.createElement('button');
+          b1.className = 'btn';
+          b1.type = 'button';
+          b1.textContent = setupLabel;
+          a1.appendChild(b1);
+          ctasEl.appendChild(a1);
+        } else if (setupLink && setupLink.startsWith('http')) {
+          // For non-placeholder http links
+          const a1 = document.createElement('a');
+          a1.href = setupLink;
+          a1.target = '_blank';
+          a1.rel = 'noopener noreferrer';
+          const b1 = document.createElement('button');
+          b1.className = 'btn';
+          b1.type = 'button';
+          b1.textContent = setupLabel;
+          a1.appendChild(b1);
+          ctasEl.appendChild(a1);
+        }
 
-</div>
+        if (monthlyLink && monthlyLink !== 'REPLACE_WITH_ESTIMATOR_MONTHLY_STRIPE_LINK' &&
+            monthlyLink !== 'REPLACE_WITH_WEATHER_MONTHLY_STRIPE_LINK') {
+          const a2 = document.createElement('a');
+          a2.href = monthlyLink;
+          a2.target = '_blank';
+          a2.rel = 'noopener noreferrer';
+          const b2 = document.createElement('button');
+          b2.className = 'btn secondary';
+          b2.type = 'button';
+          b2.textContent = monthlyLabel;
+          a2.appendChild(b2);
+          ctasEl.appendChild(a2);
+        } else if (monthlyLink && monthlyLink.startsWith('http')) {
+          const a2 = document.createElement('a');
+          a2.href = monthlyLink;
+          a2.target = '_blank';
+          a2.rel = 'noopener noreferrer';
+          const b2 = document.createElement('button');
+          b2.className = 'btn secondary';
+          b2.type = 'button';
+          b2.textContent = monthlyLabel;
+          a2.appendChild(b2);
+          ctasEl.appendChild(a2);
+        }
 
-</div>
+        overlay.classList.add('open');
+        overlay.setAttribute('aria-hidden', 'false');
+        closeBtn.focus();
+      };
 
-<footer>
-Actual Assistant™ Contractor Tech Platform
-</footer>
+      const closeModal = () => {
+        overlay.classList.remove('open');
+        overlay.setAttribute('aria-hidden', 'true');
+      };
 
-</div>
+      // bind cards
+      document.querySelectorAll('.card').forEach(card => {
+        card.addEventListener('click', () => openModal(card));
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openModal(card);
+          }
+        });
+      });
 
+      closeBtn.addEventListener('click', closeModal);
+
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeModal();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+      });
+
+    })();
+  </script>
 </body>
 </html>
