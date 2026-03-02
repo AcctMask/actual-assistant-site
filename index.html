@@ -1,345 +1,39 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Actual Assistance™ | Contractor Growth Tools</title>
-  <meta name="description" content="Contractor growth tools: SEO Overhaul, Instant Roof Estimator, Storm Targeting Intelligence, and Storm Social Engine." />
+<!-- Automated Storm Marketing Engine -->
+<div class="card">
+  <h3>⚡ Automated Storm Marketing Engine</h3>
 
-  <style>
-    :root{
-      --bg:#0b1020;
-      --panel: rgba(255,255,255,.06);
-      --panel2: rgba(255,255,255,.04);
-      --text:#e8ecff;
-      --muted: rgba(232,236,255,.72);
-      --line: rgba(255,255,255,.10);
-      --radius:18px;
-      --shadow: 0 18px 50px rgba(0,0,0,.35);
-      --accent: rgba(120, 200, 255, .95);
-    }
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background: radial-gradient(1200px 900px at 70% 10%, rgba(70,110,255,.18), transparent 55%),
-                  radial-gradient(900px 700px at 10% 30%, rgba(0,255,220,.08), transparent 55%),
-                  var(--bg);
-      color:var(--text);
-    }
-    a{ color: inherit; }
-    .wrap{
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 26px 18px 60px;
-    }
-    header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:16px;
-      margin-bottom: 18px;
-    }
-    .brand{
-      display:flex;
-      gap:12px;
-      align-items:center;
-    }
-    .logo{
-      width:38px;height:38px;border-radius:12px;
-      background: linear-gradient(135deg, rgba(120,200,255,.35), rgba(255,255,255,.06));
-      border:1px solid var(--line);
-      box-shadow: var(--shadow);
-    }
-    .brand h1{
-      font-size: 18px;
-      line-height: 1.1;
-      margin:0;
-      letter-spacing: .2px;
-    }
-    .brand p{
-      margin:2px 0 0;
-      color: var(--muted);
-      font-size: 12px;
-    }
-    .top-actions{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      padding: 10px 14px;
-      border-radius: 14px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.05);
-      text-decoration:none;
-      color: var(--text);
-      font-weight: 650;
-      font-size: 13px;
-      cursor:pointer;
-      box-shadow: 0 10px 30px rgba(0,0,0,.18);
-      transition: transform .08s ease, background .15s ease;
-      white-space:nowrap;
-    }
-    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.08); }
-    .btn.primary{
-      background: linear-gradient(180deg, rgba(120,200,255,.20), rgba(255,255,255,.06));
-      border-color: rgba(120,200,255,.35);
-    }
-    .hero{
-      border: 1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border-radius: 22px;
-      box-shadow: var(--shadow);
-      padding: 18px 18px 16px;
-      margin: 10px 0 18px;
-    }
-    .hero h2{
-      margin:0 0 6px;
-      font-size: 22px;
-      letter-spacing:.2px;
-    }
-    .hero p{
-      margin:0;
-      color: var(--muted);
-      line-height: 1.45;
-      font-size: 14px;
-      max-width: 860px;
-    }
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-    @media (max-width: 860px){
-      .grid{ grid-template-columns: 1fr; }
-    }
-    .card{
-      border:1px solid var(--line);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border-radius: 22px;
-      box-shadow: var(--shadow);
-      padding: 16px;
-      min-height: 260px;
-      position:relative;
-      overflow:hidden;
-    }
-    .card h3{
-      margin:0 0 8px;
-      font-size: 18px;
-      letter-spacing:.2px;
-    }
-    .price{
-      display:flex;
-      gap:10px;
-      align-items:baseline;
-      margin: 0 0 10px;
-      color: var(--text);
-    }
-    .price b{ font-size: 26px; }
-    .muted{ color: var(--muted); }
-    .sub{
-      margin: 8px 0 12px;
-      color: var(--muted);
-      font-size: 13.5px;
-      line-height: 1.45;
-    }
-    ul{
-      margin: 0;
-      padding-left: 18px;
-      color: var(--muted);
-      line-height: 1.55;
-      font-size: 13px;
-    }
-    .cta{
-      margin-top: 14px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      border-radius: 18px;
-      padding: 14px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 12px;
-      flex-wrap:wrap;
-    }
-    .cta strong{ font-size: 13px; }
-    .cta .muted{ font-size: 12.5px; }
-    .btnrow{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
-    }
-    footer{
-      margin-top: 18px;
-      color: rgba(232,236,255,.55);
-      font-size: 12px;
-      text-align:center;
-    }
-    .tag{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      font-size: 12px;
-      color: rgba(232,236,255,.72);
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      border-radius: 999px;
-      padding: 6px 10px;
-      margin-top: 10px;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div>
-          <h1>Actual Assistance™</h1>
-          <p>Contractor Growth Tools • Menu + Pricing</p>
-        </div>
-      </div>
-
-      <div class="top-actions">
-        <a class="btn" href="/demo.html">Book a Demo</a>
-        <a class="btn primary" href="#menu">View Menu</a>
-      </div>
-    </header>
-
-    <section class="hero">
-      <h2>Buy one tool today. Add the full system later.</h2>
-      <p>
-        Actual Assistance is a menu of contractor-built growth tools. Start with one product, prove the value fast,
-        then expand when you’re ready.
-      </p>
-      <div class="tag">⚡ Simple checkout • Stripe Payment Links</div>
-    </section>
-
-    <section id="menu" class="grid">
-
-      <!-- SEO -->
-      <div class="card">
-        <h3>✅ SEO Visibility Overhaul (Annual)</h3>
-        <div class="price"><b>$5,000</b> <span class="muted">one-time annual</span></div>
-        <p class="sub">Contractor-focused SEO overhaul for Google, DuckDuckGo, and AI search visibility.</p>
-        <ul>
-          <li>Structural SEO fixes + visibility upgrades</li>
-          <li>Conversion-first improvements</li>
-          <li>No monthly retainer</li>
-        </ul>
-
-        <div class="cta">
-          <div>
-            <strong>Purchase online</strong><br />
-            <span class="muted">Annual overhaul. Renewal optional.</span>
-          </div>
-          <a class="btn primary" target="_blank" rel="noreferrer"
-             href="https://buy.stripe.com/fZu14m5ih3Ek9XL1Ld2Ry00">Buy SEO Overhaul</a>
-        </div>
-      </div>
-
-      <!-- Estimator -->
-      <div class="card">
-        <h3>✅ Instant Roof Estimator</h3>
-        <div class="price"><b>$2,500</b> <span class="muted">setup</span></div>
-        <p class="sub">Install a branded estimator that qualifies leads before you roll a truck.</p>
-        <ul>
-          <li>Website install + branding</li>
-          <li>Lead routing configured</li>
-          <li>Higher close rate, less wasted time</li>
-        </ul>
-
-        <div class="cta">
-          <div>
-            <strong>Purchase online</strong><br />
-            <span class="muted">Setup + optional monthly platform fee.</span>
-          </div>
-          <div class="btnrow">
-            <a class="btn primary" target="_blank" rel="noreferrer"
-               href="https://buy.stripe.com/7sY9AS4ed7UA0nb89B2Ry01">Buy Setup ($2,500)</a>
-            <a class="btn" target="_blank" rel="noreferrer"
-               href="https://buy.stripe.com/fZufZg5ih4Ioee189B2Ry02">Start Monthly ($500/mo)</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Storm Targeting Intelligence -->
-      <div class="card">
-        <h3>✅ Storm Targeting Intelligence</h3>
-        <div class="price"><b>$5,000</b> <span class="muted">setup</span></div>
-        <div class="price" style="margin-top:-6px;"><b>$800</b> <span class="muted">/mo monitoring</span></div>
-
-        <p class="sub">
-          NOAA-verified storm detection + ZIP ranking + USPS carrier routes (EDDM-ready).
-          Turn verified storm impact into high-ROI campaigns without guessing.
-        </p>
-        <ul>
-          <li>ZIP-level targeting ranked by severity</li>
-          <li>Carrier routes list + delivery counts</li>
-          <li>Downloadable CSVs for mail, ads, canvassing, CRM uploads</li>
-          <li>Seasonal pause supported</li>
-        </ul>
-
-        <div class="cta">
-          <div>
-            <strong>Purchase online</strong><br />
-            <span class="muted">Setup + monitoring subscription.</span>
-          </div>
-          <div class="btnrow">
-            <a class="btn primary" target="_blank" rel="noreferrer"
-               href="https://buy.stripe.com/fZuaEWaCBb6M3znblN2Ry04">Buy Setup ($5,000)</a>
-            <a class="btn" target="_blank" rel="noreferrer"
-               href="https://buy.stripe.com/bJeaEW8ut4Iob1PdtV2Ry03">Start Monitoring ($800/mo)</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Storm Social Engine -->
-      <div class="card">
-        <h3>🕒 Storm Social Engine (Year-Round)</h3>
-        <div class="price"><b>$2,500</b> <span class="muted">setup</span></div>
-        <div class="price" style="margin-top:-6px;"><b>$500</b> <span class="muted">/mo autoposting</span></div>
-
-        <p class="sub">
-          Automatically posts consistent, contractor-approved content year-round — and triggers localized storm posts
-          when events hit, driving traffic back to your website and estimator.
-        </p>
-        <ul>
-          <li>Facebook, Instagram, LinkedIn (year-round cadence)</li>
-          <li>Google Business Profile posts (local SEO support)</li>
-          <li>Storm-timed, localized messaging based on impacted areas</li>
-          <li>Tracks posts + clicks (UTM links)</li>
-          <li>Does not manage comments/messages; it feeds demand</li>
-        </ul>
-
-        <div class="cta">
-          <div>
-            <strong>Coming soon</strong><br />
-            <span class="muted">Early access available when you’re ready.</span>
-          </div>
-          <a class="btn primary" href="/demo.html">Join Early Access</a>
-        </div>
-      </div>
-
-    </section>
-
-    <footer>
-      © <span id="y"></span> Actual Assistance™ • Pricing subject to change
-    </footer>
+  <div class="price">
+    <b>$2,500</b> <span class="muted">setup</span><br>
+    <b>$500/mo</b> <span class="muted">autoposting</span>
   </div>
 
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
-</body>
-</html>
+  <p class="sub">
+    Automatically publishes targeted posts to Facebook and Google Business
+    after storm events in your service area.
+  </p>
+
+  <ul>
+    <li>Storm-triggered marketing posts</li>
+    <li>Facebook + Google Business publishing</li>
+    <li>Built-in anti-spam safeguards</li>
+    <li>Minimum time between posts</li>
+    <li>Drives homeowners to your Instant Roof Estimate</li>
+  </ul>
+
+  <div class="cta" style="margin-top:16px;">
+    <div>
+      <strong>Purchase online</strong><br />
+      <span class="muted">Setup + optional monthly automation.</span>
+    </div>
+
+    <a class="btn primary" target="_blank" rel="noreferrer"
+       href="https://buy.stripe.com/3cI00ih0Z2Agfi59dF2Ry05">
+       Buy Setup ($2,500)
+    </a>
+
+    <a class="btn secondary" target="_blank" rel="noreferrer"
+       href="https://buy.stripe.com/6oUfZg121gr60nbahJ2Ry06">
+       Start Monthly ($500/mo)
+    </a>
+  </div>
+</div>
