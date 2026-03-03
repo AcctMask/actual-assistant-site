@@ -12,6 +12,33 @@ export default async function handler(req, res) {
     return res.status(500).json({ ok: false, error: "Missing RESEND_API_KEY" });
   }
 
+  const sendEmail = async ({ to, subject, text, reply_to }) => {
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: `Actual Assistance <${FROM_EMAIL}>`,
+        to: Array.isArray(to) ? to : [to],
+        subject,
+        text,
+        ...(reply_to ? { reply_to } : {}),
+      }),
+    });
+
+    const json = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      const msg = json?.message || json?.error || "Resend send failed";
+      const detail = JSON.stringify(json);
+      throw new Error(`${msg} :: ${detail}`);
+    }
+
+    return json; // usually contains { id: "..." }
+  };
+
   try {
     const body = typeof req.body === "string" ? JSON.parse(req.body) : req.body;
 
@@ -37,9 +64,10 @@ export default async function handler(req, res) {
       return res.status(400).json({ ok: false, error: `Missing fields: ${missing.join(", ")}` });
     }
 
-    const subject = `Demo Request — ${company} (${state})`;
+    // 1) Internal notification
+    const internalSubject = `Demo Request — ${company} (${state})`;
 
-    const text =
+    const internalText =
 `New Actual Assistance Demo Request
 
 Name: ${name}
@@ -59,34 +87,40 @@ Page: ${page}
 Submitted: ${ts}
 `;
 
-    const response = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${RESEND_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: `Actual Assistance <${FROM_EMAIL}>`,
-        to: [TO_EMAIL],
-        subject,
-        text,
-        reply_to: email,
-      }),
+    // 2) Customer confirmation (short, professional)
+    const customerSubject = `We received your demo request — Actual Assistance`;
+
+    const customerText =
+`Hi ${name},
+
+Thanks for requesting a demo of Actual Assistance.
+
+An Actual Assistance representative will be in contact with you shortly to confirm your service area, CRM, and the fastest path to getting results.
+
+If anything changes before we reach out, just reply to this email.
+
+— Actual Assistance
+`;
+
+    // Send internal first; if that succeeds, send customer confirmation.
+    const internalResult = await sendEmail({
+      to: TO_EMAIL,
+      subject: internalSubject,
+      text: internalText,
+      reply_to: email, // replies from your support inbox go to the contractor
     });
 
-    const json = await response.json().catch(() => ({}));
-
-    if (!response.ok) {
-      return res.status(502).json({
-        ok: false,
-        error: "Resend send failed",
-        details: json,
-      });
-    }
+    const customerResult = await sendEmail({
+      to: email,
+      subject: customerSubject,
+      text: customerText,
+      reply_to: TO_EMAIL, // replies from contractor go to your support inbox
+    });
 
     return res.status(200).json({
       ok: true,
-      id: json.id || null,
+      internal_id: internalResult?.id || null,
+      customer_id: customerResult?.id || null,
     });
 
   } catch (e) {
