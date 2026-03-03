@@ -1,202 +1,351 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Book a Demo | Actual Assistance</title>
-  <meta name="description" content="Request a demo of Actual Assistance tools for contractors." />
+  <title>Book a Demo | Actual Assistant™</title>
+  <meta name="description" content="Book a demo of Actual Assistant. We’ll confirm your service area, CRM, and the fastest path to results." />
+  <meta name="robots" content="index,follow" />
   <style>
     :root{
-      --bg:#0b1020;
-      --text:#e8ecff;
-      --muted:#b8c0ffcc;
-      --line: rgba(255,255,255,.10);
-      --radius:18px;
-      --shadow:0 18px 50px rgba(0,0,0,.35);
+      --bg1:#06142a;
+      --bg2:#0b2a56;
+      --card:#0b1932cc;
+      --stroke:#2a3f66;
+      --text:#eaf1ff;
+      --muted:#b9c6e6;
+      --btn:#2f6bff;
+      --btn2:#1aa3ff;
+      --shadow: 0 24px 80px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 14px;
+      --max: 920px;
+      --danger:#ff5b6a;
+      --ok:#32d583;
     }
+
     *{ box-sizing:border-box; }
+    html,body{ height:100%; }
     body{
       margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-      background:
-        radial-gradient(1000px 600px at 20% -10%, rgba(121,167,255,.25), transparent 60%),
-        radial-gradient(900px 600px at 90% 10%, rgba(124,255,195,.18), transparent 55%),
-        var(--bg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       color:var(--text);
-      line-height:1.5;
+      background:
+        radial-gradient(1200px 600px at 50% -50%, rgba(93,164,255,.45), transparent 55%),
+        radial-gradient(900px 500px at 100% 0%, rgba(26,163,255,.25), transparent 60%),
+        radial-gradient(900px 500px at 0% 10%, rgba(47,107,255,.20), transparent 60%),
+        linear-gradient(180deg, var(--bg2), var(--bg1));
+      overflow-x:hidden;
     }
-    a{ color:inherit; text-decoration:none; }
-    .wrap{ max-width:860px; margin:0 auto; padding:28px 18px 70px; }
-    .card{
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:var(--radius);
-      padding:18px;
-      box-shadow:var(--shadow);
+
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:28px 18px 44px;
     }
-    header{
-      display:flex; justify-content:space-between; align-items:center; gap:14px;
-      padding-bottom:18px; border-bottom:1px solid var(--line);
+
+    .top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:14px;
       flex-wrap:wrap;
-      margin-bottom:18px;
     }
-    .brand{ display:flex; gap:12px; align-items:center; }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
     .logo{
-      width:42px; height:42px; border-radius:14px;
-      background: linear-gradient(135deg, #79a7ff, #7cffc3);
-      box-shadow: var(--shadow);
+      width:38px;height:38px;border-radius:12px;
+      background: radial-gradient(circle at 30% 30%, rgba(26,163,255,.9), rgba(47,107,255,.2));
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow: 0 14px 40px rgba(0,0,0,.25);
+      display:grid;place-items:center;
+      font-weight:800;
+      letter-spacing:.5px;
     }
-    .pill{
-      font-size:12px; color:var(--muted);
-      border:1px solid rgba(255,255,255,.16);
-      padding:6px 10px; border-radius:999px;
-      display:inline-block;
-      margin-top:2px;
-    }
-    h1{ font-size:34px; margin:10px 0 8px; line-height:1.15; }
-    p.sub{ color:var(--muted); font-size:16px; margin:0 0 16px; }
+    .brand strong{ font-size:14px; letter-spacing:.2px; display:block; }
+    .brand span{ display:block; font-size:12px; color:var(--muted); margin-top:2px; }
 
     .btn{
-      padding:12px 16px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.2);
-      background: rgba(255,255,255,.05);
-      font-weight:600;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding:10px 14px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(11,25,50,.35);
+      color:var(--text);
+      text-decoration:none;
+      font-weight:650;
+      font-size:13px;
       cursor:pointer;
-      display:inline-flex; align-items:center; justify-content:center;
-      transition: transform .05s ease, background .15s ease, border-color .15s ease;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
+      white-space:nowrap;
     }
-    .btn:hover{ background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.28); }
-    .btn:active{ transform: translateY(1px); }
+    .btn:hover{ transform: translateY(-1px); background: rgba(11,25,50,.55); border-color: rgba(255,255,255,.22); }
     .btn.primary{
-      background: linear-gradient(135deg, rgba(121,167,255,.35), rgba(124,255,195,.22));
-      border-color: rgba(121,167,255,.6);
+      background: linear-gradient(90deg, var(--btn), var(--btn2));
+      border-color: rgba(255,255,255,.18);
+      box-shadow: 0 18px 60px rgba(26,163,255,.18);
+    }
+    .btn.primary:hover{ background: linear-gradient(90deg, #2a62f0, #1698f0); }
+    .btn[disabled]{ opacity:.6; cursor:not-allowed; transform:none !important; }
+
+    .hero{
+      text-align:left;
+      margin:8px 0 14px;
+    }
+    h1{
+      margin:10px 0 6px;
+      font-size:40px;
+      letter-spacing:-.6px;
+      line-height:1.05;
+      text-shadow: 0 18px 80px rgba(0,0,0,.35);
+    }
+    .sub{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.6;
+      max-width: 820px;
     }
 
-    .grid{ display:grid; gap:12px; }
-    .two{ grid-template-columns:1fr 1fr; }
-    @media (max-width:760px){ .two{ grid-template-columns:1fr; } }
+    .card{
+      border-radius:var(--radius);
+      background: linear-gradient(180deg, rgba(11,25,50,.78), rgba(11,25,50,.48));
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow);
+      padding:16px;
+      margin-top:14px;
+    }
 
-    label{ display:block; font-size:13px; color:var(--muted); margin:0 0 6px; }
-    .input{
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+      margin-top:10px;
+    }
+    @media (max-width: 820px){
+      .grid{ grid-template-columns:1fr; }
+      h1{ font-size:34px; }
+    }
+
+    label{
+      display:block;
+      font-size:12px;
+      color:rgba(185,198,230,.95);
+      margin:0 0 6px;
+    }
+    input, select, textarea{
       width:100%;
-      padding:12px 12px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.18);
-      background: rgba(0,0,0,.18);
+      border-radius: 12px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
       color: var(--text);
+      padding:10px 12px;
       outline:none;
+      font-size:14px;
+      transition: border-color .12s ease, background .12s ease;
     }
-    .input::placeholder{ color: rgba(184,192,255,.55); }
-    .input:focus{ border-color: rgba(121,167,255,.6); }
-    textarea.input{ resize: vertical; }
+    input:focus, select:focus, textarea:focus{
+      border-color: rgba(26,163,255,.55);
+      background: rgba(255,255,255,.06);
+    }
+    textarea{ min-height: 110px; resize: vertical; }
 
-    .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
-    .status{ margin-right:auto; font-size:13px; color:var(--muted); }
-    .ok{ color: rgba(124,255,195,.95); }
-    .bad{ color: #ff6b6b; }
+    .row{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin-top:12px;
+      justify-content:space-between;
+    }
 
-    .fine{ margin-top:10px; font-size:13px; color:var(--muted); }
+    .note{
+      color: rgba(185,198,230,.85);
+      font-size:12.5px;
+      line-height:1.5;
+    }
+
+    .alert{
+      margin-top:12px;
+      padding:12px 12px;
+      border-radius: 14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: rgba(234,241,255,.95);
+      font-size:13.5px;
+      line-height:1.55;
+      display:none;
+    }
+    .alert.ok{
+      border-color: rgba(50,213,131,.35);
+      background: rgba(50,213,131,.08);
+    }
+    .alert.err{
+      border-color: rgba(255,91,106,.35);
+      background: rgba(255,91,106,.08);
+    }
+
+    .small{
+      font-size:12px;
+      color: rgba(185,198,230,.75);
+      margin-top:10px;
+    }
+    .small a{ color: rgba(185,198,230,.85); text-decoration:none; }
+    .small a:hover{ text-decoration:underline; }
+
+    .required::after{
+      content:" *";
+      color: rgba(255,91,106,.95);
+      font-weight:700;
+    }
+
+    .pill{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(10,35,70,.35);
+      color: rgba(234,241,255,.9);
+      font-size:12px;
+      margin-top:10px;
+    }
+
+    code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      color: rgba(234,241,255,.92);
+      background: rgba(0,0,0,.25);
+      padding: 2px 6px;
+      border-radius: 8px;
+      border:1px solid rgba(255,255,255,.10);
+    }
   </style>
 </head>
+
 <body>
   <div class="wrap">
-    <header>
+    <div class="top">
       <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
+        <div class="logo">AA</div>
         <div>
-          <strong>Actual Assistance™</strong><br />
-          <span class="pill">Contractor Growth Tools</span>
+          <strong>Actual Assistant™</strong>
+          <span>AI-powered contractor technology platform</span>
         </div>
       </div>
-      <a class="btn" href="/">Back to Menu</a>
-    </header>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <a class="btn" href="/">← Back to products</a>
+        <a class="btn" href="mailto:support@actualassistance.com?subject=Actual%20Assistant%20Demo%20Question">Email support</a>
+      </div>
+    </div>
+
+    <div class="hero">
+      <h1>Book a Demo</h1>
+      <p class="sub">
+        Tell us where you operate and what CRM you use. We’ll confirm your service area, recommend the fastest setup, and show how Actual Assistant turns storm activity into measurable inbound leads.
+      </p>
+      <div class="pill">Response message: <strong>An Actual Assistant representative will be in contact with you shortly.</strong></div>
+    </div>
 
     <div class="card">
-      <h1>Request a Demo</h1>
-      <p class="sub">
-        Tell us a bit about your company and what you want to deploy first. We’ll follow up quickly.
-      </p>
-
-      <form id="demoForm" class="grid">
-        <div class="grid two">
+      <form id="demoForm">
+        <div class="grid">
           <div>
-            <label>Company name</label>
-            <input class="input" name="company" required placeholder="ABC Roofing LLC" />
+            <label class="required" for="company">Company</label>
+            <input id="company" name="company" placeholder="Example: ABC Roofing & Exteriors" autocomplete="organization" required />
           </div>
-          <div>
-            <label>Your name</label>
-            <input class="input" name="name" required placeholder="Jane Smith" />
-          </div>
-        </div>
 
-        <div class="grid two">
           <div>
-            <label>Email</label>
-            <input class="input" name="email" type="email" required placeholder="you@company.com" />
+            <label for="website">Website (optional)</label>
+            <input id="website" name="website" placeholder="https://yourcompany.com" autocomplete="url" />
           </div>
+
           <div>
-            <label>Phone</label>
-            <input class="input" name="phone" required placeholder="(555) 555-5555" />
+            <label class="required" for="name">Contact name</label>
+            <input id="name" name="name" placeholder="First + last name" autocomplete="name" required />
           </div>
-        </div>
 
-        <div>
-          <label>Company address</label>
-          <input class="input" name="address" placeholder="Street, City, State, ZIP" />
-        </div>
-
-        <div class="grid two">
           <div>
-            <label>Primary service</label>
-            <select class="input" name="service">
-              <option value="roofing">Roofing</option>
-              <option value="general_contractor">General Contractor</option>
-              <option value="remodeling">Remodeling</option>
-              <option value="other">Other</option>
+            <label class="required" for="email">Email</label>
+            <input id="email" name="email" placeholder="name@company.com" autocomplete="email" required />
+          </div>
+
+          <div>
+            <label class="required" for="phone">Phone</label>
+            <input id="phone" name="phone" placeholder="(###) ###-####" autocomplete="tel" required />
+          </div>
+
+          <div>
+            <label class="required" for="state">Primary state</label>
+            <select id="state" name="state" required>
+              <option value="" selected disabled>Select state</option>
+              <option>AL</option><option>AK</option><option>AZ</option><option>AR</option><option>CA</option><option>CO</option><option>CT</option><option>DE</option>
+              <option>FL</option><option>GA</option><option>HI</option><option>ID</option><option>IL</option><option>IN</option><option>IA</option><option>KS</option>
+              <option>KY</option><option>LA</option><option>ME</option><option>MD</option><option>MA</option><option>MI</option><option>MN</option><option>MS</option>
+              <option>MO</option><option>MT</option><option>NE</option><option>NV</option><option>NH</option><option>NJ</option><option>NM</option><option>NY</option>
+              <option>NC</option><option>ND</option><option>OH</option><option>OK</option><option>OR</option><option>PA</option><option>RI</option><option>SC</option>
+              <option>SD</option><option>TN</option><option>TX</option><option>UT</option><option>VT</option><option>VA</option><option>WA</option><option>WV</option>
+              <option>WI</option><option>WY</option>
             </select>
           </div>
+
           <div>
-            <label>CRM (if any)</label>
-            <input class="input" name="crm" placeholder="AccuLynx, Leap, JobNimbus, etc." />
+            <label class="required" for="crm">CRM</label>
+            <select id="crm" name="crm" required>
+              <option value="" selected disabled>Select CRM</option>
+              <option value="JobProgress">JobProgress</option>
+              <option value="Leap">Leap</option>
+              <option value="AccuLynx">AccuLynx</option>
+              <option value="Salesforce">Salesforce</option>
+              <option value="HubSpot">HubSpot</option>
+              <option value="Buildertrend">Buildertrend</option>
+              <option value="ServiceTitan">ServiceTitan</option>
+              <option value="Other">Other / Not sure</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="required" for="cities">Primary cities / markets</label>
+            <input id="cities" name="cities" placeholder="Example: Dallas, Fort Worth, Arlington" required />
+          </div>
+
+          <div>
+            <label for="challenge">Biggest challenge (optional)</label>
+            <input id="challenge" name="challenge" placeholder="Example: lead volume, follow-up, territory targeting..." />
           </div>
         </div>
 
-        <div class="grid two">
-          <div>
-            <label>What do you want first?</label>
-            <select class="input" name="startWith">
-              <option value="seo">SEO Visibility Overhaul</option>
-              <option value="estimator">Instant Roof Estimator</option>
-              <option value="storm_targeting">Storm Targeting Intelligence</option>
-              <option value="social_engine">Storm Social Engine</option>
-              <option value="full_system">Full System (Later)</option>
-            </select>
-          </div>
-          <div>
-            <label>Monthly lead volume (estimate)</label>
-            <select class="input" name="leadVolume">
-              <option value="under_25">Under 25</option>
-              <option value="25_100">25–100</option>
-              <option value="100_250">100–250</option>
-              <option value="250_plus">250+</option>
-            </select>
-          </div>
-        </div>
-
-        <div>
-          <label>Initial questions / goals</label>
-          <textarea class="input" name="questions" rows="6" placeholder="What are you trying to improve? Missed calls, storm speed, estimator usage, targeting, etc."></textarea>
+        <div style="margin-top:12px;">
+          <label for="notes">Anything else we should know? (optional)</label>
+          <textarea id="notes" name="notes" placeholder="Example: service area counties, # crews, preferred contact time, budget/timeline..."></textarea>
         </div>
 
         <div class="row">
-          <span id="status" class="status"></span>
-          <a class="btn" href="/">Cancel</a>
-          <button class="btn primary" type="submit">Send request</button>
+          <div class="note">
+            By submitting, you agree we may contact you about this request.
+            <br />
+            We do not sell your information.
+          </div>
+
+          <button id="submitBtn" class="btn primary" type="submit">
+            Submit demo request
+          </button>
         </div>
 
-        <div class="fine">
-          Or email us directly: <a href="mailto:support@actualassistance.com">support@actualassistance.com</a>
+        <div id="alertOk" class="alert ok"></div>
+        <div id="alertErr" class="alert err"></div>
+
+        <div class="small">
+          If the form doesn’t submit, you can email <a href="mailto:support@actualassistance.com?subject=Demo%20Request">support@actualassistance.com</a>.
         </div>
       </form>
     </div>
@@ -204,34 +353,120 @@
 
   <script>
     (function(){
-      const form = document.getElementById('demoForm');
-      const statusEl = document.getElementById('status');
+      const form = document.getElementById("demoForm");
+      const btn = document.getElementById("submitBtn");
+      const ok = document.getElementById("alertOk");
+      const err = document.getElementById("alertErr");
 
-      form.addEventListener('submit', async (e) => {
+      function show(el, html){
+        el.innerHTML = html;
+        el.style.display = "block";
+      }
+      function hide(el){ el.style.display = "none"; el.innerHTML = ""; }
+
+      function normalizePhone(input){
+        // Keep digits only, but don't block international; simple US formatting is enough for now
+        const digits = (input || "").replace(/\D/g, "");
+        return digits;
+      }
+
+      function isValidEmail(email){
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email || "");
+      }
+
+      async function postJSON(url, data){
+        const res = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+        const text = await res.text();
+        let json = null;
+        try { json = JSON.parse(text); } catch(e) {}
+        return { ok: res.ok, status: res.status, json, text };
+      }
+
+      form.addEventListener("submit", async (e) => {
         e.preventDefault();
-        statusEl.className = "status";
-        statusEl.textContent = "Sending…";
+        hide(ok); hide(err);
 
-        const data = Object.fromEntries(new FormData(form).entries());
+        const company = document.getElementById("company").value.trim();
+        const website = document.getElementById("website").value.trim();
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const phoneRaw = document.getElementById("phone").value.trim();
+        const state = document.getElementById("state").value.trim();
+        const crm = document.getElementById("crm").value.trim();
+        const cities = document.getElementById("cities").value.trim();
+        const challenge = document.getElementById("challenge").value.trim();
+        const notes = document.getElementById("notes").value.trim();
 
-        try {
-          const res = await fetch('/api/demo', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-          });
+        if(!company || !name || !email || !phoneRaw || !state || !crm || !cities){
+          show(err, "Please complete all required fields (marked with *).");
+          return;
+        }
+        if(!isValidEmail(email)){
+          show(err, "Please enter a valid email address.");
+          return;
+        }
 
-          if (!res.ok) {
-            const msg = await res.text();
-            throw new Error(msg || 'Request failed');
+        const phone = normalizePhone(phoneRaw);
+        if(phone.length < 10){
+          show(err, "Please enter a valid phone number (include area code).");
+          return;
+        }
+
+        // Payload is compatible with your current API (which expects at least: company, name, email, phone, state, crm, cities, challenge)
+        // We also send optional fields: website, notes
+        const payload = {
+          company,
+          name,
+          email,
+          phone,
+          state,
+          crm,
+          cities,
+          challenge: challenge || "",
+          website: website || "",
+          notes: notes || ""
+        };
+
+        btn.disabled = true;
+        btn.textContent = "Submitting...";
+
+        try{
+          const r = await postJSON("/api/demo", payload);
+
+          if(!r.ok){
+            const msg = (r.json && (r.json.error || r.json.message)) || ("Request failed (HTTP " + r.status + ").");
+            show(err, "We couldn’t submit your request. " + msg);
+            return;
           }
 
-          statusEl.textContent = "Sent! We’ll reach out shortly.";
-          statusEl.className = "status ok";
+          // Success UX: your requested B + C language
+          const ids = [];
+          if(r.json){
+            if(r.json.internal_id) ids.push("internal_id: <code>" + r.json.internal_id + "</code>");
+            if(r.json.customer_id) ids.push("customer_id: <code>" + r.json.customer_id + "</code>");
+            if(r.json.id) ids.push("id: <code>" + r.json.id + "</code>");
+          }
+
+          show(ok, `
+            <div style="font-weight:750; color: rgba(234,241,255,.98);">Request received.</div>
+            <div style="margin-top:6px;">
+              An Actual Assistant representative will be in contact with you shortly to confirm your service area, CRM, and the fastest path to results.
+            </div>
+            ${ids.length ? `<div style="margin-top:10px; color: rgba(185,198,230,.95);">Reference: ${ids.join(" • ")}</div>` : ""}
+          `);
+
+          // Optional: reset after success
           form.reset();
-        } catch (err) {
-          statusEl.textContent = "Error sending. Please email support@actualassistance.com";
-          statusEl.className = "status bad";
+
+        } catch(ex){
+          show(err, "We couldn’t submit your request due to a network error. Please try again in a moment.");
+        } finally {
+          btn.disabled = false;
+          btn.textContent = "Submit demo request";
         }
       });
     })();
