@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Activate Storm Response Demo | Actual Assistant™</title>
+  <meta name="description" content="See how storm-triggered marketing + ZIP targeting turns verified weather activity into booked jobs. Request a live demo of Actual Assistant™." />
+  <link rel="canonical" href="https://actualassistant-site.vercel.app/activate-storm-response" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Activate Storm Response Demo | Actual Assistant™" />
+  <meta property="og:description" content="Storm-triggered demand → targeted posts → estimator traffic → inbound leads. Request a live demo." />
+  <meta property="og:type" content="website" />
+
+  <!-- Basic styling (self-contained, no build needed) -->
+  <style>
+    :root{
+      --bg:#071427;
+      --card:rgba(255,255,255,.06);
+      --border:rgba(255,255,255,.12);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.72);
+      --btn:#2b7cff;
+      --btn2:#10b981;
+      --shadow:0 24px 80px rgba(0,0,0,.45);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 20% 10%, rgba(43,124,255,.28), transparent 60%),
+        radial-gradient(900px 600px at 70% 30%, rgba(16,185,129,.18), transparent 60%),
+        linear-gradient(180deg, #061224, #040b16 55%, #02060f);
+      min-height:100vh;
+    }
+    a{color:inherit}
+    .wrap{max-width:1080px;margin:0 auto;padding:28px 18px 64px}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px}
+    .brand{display:flex;flex-direction:column;line-height:1.1}
+    .brand strong{font-size:18px;letter-spacing:.2px}
+    .brand span{font-size:12px;color:var(--muted)}
+    .pillrow{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 4px}
+    .pill{
+      font-size:12px;color:var(--muted);
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--border);
+      padding:8px 10px;border-radius:999px;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero{
+      border:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border-radius:var(--radius);
+      padding:26px;
+      box-shadow:var(--shadow);
+    }
+    h1{margin:0 0 10px;font-size:42px;letter-spacing:-.6px}
+    .sub{margin:0 0 14px;color:var(--muted);font-size:15px;max-width:860px;line-height:1.5}
+    .grid{display:grid;grid-template-columns: 1.15fr .85fr;gap:18px;margin-top:18px}
+    @media (max-width: 980px){ .grid{grid-template-columns:1fr} h1{font-size:34px} }
+
+    .card{
+      border:1px solid var(--border);
+      background:var(--card);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow: 0 18px 50px rgba(0,0,0,.35);
+    }
+    .card h2{margin:0 0 10px;font-size:16px}
+    .list{margin:0;padding-left:18px;color:var(--muted);line-height:1.6}
+    .list li{margin:6px 0}
+
+    .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+    .btn{
+      appearance:none;border:0;cursor:pointer;
+      padding:12px 14px;border-radius:12px;
+      background:var(--btn);
+      color:white;font-weight:700;
+      text-decoration:none;
+      display:inline-flex;align-items:center;gap:10px;
+    }
+    .btn.secondary{background:rgba(255,255,255,.08);border:1px solid var(--border);color:var(--text)}
+    .btn.good{background:var(--btn2)}
+    .note{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5}
+
+    form{display:grid;gap:10px}
+    label{font-size:12px;color:var(--muted)}
+    input, select, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(0,0,0,.25);
+      color:var(--text);
+      outline:none;
+    }
+    textarea{min-height:92px;resize:vertical}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    @media (max-width: 640px){ .two{grid-template-columns:1fr} }
+    .small{font-size:12px;color:var(--muted);margin:0}
+    .footer{margin-top:22px;color:var(--muted);font-size:12px}
+    .success{
+      display:none;
+      border:1px solid rgba(16,185,129,.35);
+      background:rgba(16,185,129,.10);
+      padding:12px;border-radius:14px;
+      color:rgba(255,255,255,.90);
+      line-height:1.4;
+    }
+    .danger{
+      display:none;
+      border:1px solid rgba(255,99,99,.35);
+      background:rgba(255,99,99,.10);
+      padding:12px;border-radius:14px;
+      color:rgba(255,255,255,.90);
+      line-height:1.4;
+    }
+  </style>
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"SoftwareApplication",
+    "name":"Actual Assistant",
+    "applicationCategory":"BusinessApplication",
+    "operatingSystem":"Web",
+    "description":"A contractor growth system that turns verified storm activity into inbound leads and automates follow-up orchestration."
+  }
+  </script>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <strong>Actual Assistant™</strong>
+        <span>Storm Response Demo Activation</span>
+      </div>
+      <a class="btn secondary" href="/">← Back to menu</a>
+    </div>
+
+    <div class="hero">
+      <h1>Activate Storm Response Demo</h1>
+      <p class="sub">
+        This is an internal demo activation page used to show contractors how Actual Assistant turns
+        verified weather events into targeted marketing, estimator traffic, and inbound leads.
+        (Not for direct sale — demo-only.)
+      </p>
+
+      <div class="pillrow">
+        <div class="pill">⚡ Storm-triggered demand</div>
+        <div class="pill">📍 ZIP + routes targeting</div>
+        <div class="pill">📈 More leads, less manual work</div>
+        <div class="pill">🧠 Built for AI orchestration</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>What you’ll see in the demo</h2>
+          <ul class="list">
+            <li>How we detect qualifying storms and rank opportunity areas</li>
+            <li>How posts queue safely (caps, spacing, duplicates prevention)</li>
+            <li>How posts drive homeowners into the estimator to capture leads</li>
+            <li>How leads route into your workflow (CRM-agnostic approach)</li>
+          </ul>
+
+          <div class="actions">
+            <a class="btn" href="#demo-form">Request a Live Demo</a>
+            <a class="btn good" href="/storm/">View Storm SEO Pages</a>
+            <a class="btn secondary" href="/?utm=demo">Explore Products</a>
+          </div>
+
+          <div class="note">
+            Tip: For cold outreach, link contractors here: <strong>/activate-storm-response</strong>
+          </div>
+        </div>
+
+        <div class="card" id="demo-form">
+          <h2>Request a demo</h2>
+
+          <!-- IMPORTANT:
+               Replace ACTION_URL with your Zapier Catch Hook OR your own /api endpoint.
+               If you already have a Zapier hook used for estimator notifications, create a NEW zap for demos.
+          -->
+          <div id="ok" class="success">✅ Submitted. We’ll reach out shortly to schedule a demo.</div>
+          <div id="bad" class="danger">❌ Something went wrong. Please try again or email us.</div>
+
+          <form id="form">
+            <div class="two">
+              <div>
+                <label for="name">Your name *</label>
+                <input id="name" name="name" required />
+              </div>
+              <div>
+                <label for="company">Company name *</label>
+                <input id="company" name="company" required />
+              </div>
+            </div>
+
+            <div class="two">
+              <div>
+                <label for="email">Email *</label>
+                <input id="email" name="email" type="email" required />
+              </div>
+              <div>
+                <label for="phone">Phone *</label>
+                <input id="phone" name="phone" required />
+              </div>
+            </div>
+
+            <div class="two">
+              <div>
+                <label for="state">Primary service state *</label>
+                <input id="state" name="state" placeholder="TX" required />
+              </div>
+              <div>
+                <label for="crm">Current CRM *</label>
+                <select id="crm" name="crm" required>
+                  <option value="" selected disabled>Select…</option>
+                  <option>JobProgress</option>
+                  <option>JobNimbus</option>
+                  <option>AccuLynx</option>
+                  <option>HubSpot</option>
+                  <option>Salesforce</option>
+                  <option>GoHighLevel</option>
+                  <option>Other / None</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label for="cities">Primary service cities (comma-separated) *</label>
+              <input id="cities" name="cities" placeholder="Dallas, Plano, Garland" required />
+            </div>
+
+            <div>
+              <label for="challenge">Biggest lead challenge right now *</label>
+              <textarea id="challenge" name="challenge" required placeholder="Example: We get leads but they don’t answer. Or: We can’t keep up after storms."></textarea>
+            </div>
+
+            <button class="btn" type="submit">Submit Demo Request</button>
+
+            <p class="small">
+              By submitting, you agree we may contact you about the demo. No spam.
+            </p>
+          </form>
+
+          <div class="footer">
+            If you prefer: email us from your business address with the subject “Storm Response Demo”.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // === Configure this ===
+    // Put your Zapier catch hook here (create a NEW Zap for demo requests).
+    // Example: const ACTION_URL = "https://hooks.zapier.com/hooks/catch/123456/abcde/";
+    const ACTION_URL = "";
+
+    const form = document.getElementById("form");
+    const ok = document.getElementById("ok");
+    const bad = document.getElementById("bad");
+
+    function show(el){ el.style.display = "block"; }
+    function hide(el){ el.style.display = "none"; }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      hide(ok); hide(bad);
+
+      if (!ACTION_URL) {
+        show(bad);
+        bad.textContent = "❌ ACTION_URL not set yet. Add your Zapier webhook URL in activate-storm-response.html.";
+        return;
+      }
+
+      const data = Object.fromEntries(new FormData(form).entries());
+      data.source = "actualassistant_demo";
+      data.page = location.href;
+      data.ts = new Date().toISOString();
+
+      try {
+        await fetch(ACTION_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data)
+        });
+
+        form.reset();
+        show(ok);
+        // optional: track locally
+        console.log("Demo request submitted", data);
+      } catch (err) {
+        console.error(err);
+        show(bad);
+        bad.textContent = "❌ Submit failed. Please try again.";
+      }
+    });
+  </script>
+</body>
+</html>

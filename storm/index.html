@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Storm Response Pages | Actual Assistant™</title>
+  <meta name="description" content="Internal storm response SEO pages used for contractor outreach demos." />
+  <style>
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;background:#050b16;color:rgba(255,255,255,.9)}
+    .wrap{max-width:980px;margin:0 auto;padding:28px 18px}
+    a{color:#7bb3ff}
+    .card{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);padding:16px;border-radius:14px}
+    h1{margin:0 0 10px}
+    .muted{color:rgba(255,255,255,.7)}
+    code{background:rgba(255,255,255,.08);padding:2px 6px;border-radius:8px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a href="/">← Back to menu</a>
+    <h1>Storm SEO Pages (Internal)</h1>
+    <p class="muted">
+      These pages are generated per storm/city for outreach + demos.
+      Create a new one by running the generator script (see below).
+    </p>
+
+    <div class="card">
+      <h2>Generate a storm page</h2>
+      <p class="muted">
+        Run:
+        <br/>
+        <code>node scripts/make-storm-page.mjs --city "Dallas" --state "TX" --date "2026-03-03" --event "Severe Wind" --zips "75201,75202"</code>
+      </p>
+      <p class="muted">Then commit + push to deploy.</p>
+    </div>
+  </div>
+</body>
+</html>
