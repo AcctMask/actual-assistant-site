@@ -1,706 +1,625 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Actual Assistant™ Contractor Tech Platform</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Actual Assistant™ | AI-Powered Contractor Technology Platform</title>
+  <meta name="description" content="A contractor growth system that turns storm activity into inbound leads — then routes, tracks, and automates follow-up so nothing slips through the cracks." />
+  <meta name="robots" content="index,follow" />
+  <link rel="icon" href="/favicon.ico" />
 
   <style>
     :root{
-      --bg1:#0b1220;
-      --bg2:#0f1b33;
-      --card:rgba(255,255,255,.06);
-      --card2:rgba(255,255,255,.08);
-      --border:rgba(255,255,255,.10);
-      --text:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.72);
-      --muted2:rgba(255,255,255,.60);
-      --shadow:0 18px 50px rgba(0,0,0,.45);
-      --radius:18px;
-      --blue:#2563eb;
-      --cyan:#0ea5e9;
-      --focus:rgba(37,99,235,.45);
+      --bg1:#06142a;
+      --bg2:#0b2a56;
+      --card:#0b1932cc;
+      --card2:#0b193299;
+      --stroke:#2a3f66;
+      --text:#eaf1ff;
+      --muted:#b9c6e6;
+      --chip:#0a2346cc;
+      --btn:#2f6bff;
+      --btn2:#1aa3ff;
+      --shadow: 0 24px 80px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius2: 14px;
+      --max: 1120px;
     }
 
     *{ box-sizing:border-box; }
     html,body{ height:100%; }
     body{
       margin:0;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       color:var(--text);
-      background: radial-gradient(1200px 600px at 20% 10%, rgba(14,165,233,.20), transparent 55%),
-                  radial-gradient(900px 500px at 80% 20%, rgba(37,99,235,.22), transparent 55%),
-                  linear-gradient(135deg, var(--bg1), var(--bg2));
+      background:
+        radial-gradient(1200px 600px at 50% -50%, rgba(93,164,255,.45), transparent 55%),
+        radial-gradient(900px 500px at 100% 0%, rgba(26,163,255,.25), transparent 60%),
+        radial-gradient(900px 500px at 0% 10%, rgba(47,107,255,.20), transparent 60%),
+        linear-gradient(180deg, var(--bg2), var(--bg1));
+      overflow-x:hidden;
     }
-
-    a{ color:inherit; text-decoration:none; }
 
     .wrap{
-      max-width:1200px;
+      max-width:var(--max);
       margin:0 auto;
-      padding:32px 20px 26px;
-      min-height:100vh;
+      padding:32px 20px 44px;
+    }
+
+    /* Top bar */
+    .topbar{
       display:flex;
-      flex-direction:column;
-      gap:18px;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:18px;
     }
-
-    header{
-      text-align:center;
-      padding-top:8px;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width: 220px;
     }
-
-    .title{
-      font-size:44px;
-      letter-spacing:.5px;
-      margin:8px 0 4px;
+    .logo{
+      width:38px;height:38px;border-radius:12px;
+      background: radial-gradient(circle at 30% 30%, rgba(26,163,255,.9), rgba(47,107,255,.2));
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow: 0 14px 40px rgba(0,0,0,.25);
+      display:grid;place-items:center;
       font-weight:800;
+      letter-spacing:.5px;
     }
+    .brand strong{ font-size:14px; letter-spacing:.2px; }
+    .brand span{ display:block; font-size:12px; color:var(--muted); margin-top:2px; }
 
-    .sub{
-      margin:0 auto;
-      max-width:920px;
-      color:var(--muted);
-      line-height:1.35;
-      font-size:15px;
-    }
-
-    .benefits{
-      margin:12px auto 0;
-      max-width:920px;
-      color:var(--muted2);
-      font-size:14px;
+    .top-actions{
       display:flex;
+      gap:10px;
       flex-wrap:wrap;
-      justify-content:center;
-      gap:10px 18px;
+      justify-content:flex-end;
     }
-    .benefits span{
+    .btn{
       display:inline-flex;
       align-items:center;
+      justify-content:center;
       gap:8px;
-      padding:6px 10px;
-      border:1px solid var(--border);
-      border-radius:999px;
-      background:rgba(255,255,255,.03);
-    }
-
-    /* GRID: 2x2 so all four are visible without scrolling on typical laptop screens */
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0, 1fr));
-      gap:16px;
-      align-content:stretch;
-      flex:1;
-      min-height:0;
-    }
-
-    /* Card made clickable */
-    .card{
-      background:linear-gradient(180deg, var(--card), rgba(255,255,255,.04));
-      border:1px solid var(--border);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-      padding:16px 16px 14px;
-      position:relative;
-      overflow:hidden;
-      cursor:pointer;
-      min-height:260px; /* keeps them wide + shorter, helps avoid scrolling */
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      transition:transform .12s ease, background .12s ease, border-color .12s ease;
-    }
-
-    .card:hover{
-      transform:translateY(-2px);
-      background:linear-gradient(180deg, var(--card2), rgba(255,255,255,.05));
-      border-color:rgba(255,255,255,.16);
-    }
-
-    .card:focus-within{
-      outline:2px solid var(--focus);
-      outline-offset:2px;
-    }
-
-    .cardTop{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:10px;
-    }
-
-    .card h2{
-      margin:0;
-      font-size:18px;
-      line-height:1.2;
-      letter-spacing:.2px;
-    }
-
-    .tag{
-      font-size:12px;
-      color:rgba(255,255,255,.80);
-      padding:6px 10px;
-      border-radius:999px;
+      padding:10px 14px;
+      border-radius:12px;
       border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.04);
+      background: rgba(11,25,50,.35);
+      color:var(--text);
+      text-decoration:none;
+      font-weight:650;
+      font-size:13px;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease;
+      user-select:none;
       white-space:nowrap;
     }
+    .btn:hover{ transform: translateY(-1px); background: rgba(11,25,50,.55); border-color: rgba(255,255,255,.22); }
+    .btn.primary{
+      background: linear-gradient(90deg, var(--btn), var(--btn2));
+      border-color: rgba(255,255,255,.18);
+      box-shadow: 0 18px 60px rgba(26,163,255,.18);
+    }
+    .btn.primary:hover{ background: linear-gradient(90deg, #2a62f0, #1698f0); }
 
-    .prices{
-      display:flex;
-      flex-direction:column;
-      gap:2px;
-      margin-top:2px;
+    /* Hero */
+    .hero{
+      text-align:center;
+      padding:10px 0 18px;
     }
-    .priceLine{
-      font-size:20px;
-      font-weight:800;
-      letter-spacing:.2px;
+    h1{
+      margin:8px 0 6px;
+      font-size:52px;
+      line-height:1.05;
+      letter-spacing:-.8px;
+      text-shadow: 0 18px 80px rgba(0,0,0,.35);
     }
-    .priceLine small{
-      font-weight:600;
-      font-size:14px;
+    .sub{
+      margin:0 auto;
+      max-width:860px;
       color:var(--muted);
-      margin-left:6px;
+      font-size:14.5px;
+      line-height:1.55;
     }
 
-    .desc{
-      margin:4px 0 0;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.35;
-    }
-
-    .bullets{
-      margin:6px 0 0;
-      padding-left:18px;
-      color:rgba(255,255,255,.82);
-      font-size:13px;
-      line-height:1.28;
-      display:grid;
-      gap:4px;
-    }
-
-    .ctaRow{
-      margin-top:auto;
+    .chips{
       display:flex;
       gap:10px;
+      justify-content:center;
       flex-wrap:wrap;
-      align-items:center;
+      margin:16px 0 18px;
     }
-
-    .btn{
-      appearance:none;
-      border:none;
-      background:var(--blue);
-      color:white;
-      padding:10px 14px;
-      border-radius:10px;
-      font-size:13px;
-      font-weight:700;
-      cursor:pointer;
-      transition:opacity .12s ease, transform .12s ease;
+    .chip{
       display:inline-flex;
       align-items:center;
-      justify-content:center;
-      min-width:160px;
-    }
-    .btn:hover{ opacity:.92; transform:translateY(-1px); }
-    .btn.secondary{ background:var(--cyan); }
-    .btn:focus{ outline:2px solid var(--focus); outline-offset:2px; }
-
-    .hint{
-      margin-left:auto;
-      color:rgba(255,255,255,.55);
-      font-size:12px;
-      display:flex;
-      align-items:center;
       gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(10,35,70,.38);
+      color:rgba(234,241,255,.92);
+      font-size:12.5px;
+      box-shadow: 0 12px 44px rgba(0,0,0,.22);
       user-select:none;
     }
 
-    footer{
-      text-align:center;
-      color:rgba(255,255,255,.50);
-      font-size:12px;
-      padding:6px 0 0;
+    /* Grid cards */
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+      margin-top:8px;
+    }
+    @media (max-width: 880px){
+      h1{ font-size:42px; }
+    }
+    @media (max-width: 780px){
+      .grid{ grid-template-columns: 1fr; }
+      .topbar{ align-items:flex-start; }
+      .brand{ min-width: unset; }
+      h1{ font-size:38px; }
     }
 
-    /* MODAL */
-    .modalOverlay{
+    .card{
+      position:relative;
+      border-radius:var(--radius);
+      background: linear-gradient(180deg, rgba(11,25,50,.78), rgba(11,25,50,.48));
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow);
+      padding:18px 18px 16px;
+      overflow:hidden;
+      cursor:pointer;
+      transition: transform .12s ease, border-color .12s ease, background .12s ease;
+      min-height: 220px;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,.18);
+      background: linear-gradient(180deg, rgba(11,25,50,.86), rgba(11,25,50,.56));
+    }
+    .tag{
+      position:absolute;
+      top:14px; right:14px;
+      padding:6px 10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      font-size:12px;
+      color:rgba(234,241,255,.9);
+    }
+    .card h3{
+      margin:0 0 8px;
+      font-size:20px;
+      letter-spacing:-.3px;
+    }
+    .price{
+      display:flex;
+      gap:14px;
+      flex-wrap:wrap;
+      margin:0 0 10px;
+      color:rgba(234,241,255,.95);
+      font-weight:750;
+      font-size:20px;
+    }
+    .price small{
+      font-weight:650;
+      font-size:13px;
+      color:rgba(185,198,230,.95);
+      margin-left:6px;
+    }
+    .desc{
+      color:rgba(185,198,230,.95);
+      font-size:13.5px;
+      line-height:1.55;
+      margin:0 0 10px;
+      max-width: 520px;
+    }
+    ul{
+      margin:0 0 14px;
+      padding-left:18px;
+      color:rgba(234,241,255,.92);
+      font-size:13px;
+      line-height:1.55;
+    }
+    li{ margin:3px 0; color:rgba(185,198,230,.98); }
+
+    .card-footer{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-top:auto;
+    }
+    .hint{
+      color:rgba(185,198,230,.75);
+      font-size:12px;
+    }
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+
+    /* CTA block */
+    .cta{
+      margin-top:16px;
+      border-radius:var(--radius);
+      border:1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(11,25,50,.72), rgba(11,25,50,.42));
+      box-shadow: var(--shadow);
+      padding:16px 18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .cta h4{ margin:0; font-size:16px; letter-spacing:-.2px; }
+    .cta p{ margin:4px 0 0; color:rgba(185,198,230,.95); font-size:13px; line-height:1.5; max-width: 700px; }
+    .cta-actions{ display:flex; gap:10px; flex-wrap:wrap; }
+
+    /* Modal */
+    .modal-backdrop{
       position:fixed;
       inset:0;
-      background:rgba(0,0,0,.62);
+      background: rgba(0,0,0,.55);
       display:none;
       align-items:center;
       justify-content:center;
-      padding:18px;
+      padding:20px;
       z-index:9999;
     }
-    .modalOverlay.open{ display:flex; }
-
     .modal{
-      width:min(880px, 100%);
-      background:linear-gradient(180deg, rgba(18,28,51,.96), rgba(12,18,32,.96));
+      width:min(860px, 100%);
+      border-radius:20px;
+      background: rgba(7,16,33,.92);
       border:1px solid rgba(255,255,255,.14);
-      border-radius:18px;
-      box-shadow:0 24px 80px rgba(0,0,0,.65);
+      box-shadow: 0 28px 120px rgba(0,0,0,.55);
       overflow:hidden;
     }
-
-    .modalHeader{
-      padding:16px 18px;
+    .modal-header{
       display:flex;
       align-items:flex-start;
       justify-content:space-between;
       gap:12px;
+      padding:16px 16px 12px;
       border-bottom:1px solid rgba(255,255,255,.10);
     }
-    .modalHeader h3{
+    .modal-title{
       margin:0;
       font-size:18px;
-      line-height:1.2;
+      letter-spacing:-.2px;
     }
-    .modalHeader p{
-      margin:6px 0 0;
-      color:rgba(255,255,255,.72);
-      font-size:13px;
-      line-height:1.35;
-      max-width:650px;
-    }
-    .closeBtn{
-      border:none;
-      background:rgba(255,255,255,.08);
-      color:rgba(255,255,255,.90);
-      border:1px solid rgba(255,255,255,.14);
-      padding:10px 12px;
-      border-radius:10px;
+    .modal-close{
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      color:var(--text);
+      border-radius:12px;
+      padding:8px 10px;
       cursor:pointer;
-      font-weight:800;
+      font-weight:700;
     }
-    .closeBtn:hover{ background:rgba(255,255,255,.10); }
-
-    .modalBody{
-      padding:16px 18px 18px;
+    .modal-body{
+      padding:14px 16px 16px;
+      color:rgba(185,198,230,.98);
+      font-size:13.5px;
+      line-height:1.6;
+    }
+    .modal-grid{
       display:grid;
-      grid-template-columns: 1.3fr .9fr;
+      grid-template-columns: 1fr 1fr;
       gap:14px;
+      margin-top:10px;
     }
-
-    .modalBlock{
-      background:rgba(255,255,255,.05);
+    @media (max-width: 780px){
+      .modal-grid{ grid-template-columns:1fr; }
+    }
+    .modal-box{
+      border-radius:16px;
+      background: rgba(255,255,255,.04);
       border:1px solid rgba(255,255,255,.10);
-      border-radius:14px;
-      padding:14px;
+      padding:12px 12px;
     }
-
-    .modalBlock h4{
-      margin:0 0 10px;
+    .modal-box h5{
+      margin:0 0 6px;
+      color:rgba(234,241,255,.95);
       font-size:13px;
-      letter-spacing:.5px;
-      text-transform:uppercase;
-      color:rgba(255,255,255,.75);
+      letter-spacing:-.1px;
     }
+    .modal-box p{ margin:0; }
 
-    .modalList{
-      margin:0;
-      padding-left:18px;
-      color:rgba(255,255,255,.85);
-      font-size:13px;
-      line-height:1.35;
-      display:grid;
-      gap:6px;
-    }
-
-    .modalPrices{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      margin:0;
-      color:rgba(255,255,255,.92);
-      font-weight:800;
-      font-size:16px;
-    }
-    .modalPrices span{
-      color:rgba(255,255,255,.70);
-      font-weight:600;
-      font-size:13px;
-      margin-left:6px;
-    }
-
-    .modalCtas{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:10px;
-    }
-
-    .note{
-      margin-top:10px;
-      color:rgba(255,255,255,.58);
+    footer{
+      margin-top:18px;
+      text-align:center;
+      color:rgba(185,198,230,.65);
       font-size:12px;
-      line-height:1.35;
     }
-
-    /* Responsive */
-    @media (max-width: 980px){
-      .grid{ grid-template-columns:1fr; }
-      .card{ min-height:unset; }
-      .modalBody{ grid-template-columns:1fr; }
-      .hint{ margin-left:0; }
-    }
-
-    @media (max-height: 760px) and (min-width: 981px){
-      /* tighter vertical when screen height is short */
-      .wrap{ padding-top:20px; }
-      .title{ font-size:40px; }
-      .card{ min-height:240px; }
-    }
-
+    footer a{ color:rgba(185,198,230,.85); text-decoration:none; }
+    footer a:hover{ text-decoration:underline; }
   </style>
 </head>
 
 <body>
   <div class="wrap">
-    <header>
-      <div class="title">Actual Assistant™</div>
-      <div class="sub">
+    <div class="topbar">
+      <div class="brand" aria-label="Actual Assistant">
+        <div class="logo">AA</div>
+        <div>
+          <strong>Actual Assistant™</strong>
+          <span>AI-powered contractor technology platform</span>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <a class="btn" href="mailto:support@actualassistance.com?subject=Actual%20Assistant%20Question">Email Support</a>
+        <a class="btn primary" href="/demo.html">Book a Demo</a>
+      </div>
+    </div>
+
+    <div class="hero">
+      <h1>Actual Assistant™</h1>
+      <p class="sub">
         A contractor growth system that turns storm activity into inbound leads — then routes, tracks, and automates follow-up so nothing slips through the cracks.
+      </p>
+
+      <div class="chips" aria-label="Key benefits">
+        <span class="chip">⚡ Storm-triggered demand</span>
+        <span class="chip">📍 Targeted by ZIP + routes</span>
+        <span class="chip">📈 More leads, less manual work</span>
+        <span class="chip">🧠 Built for AI orchestration</span>
       </div>
+    </div>
 
-      <div class="benefits">
-        <span>⚡ Storm-triggered demand</span>
-        <span>📍 Targeted by ZIP + routes</span>
-        <span>📈 More leads, less manual work</span>
-        <span>🧠 Built for AI orchestration</span>
-      </div>
-    </header>
-
-    <div class="grid">
-
+    <div class="grid" aria-label="Products">
       <!-- 1) SEO -->
-      <div class="card" role="button" tabindex="0"
-           data-title="SEO Visibility Overhaul (Annual)"
-           data-subtitle="Contractor-focused SEO overhaul to improve search visibility and conversion."
-           data-price1="$5,000"
-           data-price1label="one-time annual"
-           data-price2=""
-           data-price2label=""
-           data-why="Your website should show up when homeowners search after storms — and convert them into estimate requests."
-           data-points='["Technical + on-page SEO cleanup","Contractor keyword + city targeting","Conversion-first improvements","No monthly retainer","Clear before/after checklist + rollout"]'
-           data-setup-link="https://buy.stripe.com/fZu14m5ih3Ek9XL1Ld2Ry00"
-           data-setup-label="Buy SEO Overhaul">
-
-        <div class="cardTop">
-          <h2>SEO Visibility Overhaul (Annual)</h2>
-          <div class="tag">Visibility</div>
-        </div>
-
-        <div class="prices">
-          <div class="priceLine">$5,000 <small>one-time annual</small></div>
-        </div>
-
+      <section class="card" data-product="seo">
+        <span class="tag">Visibility</span>
+        <h3>SEO Visibility Overhaul (Annual)</h3>
+        <div class="price">$5,000 <small>one-time annual</small></div>
         <p class="desc">Contractor-focused SEO overhaul for Google, DuckDuckGo, and AI search visibility.</p>
-
-        <ul class="bullets">
+        <ul>
           <li>Structural SEO fixes + visibility upgrades</li>
           <li>Conversion-first improvements</li>
           <li>No monthly retainer</li>
         </ul>
-
-        <div class="ctaRow">
-          <a href="https://buy.stripe.com/fZu14m5ih3Ek9XL1Ld2Ry00" class="btnLink" onclick="event.stopPropagation();" target="_blank" rel="noopener noreferrer">
-            <button class="btn" type="button">Buy SEO Overhaul</button>
-          </a>
-          <div class="hint">Click card for details →</div>
+        <div class="card-footer">
+          <span class="hint">Click card for details →</span>
+          <div class="actions" onclick="event.stopPropagation();">
+            <a class="btn primary" href="https://buy.stripe.com/fZu14m5ih3Ek9XL1Ld2Ry00" target="_blank" rel="noopener">Buy SEO Overhaul</a>
+          </div>
         </div>
-      </div>
+      </section>
 
       <!-- 2) Estimator -->
-      <div class="card" role="button" tabindex="0"
-           data-title="Instant Roof Estimator"
-           data-subtitle="A branded estimator that qualifies leads before you roll a truck."
-           data-price1="$2,500"
-           data-price1label="setup"
-           data-price2="$500"
-           data-price2label="/mo platform"
-           data-why="Qualify leads instantly, capture full contact info, and route requests to your team without back-and-forth."
-           data-points='["Website install + branding","Lead routing configured","Higher close rate, less wasted time","Great for storm traffic campaigns","Pairs with Risk Assessment + CRM triggers"]'
-           data-setup-link="https://buy.stripe.com/7sY9AS4ed7UA0nb89B2Ry01"
-           data-setup-label="Buy Setup ($2,500)"
-           data-monthly-link="https://buy.stripe.com/fZufZg5ih4Ioee189B2Ry02"
-           data-monthly-label="Start Monthly ($500/mo)">
-
-        <div class="cardTop">
-          <h2>Instant Roof Estimator</h2>
-          <div class="tag">Leads</div>
-        </div>
-
-        <div class="prices">
-          <div class="priceLine">$2,500 <small>setup</small></div>
-        </div>
-
+      <section class="card" data-product="estimator">
+        <span class="tag">Leads</span>
+        <h3>Instant Roof Estimator</h3>
+        <div class="price">$2,500 <small>setup</small></div>
         <p class="desc">Install a branded estimator that qualifies leads before you roll a truck.</p>
-
-        <ul class="bullets">
+        <ul>
           <li>Website install + branding</li>
           <li>Lead routing configured</li>
           <li>Higher close rate, less wasted time</li>
         </ul>
-
-        <div class="ctaRow">
-          <a href="https://buy.stripe.com/7sY9AS4ed7UA0nb89B2Ry01" onclick="event.stopPropagation();" target="_blank" rel="noopener noreferrer">
-            <button class="btn" type="button">Buy Setup ($2,500)</button>
-          </a>
-          <a href="https://buy.stripe.com/fZufZg5ih4Ioee189B2Ry02" onclick="event.stopPropagation();" target="_blank" rel="noopener noreferrer">
-            <button class="btn secondary" type="button">Start Monthly ($500/mo)</button>
-          </a>
+        <div class="card-footer">
+          <span class="hint">Click card for details →</span>
+          <div class="actions" onclick="event.stopPropagation();">
+            <a class="btn primary" href="https://buy.stripe.com/7sY9AS4ed7UA0nb89B2Ry01" target="_blank" rel="noopener">Buy Setup ($2,500)</a>
+            <a class="btn primary" href="https://buy.stripe.com/fZufZg5ih4Ioee189B2Ry02" target="_blank" rel="noopener">Start Monthly ($500/mo)</a>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <!-- 3) Storm Targeting Intelligence (Weather Lead Generator) -->
-      <div class="card" role="button" tabindex="0"
-           data-title="Storm Targeting Intelligence"
-           data-subtitle="NOAA-verified storm detection + ZIP ranking + USPS carrier routes."
-           data-price1="$5,000"
-           data-price1label="setup"
-           data-price2="$800"
-           data-price2label="/mo monitoring"
-           data-why="Know where the damage likely is — before your competitors — and market with precision instead of guessing."
-           data-points='["ZIP-level targeting ranked by severity","Carrier routes list + delivery counts","Downloadable CSVs for mail, ads, canvassing","CRM upload-ready exports","Seasonal pause supported"]'
-           data-setup-link="https://buy.stripe.com/fZuaEWaCBb6M3znblN2Ry04"
-           data-setup-label="Buy Setup ($5,000)"
-           data-monthly-link="https://buy.stripe.com/bJeaEW8ut4Iob1PdtV2Ry03"
-           data-monthly-label="Start Monitoring ($800/mo)">
-
-        <div class="cardTop">
-          <h2>Storm Targeting Intelligence</h2>
-          <div class="tag">Targeting</div>
-        </div>
-
-        <div class="prices">
-          <div class="priceLine">$5,000 <small>setup</small></div>
-          <div class="priceLine">$800 <small>/mo monitoring</small></div>
-        </div>
-
+      <!-- 3) Storm Targeting -->
+      <section class="card" data-product="targeting">
+        <span class="tag">Targeting</span>
+        <h3>Storm Targeting Intelligence</h3>
+        <div class="price">$5,000 <small>setup</small> <span style="opacity:.9">$800 <small>/mo monitoring</small></span></div>
         <p class="desc">NOAA-verified storm detection + ZIP ranking + USPS carrier routes.</p>
-
-        <ul class="bullets">
+        <ul>
           <li>ZIP-level targeting ranked by severity</li>
           <li>Carrier routes list + delivery counts</li>
           <li>Downloadable CSVs + CRM uploads supported</li>
         </ul>
-
-        <div class="ctaRow">
-          <a href="https://buy.stripe.com/fZuaEWaCBb6M3znblN2Ry04" onclick="event.stopPropagation();" target="_blank" rel="noopener noreferrer">
-            <button class="btn" type="button">Buy Setup ($5,000)</button>
-          </a>
-          <a href="https://buy.stripe.com/bJeaEW8ut4Iob1PdtV2Ry03" onclick="event.stopPropagation();" target="_blank" rel="noopener noreferrer">
-            <button class="btn secondary" type="button">Start Monitoring ($800/mo)</button>
-          </a>
+        <div class="card-footer">
+          <span class="hint">Click card for details →</span>
+          <div class="actions" onclick="event.stopPropagation();">
+            <a class="btn primary" href="https://buy.stripe.com/fZuaEWaCBb6M3znblN2Ry04" target="_blank" rel="noopener">Buy Setup ($5,000)</a>
+            <a class="btn primary" href="https://buy.stripe.com/bJeaEW8ut4Iob1PdtV2Ry03" target="_blank" rel="noopener">Start Monitoring ($800/mo)</a>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <!-- 4) Automated Storm Marketing Engine -->
-      <div class="card" role="button" tabindex="0"
-           data-title="Automated Storm Marketing Engine"
-           data-subtitle="Automatically publishes targeted posts after verified storm events in your service area."
-           data-price1="$2,500"
-           data-price1label="setup"
-           data-price2="$500"
-           data-price2label="/mo autoposting"
-           data-why="Storm hits → posts go live → homeowners click → leads enter your funnel — automatically."
-           data-points='["Storm-triggered marketing posts","Facebook + Google Business publishing","Built-in anti-spam safeguards","Minimum time between posts","Daily post limits + duplicate prevention","Drives traffic to your estimator + risk assessment"]'
-           data-setup-link="https://buy.stripe.com/3cI00ih0Z2Agfi59dF2Ry05"
-           data-setup-label="Buy Setup ($2,500)"
-           data-monthly-link="https://buy.stripe.com/6oUfZg121gr60nbahJ2Ry06"
-           data-monthly-label="Start Monthly ($500/mo)">
-
-        <div class="cardTop">
-          <h2>Automated Storm Marketing Engine</h2>
-          <div class="tag">Autopost</div>
-        </div>
-
-        <div class="prices">
-          <div class="priceLine">$2,500 <small>setup</small></div>
-          <div class="priceLine">$500 <small>/mo autoposting</small></div>
-        </div>
-
+      <!-- 4) Autoposting -->
+      <section class="card" data-product="autopost">
+        <span class="tag">Autopost</span>
+        <h3>Automated Storm Marketing Engine</h3>
+        <div class="price">$2,500 <small>setup</small> <span style="opacity:.9">$500 <small>/mo autoposting</small></span></div>
         <p class="desc">Automatically publishes targeted posts to Facebook and Google Business after storm events.</p>
-
-        <ul class="bullets">
+        <ul>
           <li>Storm-triggered marketing + local messaging</li>
           <li>Anti-spam guards (caps, spacing, duplicates)</li>
           <li>Drives traffic back to your estimator</li>
         </ul>
-
-        <div class="ctaRow">
-          <a href="https://buy.stripe.com/3cI00ih0Z2Agfi59dF2Ry05" onclick="event.stopPropagation();" target="_blank" rel="noopener noreferrer">
-            <button class="btn" type="button">Buy Setup ($2,500)</button>
-          </a>
-          <a href="https://buy.stripe.com/6oUfZg121gr60nbahJ2Ry06" onclick="event.stopPropagation();" target="_blank" rel="noopener noreferrer">
-            <button class="btn secondary" type="button">Start Monthly ($500/mo)</button>
-          </a>
+        <div class="card-footer">
+          <span class="hint">Click card for details →</span>
+          <div class="actions" onclick="event.stopPropagation();">
+            <a class="btn primary" href="https://buy.stripe.com/3cI00ih0Z2Agfi59dF2Ry05" target="_blank" rel="noopener">Buy Setup ($2,500)</a>
+            <a class="btn primary" href="https://buy.stripe.com/6oUfZg121gr60nbahJ2Ry06" target="_blank" rel="noopener">Start Monthly ($500/mo)</a>
+          </div>
         </div>
-      </div>
-
+      </section>
     </div>
 
-    <footer>Actual Assistant™ Contractor Tech Platform</footer>
+    <div class="cta" aria-label="Book demo CTA">
+      <div>
+        <h4>Not sure which package fits your market?</h4>
+        <p>
+          Book a quick demo and we’ll confirm your service area, CRM, and the fastest path to getting measurable inbound lead volume — without hiring a marketing agency.
+        </p>
+      </div>
+      <div class="cta-actions">
+        <a class="btn" href="mailto:support@actualassistance.com?subject=Actual%20Assistant%20Demo%20Question">Ask a question</a>
+        <a class="btn primary" href="/demo.html">Book a Demo</a>
+      </div>
+    </div>
+
+    <footer>
+      © <span id="year"></span> Actual Assistance™ • <a href="mailto:support@actualassistance.com">support@actualassistance.com</a>
+    </footer>
   </div>
 
   <!-- Modal -->
-  <div class="modalOverlay" id="modalOverlay" aria-hidden="true">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <div class="modalHeader">
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-label="Product details">
+    <div class="modal">
+      <div class="modal-header">
         <div>
-          <h3 id="modalTitle"></h3>
-          <p id="modalSubtitle"></p>
+          <h3 class="modal-title" id="modalTitle">Product Details</h3>
+          <div style="color:rgba(185,198,230,.85);font-size:12.5px;margin-top:2px;" id="modalSubtitle"></div>
         </div>
-        <button class="closeBtn" id="closeModalBtn" type="button" aria-label="Close">✕</button>
+        <button class="modal-close" id="modalClose" type="button">Close</button>
       </div>
-
-      <div class="modalBody">
-        <div class="modalBlock">
-          <h4>What it does</h4>
-          <ul class="modalList" id="modalPoints"></ul>
-        </div>
-
-        <div class="modalBlock">
-          <h4>Pricing</h4>
-          <div class="modalPrices" id="modalPrices"></div>
-
-          <div class="modalCtas" id="modalCtas"></div>
-
-          <div class="note">
-            Tip: The full card is clickable so contractors can quickly understand each tool before purchasing.
-          </div>
-        </div>
-      </div>
+      <div class="modal-body" id="modalBody"></div>
     </div>
   </div>
 
   <script>
     (function(){
-      const overlay = document.getElementById('modalOverlay');
-      const closeBtn = document.getElementById('closeModalBtn');
-      const titleEl = document.getElementById('modalTitle');
-      const subEl = document.getElementById('modalSubtitle');
-      const pointsEl = document.getElementById('modalPoints');
-      const pricesEl = document.getElementById('modalPrices');
-      const ctasEl = document.getElementById('modalCtas');
+      document.getElementById("year").textContent = new Date().getFullYear();
 
-      const openModal = (card) => {
-        const title = card.getAttribute('data-title') || '';
-        const subtitle = card.getAttribute('data-subtitle') || '';
-        const pointsJson = card.getAttribute('data-points') || '[]';
-
-        const price1 = card.getAttribute('data-price1') || '';
-        const price1label = card.getAttribute('data-price1label') || '';
-        const price2 = card.getAttribute('data-price2') || '';
-        const price2label = card.getAttribute('data-price2label') || '';
-
-        const setupLink = card.getAttribute('data-setup-link') || '';
-        const setupLabel = card.getAttribute('data-setup-label') || 'Buy Setup';
-        const monthlyLink = card.getAttribute('data-monthly-link') || '';
-        const monthlyLabel = card.getAttribute('data-monthly-label') || 'Start Monthly';
-
-        titleEl.textContent = title;
-        subEl.textContent = subtitle;
-
-        // points
-        pointsEl.innerHTML = '';
-        let points = [];
-        try { points = JSON.parse(pointsJson); } catch(e) { points = []; }
-        points.forEach(p => {
-          const li = document.createElement('li');
-          li.textContent = p;
-          pointsEl.appendChild(li);
-        });
-
-        // prices
-        pricesEl.innerHTML = '';
-        if (price1) {
-          const div1 = document.createElement('div');
-          div1.textContent = price1;
-          if (price1label) {
-            const s1 = document.createElement('span');
-            s1.textContent = ' ' + price1label;
-            div1.appendChild(s1);
-          }
-          pricesEl.appendChild(div1);
+      const products = {
+        seo: {
+          title: "SEO Visibility Overhaul (Annual)",
+          subtitle: "One-time annual engagement • Designed for contractor lead capture",
+          html: `
+            <p><strong>What it does:</strong> Rebuilds your site’s SEO foundation and conversion structure so you show up more often on Google, DuckDuckGo, and AI search experiences (Chat-style search results).</p>
+            <div class="modal-grid">
+              <div class="modal-box">
+                <h5>Included</h5>
+                <p>Technical audit, on-page improvements, structured content upgrades, conversion-first layout tweaks, and tracking setup recommendations.</p>
+              </div>
+              <div class="modal-box">
+                <h5>Best for</h5>
+                <p>Contractors who want durable inbound demand year-round (not dependent on storms).</p>
+              </div>
+              <div class="modal-box">
+                <h5>Outcome</h5>
+                <p>Improved rankings + higher lead conversion rate from existing traffic.</p>
+              </div>
+              <div class="modal-box">
+                <h5>Notes</h5>
+                <p>No monthly retainer required. We focus on foundational wins that continue paying off.</p>
+              </div>
+            </div>
+          `
+        },
+        estimator: {
+          title: "Instant Roof Estimator",
+          subtitle: "Setup + optional monthly platform access",
+          html: `
+            <p><strong>What it does:</strong> Adds a branded roof estimate experience to your website that qualifies leads and routes the right information to your team.</p>
+            <div class="modal-grid">
+              <div class="modal-box">
+                <h5>Included</h5>
+                <p>Install + branding, form routing, lead capture fields, and best-practice conversion layout.</p>
+              </div>
+              <div class="modal-box">
+                <h5>Best for</h5>
+                <p>Teams who want more qualified inquiries and fewer low-intent calls.</p>
+              </div>
+              <div class="modal-box">
+                <h5>Outcome</h5>
+                <p>Higher close rate and fewer wasted site visits.</p>
+              </div>
+              <div class="modal-box">
+                <h5>Optional</h5>
+                <p>Monthly platform support to keep it running and improve performance over time.</p>
+              </div>
+            </div>
+          `
+        },
+        targeting: {
+          title: "Storm Targeting Intelligence",
+          subtitle: "Setup + monthly monitoring",
+          html: `
+            <p><strong>What it does:</strong> Converts verified NOAA storm activity into ranked ZIP targets and USPS carrier route lists so you know where demand is most likely.</p>
+            <div class="modal-grid">
+              <div class="modal-box">
+                <h5>Included</h5>
+                <p>Storm detection thresholds, ZIP ranking, carrier route exports, and downloadable CSVs ready for mail/canvassing/CRM upload.</p>
+              </div>
+              <div class="modal-box">
+                <h5>Best for</h5>
+                <p>Contractors who want repeatable territory targeting without guessing.</p>
+              </div>
+              <div class="modal-box">
+                <h5>Outcome</h5>
+                <p>Higher ROI on outreach by focusing only on the most likely impact zones.</p>
+              </div>
+              <div class="modal-box">
+                <h5>Notes</h5>
+                <p>Monitoring keeps targets current as storms happen over time.</p>
+              </div>
+            </div>
+          `
+        },
+        autopost: {
+          title: "Automated Storm Marketing Engine",
+          subtitle: "Setup + monthly autoposting",
+          html: `
+            <p><strong>What it does:</strong> Automatically publishes storm-triggered posts to Facebook and Google Business while applying safeguards (spacing, caps, duplicate prevention).</p>
+            <div class="modal-grid">
+              <div class="modal-box">
+                <h5>Included</h5>
+                <p>Storm-trigger automation, post queueing, platform-safe posting rules, and links back to your estimator.</p>
+              </div>
+              <div class="modal-box">
+                <h5>Best for</h5>
+                <p>Teams who want consistent visibility without paying a marketing agency.</p>
+              </div>
+              <div class="modal-box">
+                <h5>Outcome</h5>
+                <p>Fast visibility after storms + steady inbound traffic without manual work.</p>
+              </div>
+              <div class="modal-box">
+                <h5>Notes</h5>
+                <p>Posting safeguards reduce risk of over-posting or repetitive content patterns.</p>
+              </div>
+            </div>
+          `
         }
-        if (price2) {
-          const div2 = document.createElement('div');
-          div2.textContent = price2;
-          if (price2label) {
-            const s2 = document.createElement('span');
-            s2.textContent = ' ' + price2label;
-            div2.appendChild(s2);
-          }
-          pricesEl.appendChild(div2);
-        }
-
-        // CTAs
-        ctasEl.innerHTML = '';
-        if (setupLink && setupLink.startsWith('http')) {
-          const a1 = document.createElement('a');
-          a1.href = setupLink;
-          a1.target = '_blank';
-          a1.rel = 'noopener noreferrer';
-          const b1 = document.createElement('button');
-          b1.className = 'btn';
-          b1.type = 'button';
-          b1.textContent = setupLabel;
-          a1.appendChild(b1);
-          ctasEl.appendChild(a1);
-        }
-
-        if (monthlyLink && monthlyLink.startsWith('http')) {
-          const a2 = document.createElement('a');
-          a2.href = monthlyLink;
-          a2.target = '_blank';
-          a2.rel = 'noopener noreferrer';
-          const b2 = document.createElement('button');
-          b2.className = 'btn secondary';
-          b2.type = 'button';
-          b2.textContent = monthlyLabel;
-          a2.appendChild(b2);
-          ctasEl.appendChild(a2);
-        }
-
-        overlay.classList.add('open');
-        overlay.setAttribute('aria-hidden', 'false');
-        closeBtn.focus();
       };
 
-      const closeModal = () => {
-        overlay.classList.remove('open');
-        overlay.setAttribute('aria-hidden', 'true');
-      };
+      const backdrop = document.getElementById("modalBackdrop");
+      const closeBtn = document.getElementById("modalClose");
+      const titleEl = document.getElementById("modalTitle");
+      const subEl = document.getElementById("modalSubtitle");
+      const bodyEl = document.getElementById("modalBody");
 
-      // bind cards
-      document.querySelectorAll('.card').forEach(card => {
-        card.addEventListener('click', () => openModal(card));
-        card.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            openModal(card);
-          }
-        });
+      function openModal(key){
+        const p = products[key];
+        if(!p) return;
+        titleEl.textContent = p.title;
+        subEl.textContent = p.subtitle || "";
+        bodyEl.innerHTML = p.html || "";
+        backdrop.style.display = "flex";
+        document.body.style.overflow = "hidden";
+      }
+      function closeModal(){
+        backdrop.style.display = "none";
+        document.body.style.overflow = "";
+      }
+
+      document.querySelectorAll(".card[data-product]").forEach(card => {
+        card.addEventListener("click", () => openModal(card.dataset.product));
       });
 
-      closeBtn.addEventListener('click', closeModal);
-
-      overlay.addEventListener('click', (e) => {
-        if (e.target === overlay) closeModal();
-      });
-
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
-      });
-
+      closeBtn.addEventListener("click", closeModal);
+      backdrop.addEventListener("click", (e) => { if(e.target === backdrop) closeModal(); });
+      document.addEventListener("keydown", (e) => { if(e.key === "Escape" && backdrop.style.display === "flex") closeModal(); });
     })();
   </script>
 </body>
