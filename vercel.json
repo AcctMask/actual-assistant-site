@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    { "source": "/demo", "destination": "/demo.html" },
+    { "source": "/demo/", "destination": "/demo.html" },
+
+    { "source": "/book-a-demo", "destination": "/demo.html" },
+    { "source": "/book-a-demo/", "destination": "/demo.html" },
+
+    { "source": "/admin", "destination": "/admin/leads.html" },
+    { "source": "/admin/", "destination": "/admin/leads.html" }
+  ]
+}
