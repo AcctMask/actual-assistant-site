@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Actual Assistant — Internal CRM</title>
+  <style>
+    :root{
+      --bg1:#071424; --bg2:#0b2a4a;
+      --card:rgba(255,255,255,.06);
+      --card2:rgba(255,255,255,.08);
+      --border:rgba(255,255,255,.12);
+      --text:#eaf2ff; --muted:rgba(234,242,255,.72);
+      --btn:#2f7cff;
+      --ok:#28d17c;
+      --err:#ff6b6b;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family: system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background: radial-gradient(1100px 700px at 50% 0%, #123b66 0%, var(--bg1) 55%, #050b13 100%);
+      min-height:100vh;
+    }
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(0,0,0,.38), rgba(0,0,0,0));
+      border-bottom:1px solid var(--border);
+      padding:14px 18px;
+      display:flex; align-items:center; gap:12px; justify-content:space-between;
+    }
+    .brand{display:flex; align-items:center; gap:10px;}
+    .logo{
+      width:34px;height:34px;border-radius:10px;
+      display:grid;place-items:center;
+      background:rgba(255,255,255,.09);
+      border:1px solid var(--border);
+      font-weight:800;
+      letter-spacing:.02em;
+    }
+    .title{line-height:1.1}
+    .title b{display:block;font-size:14px}
+    .title span{display:block;font-size:12px;color:var(--muted)}
+    .actions{display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end;}
+    button{
+      border:1px solid var(--border);
+      background: var(--card2);
+      color:var(--text);
+      padding:10px 12px;border-radius:12px;
+      cursor:pointer;
+    }
+    button.primary{
+      background: linear-gradient(180deg, rgba(47,124,255,.95), rgba(47,124,255,.7));
+      border-color: rgba(47,124,255,.9);
+    }
+    button.ghost{
+      background: transparent;
+    }
+    input, select{
+      border:1px solid var(--border);
+      background: var(--card);
+      color:var(--text);
+      padding:10px 12px;border-radius:12px;
+      outline:none;
+    }
+    input::placeholder{color:rgba(234,242,255,.45)}
+    main{padding:18px; max-width:1200px; margin:0 auto;}
+    .panel{
+      border:1px solid var(--border);
+      background: var(--card);
+      border-radius:18px;
+      padding:14px;
+      overflow:hidden;
+    }
+    .row{display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:12px;}
+    .hint{color:var(--muted); font-size:12px;}
+    .msg{
+      margin:10px 0 0;
+      padding:10px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      display:none;
+      font-size:13px;
+    }
+    .msg.ok{border-color: rgba(40,209,124,.45); display:block;}
+    .msg.err{border-color: rgba(255,107,107,.55); display:block;}
+    table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:13px;
+      min-width: 980px;
+    }
+    th, td{
+      padding:10px 10px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      vertical-align:top;
+    }
+    th{color:rgba(234,242,255,.82); text-align:left; font-weight:700;}
+    tr:hover td{background:rgba(255,255,255,.04);}
+    .pill{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:4px 10px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      font-size:12px;
+      white-space:nowrap;
+    }
+    .mono{font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;}
+    .link{color:#a8c8ff; text-decoration:none;}
+    .link:hover{text-decoration:underline;}
+    .drawer{
+      position:fixed; inset:0; z-index:60;
+      background:rgba(0,0,0,.55);
+      display:none;
+      align-items:flex-end;
+      justify-content:center;
+      padding:16px;
+    }
+    .drawer.open{display:flex;}
+    .sheet{
+      width:min(980px, 100%);
+      max-height:82vh;
+      overflow:auto;
+      border-radius:18px;
+      border:1px solid var(--border);
+      background: linear-gradient(180deg, rgba(20,52,88,.95), rgba(8,20,36,.98));
+      padding:14px;
+    }
+    .sheet h2{margin:0 0 10px;font-size:18px}
+    .kv{
+      display:grid;
+      grid-template-columns: 220px 1fr;
+      gap:8px;
+      font-size:13px;
+    }
+    .kv div{
+      padding:8px;
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:12px;
+      background:rgba(255,255,255,.04);
+      overflow-wrap:anywhere;
+    }
+    .kv b{color:rgba(234,242,255,.85)}
+    .right{display:flex; justify-content:flex-end; gap:10px; margin-top:12px;}
+    @media (max-width: 860px){
+      table{min-width: 860px;}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo">AA</div>
+      <div class="title">
+        <b>Actual Assistant™ — Internal CRM</b>
+        <span>Demo requests + lead details (private)</span>
+      </div>
+    </div>
+
+    <div class="actions">
+      <input id="token" placeholder="ADMIN_TOKEN" class="mono" style="min-width:280px" />
+      <select id="status">
+        <option value="">All statuses</option>
+        <option value="new">new</option>
+        <option value="contacted">contacted</option>
+        <option value="demo_scheduled">demo_scheduled</option>
+        <option value="won">won</option>
+        <option value="lost">lost</option>
+      </select>
+      <select id="limit">
+        <option value="25">25</option>
+        <option value="50" selected>50</option>
+        <option value="100">100</option>
+        <option value="200">200</option>
+      </select>
+      <button id="saveToken">Save Token</button>
+      <button class="primary" id="refresh">Refresh</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="panel">
+      <div class="row" style="justify-content:space-between;">
+        <div class="hint">
+          Token is stored only in this browser session (<span class="mono">sessionStorage</span>).
+        </div>
+        <div class="hint">
+          API: <span class="mono">/api/leads</span> (protected)
+        </div>
+      </div>
+
+      <div id="msgOk" class="msg ok"></div>
+      <div id="msgErr" class="msg err"></div>
+
+      <div style="overflow:auto; border-radius:14px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Created</th>
+              <th>Company</th>
+              <th>Contact</th>
+              <th>Email</th>
+              <th>State</th>
+              <th>Cities</th>
+              <th>CRM</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <div class="drawer" id="drawer">
+    <div class="sheet">
+      <h2 id="sheetTitle">Lead</h2>
+      <div class="kv" id="kv"></div>
+      <div class="right">
+        <button class="ghost" id="close">Close</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const tokenEl = document.getElementById('token');
+  const statusEl = document.getElementById('status');
+  const limitEl  = document.getElementById('limit');
+  const rowsEl   = document.getElementById('rows');
+  const msgOk    = document.getElementById('msgOk');
+  const msgErr   = document.getElementById('msgErr');
+
+  const drawer   = document.getElementById('drawer');
+  const kvEl     = document.getElementById('kv');
+  const sheetTitle = document.getElementById('sheetTitle');
+
+  function showOk(text){ msgErr.style.display='none'; msgOk.textContent=text; msgOk.style.display='block'; }
+  function showErr(text){ msgOk.style.display='none'; msgErr.textContent=text; msgErr.style.display='block'; }
+  function clearMsgs(){ msgOk.style.display='none'; msgErr.style.display='none'; msgOk.textContent=''; msgErr.textContent=''; }
+
+  function fmtDate(iso){
+    try{ return new Date(iso).toLocaleString(); }catch{ return iso || ''; }
+  }
+
+  function setToken(val){ sessionStorage.setItem('AA_ADMIN_TOKEN', val); }
+  function getToken(){ return sessionStorage.getItem('AA_ADMIN_TOKEN') || ''; }
+
+  tokenEl.value = getToken();
+
+  document.getElementById('saveToken').addEventListener('click', () => {
+    const t = tokenEl.value.trim();
+    if(!t) return alert('Paste your ADMIN_TOKEN first.');
+    setToken(t);
+    showOk('Token saved for this session.');
+  });
+
+  document.getElementById('refresh').addEventListener('click', load);
+
+  document.getElementById('close').addEventListener('click', () => {
+    drawer.classList.remove('open');
+  });
+
+  drawer.addEventListener('click', (e) => {
+    if(e.target === drawer) drawer.classList.remove('open');
+  });
+
+  function esc(s){
+    return (s ?? '').toString().replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
+  }
+
+  function openLead(item){
+    sheetTitle.textContent = `Lead: ${item.company || ''}`;
+    const fields = [
+      ['CRM Lead ID', item.id],
+      ['Created', fmtDate(item.created_at)],
+      ['Company', item.company],
+      ['Contact', item.contact_name],
+      ['Email', item.email],
+      ['Phone', item.phone],
+      ['Website', item.website],
+      ['Primary state', item.primary_state],
+      ['Primary cities/markets', item.primary_cities],
+      ['CRM', item.crm],
+      ['Challenge', item.challenge],
+      ['Notes', item.notes],
+      ['Status', item.status],
+      ['Owner', item.owner],
+      ['User agent', item.user_agent],
+      ['IP', item.ip],
+    ];
+
+    kvEl.innerHTML = fields.map(([k,v]) => `
+      <div><b>${esc(k)}</b></div>
+      <div>${v ? esc(v) : '<span style="opacity:.6">(empty)</span>'}</div>
+    `).join('');
+
+    drawer.classList.add('open');
+  }
+
+  async function load(){
+    clearMsgs();
+    const token = tokenEl.value.trim();
+    if(!token){
+      showErr('Paste your ADMIN_TOKEN first.');
+      return;
+    }
+    setToken(token);
+
+    rowsEl.innerHTML = `<tr><td colspan="8" style="padding:14px;opacity:.8">Loading…</td></tr>`;
+
+    const qs = new URLSearchParams();
+    const status = statusEl.value.trim();
+    const limit = limitEl.value.trim();
+    if(status) qs.set('status', status);
+    if(limit) qs.set('limit', limit);
+
+    const resp = await fetch(`/api/leads?${qs.toString()}`, {
+      headers: { 'x-admin-token': token }
+    });
+
+    const data = await resp.json().catch(()=>({ok:false,error:'Invalid JSON'}));
+
+    if(!resp.ok || !data.ok){
+      rowsEl.innerHTML = `<tr><td colspan="8" style="padding:14px;color:#ffb4b4">Error: ${esc(data.error || resp.status)}</td></tr>`;
+      showErr(`API error: ${data.error || resp.status}`);
+      return;
+    }
+
+    const items = data.items || [];
+    if(!items.length){
+      rowsEl.innerHTML = `<tr><td colspan="8" style="padding:14px;opacity:.8">No leads found.</td></tr>`;
+      showOk('No leads found.');
+      return;
+    }
+
+    rowsEl.innerHTML = '';
+    for(const item of items){
+      const tr = document.createElement('tr');
+      tr.style.cursor = 'pointer';
+      tr.innerHTML = `
+        <td>${esc(fmtDate(item.created_at))}</td>
+        <td><b>${esc(item.company || '')}</b><div class="hint mono">${esc((item.id||'').slice(0,8))}…</div></td>
+        <td>${esc(item.contact_name || '')}</td>
+        <td>${esc(item.email || '')}</td>
+        <td>${esc(item.primary_state || '')}</td>
+        <td>${esc(item.primary_cities || '')}</td>
+        <td>${esc(item.crm || '')}</td>
+        <td><span class="pill">${esc(item.status || 'new')}</span></td>
+      `;
+      tr.addEventListener('click', ()=>openLead(item));
+      rowsEl.appendChild(tr);
+    }
+
+    showOk(`Loaded ${items.length} lead(s). Click a row to view full details.`);
+  }
+
+  // Auto load if token present
+  if(getToken()) load();
+</script>
+</body>
+</html>
