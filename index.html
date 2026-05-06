@@ -1,210 +1,343 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Actual Assistant</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<style>
-body {
-  margin: 0;
-  font-family: system-ui, sans-serif;
-  background: linear-gradient(to bottom, #0b1f3a, #050b18);
-  color: white;
-}
+  <title>Actual Assistant</title>
 
-.container {
-  max-width: 1100px;
-  margin: auto;
-  padding: 40px 20px;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-.hero {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-  align-items: center;
-}
+    body {
+      background: linear-gradient(to bottom right, #03152e, #021024);
+      color: white;
+      font-family: Arial, sans-serif;
+      min-height: 100vh;
+    }
 
-/* TEXT SIDE */
-h1 {
-  font-size: 44px;
-  margin-bottom: 12px;
-  line-height: 1.1;
-}
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 80px 60px;
+    }
 
-p {
-  font-size: 18px;
-  opacity: 0.85;
-  line-height: 1.5;
-}
+    .hero {
+      display: flex;
+      gap: 60px;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
 
-.small {
-  font-size: 14px;
-  opacity: 0.6;
-  margin-top: 10px;
-}
+    .hero-left {
+      flex: 1;
+      min-width: 420px;
+    }
 
-.buttons {
-  margin-top: 20px;
-}
+    .hero-right {
+      width: 480px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 24px;
+      padding: 28px;
+    }
 
-.btn {
-  display: inline-block;
-  margin-right: 10px;
-  padding: 12px 20px;
-  border-radius: 10px;
-  text-decoration: none;
-  color: white;
-  font-weight: 600;
-}
+    h1 {
+      font-size: 64px;
+      line-height: 1.05;
+      margin-bottom: 30px;
+      font-weight: 800;
+      max-width: 700px;
+    }
 
-.primary {
-  background: #3b82f6;
-}
+    .hero-text {
+      font-size: 30px;
+      line-height: 1.55;
+      color: rgba(255,255,255,0.92);
+      max-width: 760px;
+      margin-bottom: 28px;
+    }
 
-.secondary {
-  border: 1px solid #3b82f6;
-}
+    .subtext {
+      color: rgba(255,255,255,0.6);
+      font-size: 20px;
+      margin-bottom: 40px;
+    }
 
-/* BUBBLES */
-.bubble-box {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  justify-content: center;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 16px;
-  padding: 20px;
-}
+    .buttons {
+      display: flex;
+      gap: 18px;
+      margin-bottom: 42px;
+      flex-wrap: wrap;
+    }
 
-.bubble {
-  padding: 10px 14px;
-  border-radius: 999px;
-  border: 1px solid rgba(59,130,246,0.5);
-  font-size: 13px;
-  background: rgba(255,255,255,0.04);
-}
+    .btn-primary {
+      background: #3b82f6;
+      color: white;
+      padding: 18px 32px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 700;
+    }
 
-.bubble.highlight {
-  background: rgba(59,130,246,0.2);
-  border-color: #3b82f6;
-}
+    .btn-secondary {
+      border: 1px solid #3b82f6;
+      color: white;
+      padding: 18px 32px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: 700;
+    }
 
-/* VALUE STRIP */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 15px;
-  margin-top: 30px;
-  font-size: 15px;
-}
+    .feature-row {
+      display: flex;
+      gap: 60px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+      color: rgba(255,255,255,0.9);
+      font-size: 20px;
+    }
 
-/* SECTIONS */
-h2 {
-  font-size: 28px;
-  margin-top: 40px;
-}
+    .feature-bubbles {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      justify-content: center;
+    }
 
-.steps div {
-  margin-bottom: 12px;
-}
+    .bubble {
+      border: 1px solid rgba(70,130,255,0.7);
+      border-radius: 999px;
+      padding: 14px 22px;
+      font-size: 18px;
+      background: rgba(255,255,255,0.03);
+      color: rgba(255,255,255,0.95);
+      text-align: center;
+    }
 
-ul {
-  line-height: 1.7;
-}
+    .section {
+      margin-top: 80px;
+      max-width: 1000px;
+    }
 
-/* MOBILE */
-@media (max-width: 900px) {
-  .hero {
-    grid-template-columns: 1fr;
-  }
+    h2 {
+      font-size: 52px;
+      margin-bottom: 24px;
+      line-height: 1.15;
+    }
 
-  .grid {
-    grid-template-columns: repeat(2,1fr);
-  }
-}
-</style>
+    .section-subtext {
+      font-size: 24px;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.5;
+      margin-bottom: 36px;
+    }
+
+    .steps {
+      font-size: 28px;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.95);
+    }
+
+    .steps strong {
+      color: white;
+    }
+
+    ul {
+      margin-top: 24px;
+      margin-left: 28px;
+      font-size: 26px;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.92);
+    }
+
+    .footer-cta {
+      margin-top: 90px;
+    }
+
+    .footer-cta p {
+      font-size: 28px;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 30px;
+    }
+
+    @media (max-width: 1100px) {
+
+      .hero {
+        flex-direction: column;
+      }
+
+      .hero-right {
+        width: 100%;
+      }
+
+      h1 {
+        font-size: 54px;
+      }
+
+      .hero-text {
+        font-size: 26px;
+      }
+
+      h2 {
+        font-size: 42px;
+      }
+
+      .steps,
+      ul {
+        font-size: 24px;
+      }
+    }
+
+  </style>
 </head>
 
 <body>
 
-<div class="container">
+  <div class="container">
 
-  <div class="hero">
+    <div class="hero">
 
-    <!-- LEFT -->
-    <div>
-      <h1>Never Miss a Lead. Close More Jobs Automatically.</h1>
+      <div class="hero-left">
+
+        <h1>
+          Never Miss a Lead.
+          Close More Jobs Automatically.
+        </h1>
+
+        <p class="hero-text">
+          Actual Assistant captures leads, responds instantly,
+          tracks every interaction, and keeps your jobs moving
+          through automated workflows, AI follow-up, storm targeting,
+          roof intelligence, and marketing automation.
+        </p>
+
+        <p class="subtext">
+          Built from real contractor operations and already running in live roofing environments.
+        </p>
+
+        <div class="buttons">
+          <a href="/demo" class="btn-primary">Book a Demo</a>
+          <a href="#how" class="btn-secondary">See How It Works</a>
+        </div>
+
+        <div class="feature-row">
+          <div>⚡ Instant Lead Response</div>
+          <div>💬 Automated Follow-Up</div>
+          <div>📊 Timeline Tracking</div>
+          <div>🌪 Storm + SEO Leads</div>
+        </div>
+
+      </div>
+
+      <div class="hero-right">
+
+        <div class="feature-bubbles">
+
+          <div class="bubble">AI Follow-Up Engine</div>
+
+          <div class="bubble">Full CRM Tracking</div>
+
+          <div class="bubble">SEO Visibility Engine</div>
+
+          <div class="bubble">Storm Lead Engine</div>
+
+          <div class="bubble">Roof Age Targeting</div>
+
+          <div class="bubble">Evergreen Social Posting</div>
+
+          <div class="bubble">Instant Roof Estimator</div>
+
+          <div class="bubble">Workflow Automation</div>
+
+          <div class="bubble">Timeline Logging</div>
+
+          <div class="bubble">GC Commercial Engine</div>
+
+          <div class="bubble">Contractor Operating System</div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="section" id="how">
+
+      <h2>
+        A System That Runs Your Follow-Up Automatically
+      </h2>
+
+      <p class="section-subtext">
+        Actual Assistant combines CRM tracking, lead generation,
+        AI communication, storm intelligence, SEO visibility,
+        automated social posting, roof targeting, and workflow automation
+        into one contractor operating system.
+      </p>
+
+      <div class="steps">
+
+        <strong>1. Leads Come In</strong>
+        — Website, calls, ads, forms, and campaigns all flow into one place.
+        <br><br>
+
+        <strong>2. We Respond Instantly</strong>
+        — Automated follow-up starts immediately using customizable workflows.
+        <br><br>
+
+        <strong>3. Jobs Move Forward</strong>
+        — Every stage triggers the next action automatically.
+        <br><br>
+
+        <strong>4. You Close More Jobs</strong>
+        — Your team steps in when real opportunities appear.
+
+      </div>
+
+    </div>
+
+    <div class="section">
+
+      <h2>
+        This Isn't Just a CRM.
+        It's a System That Works For You.
+      </h2>
+
+      <ul>
+        <li>No more missed leads or slow responses</li>
+        <li>No more forgetting to follow up</li>
+        <li>No more leads falling through the cracks</li>
+        <li>Built specifically for contractors</li>
+        <li>CRM + automation + lead generation in one system</li>
+      </ul>
+
+    </div>
+
+    <div class="footer-cta">
+
+      <h2>
+        Stop Losing Deals to Slow Follow-Up
+      </h2>
 
       <p>
-        Actual Assistant captures every lead, follows up instantly, and keeps your jobs moving — so nothing slips through the cracks.
+        If you're getting leads but not closing as many jobs as you should,
+        Actual Assistant fixes that.
       </p>
 
-      <p class="small">
-        Built from real contractor workflows. Already running in live roofing operations.
-      </p>
+      <a href="/demo" class="btn-primary">
+        Book a Demo
+      </a>
 
-      <div class="buttons">
-        <a href="/demo" class="btn primary">Book a Demo</a>
-        <a href="#how" class="btn secondary">See How It Works</a>
-      </div>
-    </div>
-
-    <!-- RIGHT -->
-    <div class="bubble-box">
-      <div class="bubble highlight">AI Follow-Up Engine</div>
-      <div class="bubble highlight">Full CRM Tracking</div>
-      <div class="bubble">SEO Lead Engine</div>
-      <div class="bubble">Storm Targeting</div>
-      <div class="bubble">Roof Age Leads</div>
-      <div class="bubble">Social Media Automation</div>
-      <div class="bubble">Instant Estimator</div>
-      <div class="bubble">Workflow Engine</div>
-      <div class="bubble">Timeline Tracking</div>
-      <div class="bubble">All-in-One System</div>
     </div>
 
   </div>
-
-  <!-- VALUE STRIP -->
-  <div class="grid">
-    <div>⚡ Instant Lead Response</div>
-    <div>🔁 Automated Follow-Up</div>
-    <div>📊 Timeline Tracking</div>
-    <div>🌪 Storm + SEO Leads</div>
-  </div>
-
-  <!-- HOW -->
-  <h2 id="how">A System That Runs Your Follow-Up Automatically</h2>
-
-  <div class="steps">
-    <div><strong>1. Leads Come In</strong> — Website, calls, ads — all in one place.</div>
-    <div><strong>2. We Respond Instantly</strong> — Every lead gets immediate follow-up.</div>
-    <div><strong>3. Jobs Move Forward</strong> — Each stage triggers the next step.</div>
-    <div><strong>4. You Close More Jobs</strong> — You step in when it matters.</div>
-  </div>
-
-  <!-- DIFFERENT -->
-  <h2>This Isn't Just a CRM. It's a System That Works For You.</h2>
-
-  <ul>
-    <li>No more missed leads or slow responses</li>
-    <li>No more forgetting to follow up</li>
-    <li>No more leads falling through the cracks</li>
-    <li>Built specifically for contractors</li>
-    <li>CRM + automation + lead generation in one system</li>
-  </ul>
-
-  <!-- CTA -->
-  <h2>Stop Losing Deals to Slow Follow-Up</h2>
-
-  <p>If you're getting leads but not closing as many as you should, this will fix it.</p>
-
-  <a href="/demo" class="btn primary">Book a Demo</a>
-
-</div>
 
 </body>
 </html>
