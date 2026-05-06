@@ -1,408 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>Actual Assistant</title>
-
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background: linear-gradient(to bottom right, #03152e, #021024);
-      color: white;
-      font-family: Arial, sans-serif;
-      min-height: 100vh;
-    }
-
-    .container {
-      max-width: 1400px;
-      margin: 0 auto;
-      padding: 80px 60px;
-    }
-
-    .hero {
-      display: flex;
-      gap: 60px;
-      align-items: flex-start;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-
-    .hero-left {
-      flex: 1;
-      min-width: 420px;
-    }
-
-    .hero-right {
-      width: 480px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 24px;
-      padding: 28px;
-    }
-
-    h1 {
-      font-size: 64px;
-      line-height: 1.05;
-      margin-bottom: 30px;
-      font-weight: 800;
-      max-width: 700px;
-    }
-
-    .hero-text {
-      font-size: 30px;
-      line-height: 1.55;
-      color: rgba(255,255,255,0.92);
-      max-width: 760px;
-      margin-bottom: 28px;
-    }
-
-    .subtext {
-      color: rgba(255,255,255,0.6);
-      font-size: 20px;
-      margin-bottom: 40px;
-    }
-
-    .buttons {
-      display: flex;
-      gap: 18px;
-      margin-bottom: 42px;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary,
-    .btn-secondary {
-      display: inline-block;
-      padding: 18px 32px;
-      border-radius: 14px;
-      text-decoration: none;
-      font-size: 20px;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .btn-primary {
-      background: #3b82f6;
-      color: white;
-    }
-
-    .btn-secondary {
-      border: 1px solid #3b82f6;
-      color: white;
-      background: transparent;
-    }
-
-    .feature-row {
-      display: flex;
-      gap: 60px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-      color: rgba(255,255,255,0.9);
-      font-size: 20px;
-    }
-
-    .feature-bubbles {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      justify-content: center;
-    }
-
-    .bubble {
-      border: 1px solid rgba(70,130,255,0.7);
-      border-radius: 999px;
-      padding: 14px 22px;
-      font-size: 18px;
-      background: rgba(255,255,255,0.03);
-      color: rgba(255,255,255,0.95);
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .bubble:hover {
-      background: rgba(59,130,246,0.22);
-      transform: translateY(-2px);
-    }
-
-    .section {
-      margin-top: 80px;
-      max-width: 1000px;
-    }
-
-    h2 {
-      font-size: 52px;
-      margin-bottom: 24px;
-      line-height: 1.15;
-    }
-
-    .section-subtext {
-      font-size: 24px;
-      color: rgba(255,255,255,0.82);
-      line-height: 1.5;
-      margin-bottom: 36px;
-    }
-
-    .steps {
-      font-size: 28px;
-      line-height: 1.8;
-      color: rgba(255,255,255,0.95);
-    }
-
-    .steps strong {
-      color: white;
-    }
-
-    ul {
-      margin-top: 24px;
-      margin-left: 28px;
-      font-size: 26px;
-      line-height: 1.9;
-      color: rgba(255,255,255,0.92);
-    }
-
-    .footer-cta {
-      margin-top: 90px;
-    }
-
-    .footer-cta p {
-      font-size: 28px;
-      color: rgba(255,255,255,0.9);
-      margin-bottom: 30px;
-    }
-
-    .modal-backdrop {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.72);
-      z-index: 1000;
-      padding: 30px;
-      overflow-y: auto;
-    }
-
-    .modal {
-      max-width: 820px;
-      margin: 60px auto;
-      background: #071b3a;
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 24px;
-      padding: 34px;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.45);
-    }
-
-    .modal h3 {
-      font-size: 36px;
-      margin-bottom: 18px;
-    }
-
-    .modal h4 {
-      font-size: 22px;
-      margin-top: 24px;
-      margin-bottom: 8px;
-      color: #9cc2ff;
-    }
-
-    .modal p {
-      font-size: 20px;
-      line-height: 1.55;
-      color: rgba(255,255,255,0.88);
-      margin-bottom: 12px;
-    }
-
-    .modal-actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      margin-top: 28px;
-    }
-
-    .close-button {
-      float: right;
-      background: transparent;
-      color: white;
-      border: 1px solid rgba(255,255,255,0.22);
-      border-radius: 10px;
-      padding: 8px 12px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    @media (max-width: 1100px) {
-
-      .hero {
-        flex-direction: column;
-      }
-
-      .hero-right {
-        width: 100%;
-      }
-
-      h1 {
-        font-size: 54px;
-      }
-
-      .hero-text {
-        font-size: 26px;
-      }
-
-      h2 {
-        font-size: 42px;
-      }
-
-      .steps,
-      ul {
-        font-size: 24px;
-      }
-
-      .container {
-        padding: 50px 24px;
-      }
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Actual Assistant</title>
+<style>
+body{margin:0;font-family:system-ui,sans-serif;background:linear-gradient(to bottom,#0b1f3a,#050b18);color:white}
+.container{max-width:1100px;margin:auto;padding:40px 20px}
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center}
+h1{font-size:44px;margin-bottom:12px;line-height:1.1}
+p{font-size:18px;opacity:.85;line-height:1.5}
+.small{font-size:14px;opacity:.6}
+.btn{display:inline-block;margin:8px 10px 8px 0;padding:12px 20px;border-radius:10px;text-decoration:none;color:white;font-weight:600}
+.primary{background:#3b82f6}.secondary{border:1px solid #3b82f6}
+.bubble-box{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:20px}
+.bubble{padding:10px 14px;border-radius:999px;border:1px solid rgba(59,130,246,.5);font-size:13px;background:rgba(255,255,255,.04);cursor:pointer;color:white}
+.bubble:hover{background:rgba(59,130,246,.18)}
+.highlight{background:rgba(59,130,246,.2);border-color:#3b82f6}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:30px;font-size:15px}
+h2{font-size:28px;margin-top:40px}.steps div{margin-bottom:12px}ul{line-height:1.7}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:99;align-items:center;justify-content:center;padding:20px}
+.modal-card{max-width:760px;width:100%;background:#08172c;border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:26px;box-shadow:0 30px 80px rgba(0,0,0,.4)}
+.modal-card h2{margin-top:0}.modal-card p,.modal-card li{font-size:16px}.close{float:right;background:none;border:1px solid rgba(255,255,255,.25);color:white;border-radius:8px;padding:6px 10px;cursor:pointer}
+@media(max-width:900px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}}
+</style>
 </head>
-
 <body>
-
-  <div class="container">
-
-    <div class="hero">
-
-      <div class="hero-left">
-
-        <h1>
-          Never Miss a Lead.
-          Close More Jobs Automatically.
-        </h1>
-
-        <p class="hero-text">
-          Actual Assistant captures leads, responds instantly,
-          tracks every interaction, and keeps your jobs moving
-          through automated workflows, AI follow-up, storm targeting,
-          roof intelligence, and marketing automation.
-        </p>
-
-        <p class="subtext">
-          Built from real contractor operations and already running in live roofing environments.
-        </p>
-
-        <div class="buttons">
-          <a href="/demo" class="btn-primary">Book a Demo</a>
-          <a href="#how" class="btn-secondary">See How It Works</a>
-        </div>
-
-        <div class="feature-row">
-          <div>⚡ Instant Lead Response</div>
-          <div>💬 Automated Follow-Up</div>
-          <div>📊 Timeline Tracking</div>
-          <div>🌪 Storm + SEO Leads</div>
-        </div>
-
-      </div>
-
-      <div class="hero-right">
-
-        <div class="feature-bubbles">
-
-          <div class="bubble" data-module="followup">AI Follow-Up Engine</div>
-
-          <div class="bubble" data-module="crm">Full CRM Tracking</div>
-
-          <div class="bubble" data-module="seo">SEO Visibility Engine</div>
-
-          <div class="bubble" data-module="storm">Storm Lead Engine</div>
-
-          <div class="bubble" data-module="roofage">Roof Age Targeting</div>
-
-          <div class="bubble" data-module="evergreen">Evergreen Social Posting</div>
-
-          <div class="bubble" data-module="estimator">Instant Roof Estimator</div>
-
-          <div class="bubble" data-module="workflow">Workflow Automation</div>
-
-          <div class="bubble" data-module="timeline">Timeline Logging</div>
-
-          <div class="bubble" data-module="gc">GC Commercial Engine</div>
-
-          <div class="bubble" data-module="platform">Contractor Operating System</div>
-
-        </div>
-
-      </div>
-
+<div class="container">
+  <div class="hero">
+    <div>
+      <h1>Never Miss a Lead. Close More Jobs Automatically.</h1>
+      <p>Actual Assistant identifies where opportunities exist, captures every lead, follows up instantly, and keeps your jobs moving — so nothing slips through the cracks.</p>
+      <p class="small">Built from real contractor workflows and live market data.</p>
+      <a href="/demo" class="btn primary">Book a Demo</a>
+      <a href="#how" class="btn secondary">See How It Works</a>
     </div>
 
-    <div class="section" id="how">
-
-      <h2>
-        A System That Runs Your Follow-Up Automatically
-      </h2>
-
-      <p class="section-subtext">
-        Actual Assistant combines CRM tracking, lead generation,
-        AI communication, storm intelligence, SEO visibility,
-        automated social posting, roof targeting, and workflow automation
-        into one contractor operating system.
-      </p>
-
-      <div class="steps">
-
-        <strong>1. Leads Come In</strong>
-        — Website, calls, ads, forms, and campaigns all flow into one place.
-        <br><br>
-
-        <strong>2. We Respond Instantly</strong>
-        — Automated follow-up starts immediately using customizable workflows.
-        <br><br>
-
-        <strong>3. Jobs Move Forward</strong>
-        — Every stage triggers the next action automatically.
-        <br><br>
-
-        <strong>4. You Close More Jobs</strong>
-        — Your team steps in when real opportunities appear.
-
-      </div>
-
+    <div class="bubble-box">
+      <button class="bubble highlight" onclick="openModule('autopilot')">AI Follow-Up Engine</button>
+      <button class="bubble highlight" onclick="openModule('crm')">Full CRM Tracking</button>
+      <button class="bubble" onclick="openModule('seo')">SEO AI Optimizer</button>
+      <button class="bubble" onclick="openModule('storm')">Storm Tracking Lead Generator</button>
+      <button class="bubble" onclick="openModule('roofage')">Roof Age Lead Generator</button>
+      <button class="bubble" onclick="openModule('social')">Automated Social Media Engine</button>
+      <button class="bubble" onclick="openModule('evergreen')">Evergreen Social Posting</button>
+      <button class="bubble" onclick="openModule('gc')">GC Marketing Engine</button>
+      <button class="bubble" onclick="openModule('estimator')">Instant Roof Estimator</button>
+      <button class="bubble" onclick="openModule('workflow')">Workflow Engine</button>
     </div>
-
-    <div class="section">
-
-      <h2>
-        This Isn't Just a CRM.
-        It's a System That Works For You.
-      </h2>
-
-      <ul>
-        <li>No more missed leads or slow responses</li>
-        <li>No more forgetting to follow up</li>
-        <li>No more leads falling through the cracks</li>
-        <li>Built specifically for contractors</li>
-        <li>CRM + automation + lead generation in one system</li>
-      </ul>
-
-    </div>
-
-    <div class="footer-cta">
-
-      <h2>
-        Stop Losing Deals to Slow Follow-Up
-      </h2>
-
-      <p>
-        If you're getting leads but not closing as many jobs as you should,
-        Actual Assistant fixes that.
-      </p>
-
-      <a href="/demo" class="btn-primary">
-        Book a Demo
-      </a>
-
-    </div>
-
   </div>
 
+  <div class="grid">
+    <div>⚡ Instant Lead Response</div>
+    <div>🔁 Automated Follow-Up</div>
+    <div>📊 Timeline Tracking</div>
+    <div>🌪 Storm + Roof Age + SEO Leads</div>
+  </div>
+
+  <h2 id="how">A System That Runs Your Follow-Up Automatically</h2>
+  <div class="steps">
+    <div><strong>1. Leads Come In</strong> — Website, calls, ads, storms, roof-age targeting, and outreach all feed one system.</div>
+    <div><strong>2. We Respond Instantly</strong> — Every lead gets immediate follow-up.</div>
+    <div><strong>3. Jobs Move Forward</strong> — Each stage triggers the next step.</div>
+    <div><strong>4. You Close More Jobs</strong> — You step in when it matters.</div>
+  </div>
+
+  <h2>This Isn't Just a CRM. It's a System That Works For You.</h2>
+  <p>Actual Assistant combines lead generation, targeting, content creation, CRM tracking, and automated follow-up into one coordinated contractor platform.</p>
+  <ul>
+    <li>No more missed leads or slow responses</li>
+    <li>No more forgetting to follow up</li>
+    <li>No more leads falling through the cracks</li>
+    <li>Built specifically for contractors</li>
+    <li>CRM + automation + lead generation in one system</li>
+  </ul>
+
+  <h2>Stop Losing Deals to Slow Follow-Up</h2>
+  <p>If you're getting leads but not closing as many as you should, this will fix it.</p>
+  <a href="/demo" class="btn primary">Book a Demo</a>
+</div>
+
+<div id="modal" class="modal">
+  <div class="modal-card">
+    <button class="close" onclick="closeModule()">Close</button>
+    <h2 id="modalTitle"></h2>
+    <div id="modalBody"></div>
+    <a href="/demo" class="btn primary">Book a Demo</a>
+  </div>
+</div>
+
+<script>
+const modules = {
+  autopilot:{
+    title:"AI Follow-Up Engine",
+    body:`<p><strong>Purpose:</strong> Automatically follows up with leads so contractors do not lose jobs due to slow response.</p>
+    <p><strong>How it works:</strong> When a lead or job stage changes, the system sends the right text or email based on that stage.</p>
+    <p><strong>Connects to:</strong> CRM, estimator, website leads, calls, and future lead engines.</p>`
+  },
+  crm:{
+    title:"Full CRM Tracking",
+    body:`<p><strong>Purpose:</strong> Keeps every lead, job, note, file, and customer interaction in one place.</p>
+    <p><strong>How it works:</strong> Leads enter the CRM, move through stages, and every action is logged in a timeline.</p>
+    <p><strong>Why it matters:</strong> Nothing gets lost, forgotten, or buried in texts and inboxes.</p>`
+  },
+  seo:{
+    title:"SEO AI Optimizer",
+    body:`<p><strong>Purpose:</strong> Builds long-term visibility so contractors are found online without relying only on paid ads.</p>
+    <p><strong>How it works:</strong> Creates search-friendly pages and content tied to services, locations, storms, and roofing needs.</p>`
+  },
+  storm:{
+    title:"Storm Tracking Lead Generator",
+    body:`<p><strong>Purpose:</strong> Finds real storm-related roofing opportunities.</p>
+    <p><strong>How it works:</strong> Uses weather data to identify affected areas, rank ZIP codes, and trigger marketing opportunities.</p>`
+  },
+  roofage:{
+    title:"Roof Age Lead Generator",
+    body:`<p><strong>Purpose:</strong> Finds neighborhoods with older roofs that may be closer to replacement.</p>
+    <p><strong>How it works:</strong> Uses roof-age intelligence and geographic targeting to identify better outreach areas before homeowners start shopping.</p>`
+  },
+  social:{
+    title:"Automated Social Media Engine",
+    body:`<p><strong>Purpose:</strong> Turns weather, roof-age, and service-area opportunities into marketing posts.</p>
+    <p><strong>How it works:</strong> Generates localized content and queues it for approval or posting.</p>`
+  },
+  evergreen:{
+    title:"Evergreen Social Posting",
+    body:`<p><strong>Purpose:</strong> Keeps contractors visible even when there are no storms.</p>
+    <p><strong>How it works:</strong> Creates consistent educational, authority-building posts that keep the brand active year-round.</p>`
+  },
+  gc:{
+    title:"GC Marketing Engine",
+    body:`<p><strong>Purpose:</strong> Helps contractors target commercial and general contractor opportunities.</p>
+    <p><strong>How it works:</strong> Uses licensing and market data to build outreach lists and campaigns for higher-value relationships.</p>`
+  },
+  estimator:{
+    title:"Instant Roof Estimator",
+    body:`<p><strong>Purpose:</strong> Captures homeowner leads by giving them a fast pricing path.</p>
+    <p><strong>How it works:</strong> Visitors enter project information, receive estimate guidance, and the lead flows into the CRM.</p>`
+  },
+  workflow:{
+    title:"Event-Driven Workflow Engine",
+    body:`<p><strong>Purpose:</strong> Makes the platform act automatically when something important happens.</p>
+    <p><strong>How it works:</strong> Events like new lead, estimate sent, contract sent, no response, storm detected, or roof-age opportunity trigger follow-up, tasks, alerts, and timeline logs.</p>`
+  }
+};
+
+function openModule(key){
+  document.getElementById("modalTitle").innerHTML = modules[key].title;
+  document.getElementById("modalBody").innerHTML = modules[key].body;
+  document.getElementById("modal").style.display = "flex";
+}
+function closeModule(){
+  document.getElementById("modal").style.display = "none";
+}
+</script>
 </body>
 </html>
