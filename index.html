@@ -7,11 +7,7 @@
   <title>Actual Assistant</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       background: linear-gradient(to bottom right, #03152e, #021024);
@@ -76,24 +72,26 @@
       flex-wrap: wrap;
     }
 
-    .btn-primary {
-      background: #3b82f6;
-      color: white;
+    .btn-primary,
+    .btn-secondary {
+      display: inline-block;
       padding: 18px 32px;
       border-radius: 14px;
       text-decoration: none;
       font-size: 20px;
       font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: #3b82f6;
+      color: white;
     }
 
     .btn-secondary {
       border: 1px solid #3b82f6;
       color: white;
-      padding: 18px 32px;
-      border-radius: 14px;
-      text-decoration: none;
-      font-size: 20px;
-      font-weight: 700;
+      background: transparent;
     }
 
     .feature-row {
@@ -120,6 +118,13 @@
       background: rgba(255,255,255,0.03);
       color: rgba(255,255,255,0.95);
       text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .bubble:hover {
+      background: rgba(59,130,246,0.22);
+      transform: translateY(-2px);
     }
 
     .section {
@@ -168,6 +173,63 @@
       margin-bottom: 30px;
     }
 
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.72);
+      z-index: 1000;
+      padding: 30px;
+      overflow-y: auto;
+    }
+
+    .modal {
+      max-width: 820px;
+      margin: 60px auto;
+      background: #071b3a;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 34px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.45);
+    }
+
+    .modal h3 {
+      font-size: 36px;
+      margin-bottom: 18px;
+    }
+
+    .modal h4 {
+      font-size: 22px;
+      margin-top: 24px;
+      margin-bottom: 8px;
+      color: #9cc2ff;
+    }
+
+    .modal p {
+      font-size: 20px;
+      line-height: 1.55;
+      color: rgba(255,255,255,0.88);
+      margin-bottom: 12px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .close-button {
+      float: right;
+      background: transparent;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.22);
+      border-radius: 10px;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
     @media (max-width: 1100px) {
 
       .hero {
@@ -194,8 +256,11 @@
       ul {
         font-size: 24px;
       }
-    }
 
+      .container {
+        padding: 50px 24px;
+      }
+    }
   </style>
 </head>
 
@@ -241,27 +306,27 @@
 
         <div class="feature-bubbles">
 
-          <div class="bubble">AI Follow-Up Engine</div>
+          <div class="bubble" data-module="followup">AI Follow-Up Engine</div>
 
-          <div class="bubble">Full CRM Tracking</div>
+          <div class="bubble" data-module="crm">Full CRM Tracking</div>
 
-          <div class="bubble">SEO Visibility Engine</div>
+          <div class="bubble" data-module="seo">SEO Visibility Engine</div>
 
-          <div class="bubble">Storm Lead Engine</div>
+          <div class="bubble" data-module="storm">Storm Lead Engine</div>
 
-          <div class="bubble">Roof Age Targeting</div>
+          <div class="bubble" data-module="roofage">Roof Age Targeting</div>
 
-          <div class="bubble">Evergreen Social Posting</div>
+          <div class="bubble" data-module="evergreen">Evergreen Social Posting</div>
 
-          <div class="bubble">Instant Roof Estimator</div>
+          <div class="bubble" data-module="estimator">Instant Roof Estimator</div>
 
-          <div class="bubble">Workflow Automation</div>
+          <div class="bubble" data-module="workflow">Workflow Automation</div>
 
-          <div class="bubble">Timeline Logging</div>
+          <div class="bubble" data-module="timeline">Timeline Logging</div>
 
-          <div class="bubble">GC Commercial Engine</div>
+          <div class="bubble" data-module="gc">GC Commercial Engine</div>
 
-          <div class="bubble">Contractor Operating System</div>
+          <div class="bubble" data-module="platform">Contractor Operating System</div>
 
         </div>
 
