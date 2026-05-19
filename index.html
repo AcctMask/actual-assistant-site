@@ -23,30 +23,41 @@ h2{font-size:28px;margin-top:40px}.steps div{margin-bottom:12px}ul{line-height:1
 .modal-card{max-width:760px;width:100%;background:#08172c;border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:26px;box-shadow:0 30px 80px rgba(0,0,0,.4)}
 .modal-card h2{margin-top:0}.modal-card p,.modal-card li{font-size:16px}.close{float:right;background:none;border:1px solid rgba(255,255,255,.25);color:white;border-radius:8px;padding:6px 10px;cursor:pointer}
 @media(max-width:900px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}}
+
+.phase-one{margin-top:44px;padding:28px;border:1px solid rgba(255,255,255,.1);border-radius:20px;background:rgba(255,255,255,.04)}
+.pricing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:20px}
+.price-card{border:1px solid rgba(59,130,246,.35);border-radius:18px;padding:22px;background:rgba(15,23,42,.72)}
+.price-card h3{margin:0 0 10px 0;font-size:22px}
+.price{font-size:28px;font-weight:800;margin:14px 0 4px}
+.price small{font-size:14px;opacity:.7;font-weight:500}
+.card-note{font-size:14px;opacity:.75}
+.buy-btn{border:0;cursor:pointer;background:#3b82f6}
+.buy-btn:disabled{opacity:.6;cursor:not-allowed}
+@media(max-width:900px){.pricing-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
 <div class="container">
   <div class="hero">
     <div>
+      <p class="small">Built by contractors, for contractors.</p>
       <h1>Never Miss a Lead. Close More Jobs Automatically.</h1>
-      <p>Actual Assistant identifies where opportunities exist, captures every lead, follows up instantly, and keeps your jobs moving — so nothing slips through the cracks.</p>
-      <p class="small">Built from real contractor workflows and live market data.</p>
-      <a href="/demo" class="btn primary">Book a Demo</a>
-      <a href="#how" class="btn secondary">See How It Works</a>
+      <p>Actual Assistant helps roofing and construction companies respond faster, follow up consistently, stay visible online, and capture more estimate opportunities without adding another complicated system.</p>
+      <p class="small">Start with focused Phase One modules. Expand into deeper contractor intelligence as your operation grows.</p>
+      <a href="#phase-one" class="btn primary">See Available Modules</a>
+      <a href="/demo" class="btn secondary">Book a Demo</a>
     </div>
 
     <div class="bubble-box">
-      <button class="bubble highlight" onclick="openModule('autopilot')">AI Follow-Up Engine</button>
-      <button class="bubble highlight" onclick="openModule('crm')">Full CRM Tracking</button>
-      <button class="bubble" onclick="openModule('seo')">SEO AI Optimizer</button>
-      <button class="bubble" onclick="openModule('storm')">Storm Tracking Lead Generator</button>
-      <button class="bubble" onclick="openModule('roofage')">Roof Age Lead Generator</button>
-      <button class="bubble" onclick="openModule('social')">Automated Social Media Engine</button>
-      <button class="bubble" onclick="openModule('evergreen')">Evergreen Social Posting</button>
-      <button class="bubble" onclick="openModule('gc')">GC Marketing Engine</button>
-      <button class="bubble" onclick="openModule('estimator')">Instant Roof Estimator</button>
-      <button class="bubble" onclick="openModule('workflow')">Workflow Engine</button>
+      <button class="bubble highlight" onclick="openModule('autopilot')">AI Follow-Up & After-Hours Assistant</button>
+      <button class="bubble highlight" onclick="openModule('social')">Automated Socials</button>
+      <button class="bubble highlight" onclick="openModule('estimator')">Instant Roof Estimator</button>
+      <button class="bubble" onclick="openModule('crm')">Contractor Navigator CRM — Coming Soon</button>
+      <button class="bubble" onclick="openModule('storm')">Weather Event Intelligence — Coming Soon</button>
+      <button class="bubble" onclick="openModule('gc')">GC Commercial Engine — Coming Soon</button>
+      <button class="bubble" onclick="openModule('seo')">SEO Optimization — Coming Soon</button>
+      <button class="bubble" onclick="openModule('workflow')">Universal Outreach — Future Expansion</button>
     </div>
   </div>
 
@@ -56,6 +67,105 @@ h2{font-size:28px;margin-top:40px}.steps div{margin-bottom:12px}ul{line-height:1
     <div>📊 Timeline Tracking</div>
     <div>🌪 Storm + Roof Age + SEO Leads</div>
   </div>
+
+
+  <section class="phase-one" id="phase-one">
+    <h2>Available Now — Contractor Automation Essentials</h2>
+    <p>
+      These Phase One modules are designed to solve the problems contractors feel immediately:
+      missed leads, slow follow-up, inconsistent visibility, and friction in the estimate process.
+      Each module includes setup, onboarding, and monthly operation.
+    </p>
+
+    <div class="pricing-grid">
+      <div class="price-card">
+        <h3>AI Follow-Up & After-Hours Assistant</h3>
+        <p class="card-note">Responds to missed calls, after-hours leads, estimate requests, and follow-up opportunities.</p>
+        <div class="price">$1,500 <small>setup</small></div>
+        <p class="card-note">Then $150/month</p>
+        <button class="btn primary buy-btn" onclick="startCheckout('ai-follow-up')">Get Started</button>
+        <a href="/demo" class="btn secondary">Book Demo</a>
+      </div>
+
+      <div class="price-card">
+        <h3>Automated Socials</h3>
+        <p class="card-note">Keeps your company visible with contractor-focused posts, approvals, and publishing support.</p>
+        <div class="price">$1,500 <small>setup</small></div>
+        <p class="card-note">Then $150/month</p>
+        <button class="btn primary buy-btn" onclick="startCheckout('automated-socials')">Get Started</button>
+        <a href="/demo" class="btn secondary">Book Demo</a>
+      </div>
+
+      <div class="price-card">
+        <h3>Instant Roof Estimator</h3>
+        <p class="card-note">Gives homeowners a fast estimate path and routes qualified leads into your workflow.</p>
+        <div class="price">$1,500 <small>setup</small></div>
+        <p class="card-note">Then $150/month</p>
+        <button class="btn primary buy-btn" onclick="startCheckout('roof-estimator')">Get Started</button>
+        <a href="/demo" class="btn secondary">Book Demo</a>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="phase-one" id="coming-soon">
+    <h2>Coming Soon — Advanced Contractor Intelligence</h2>
+
+    <p>
+      Phase Two expands Actual Assistant into deeper operational control,
+      contractor intelligence, visibility, reporting, and outreach systems.
+    </p>
+
+    <div class="pricing-grid">
+
+      <div class="price-card">
+        <h3>Contractor Navigator CRM</h3>
+        <p class="card-note">
+          Contractor-focused CRM timelines, job tracking, notes,
+          follow-up workflows, and operational coordination.
+        </p>
+        <span class="bubble">Coming Soon</span>
+      </div>
+
+      <div class="price-card">
+        <h3>Weather Event Intelligence</h3>
+        <p class="card-note">
+          ZIP-level storm targeting, weather intelligence,
+          roof-age visibility, and opportunity detection.
+        </p>
+        <span class="bubble">Coming Soon</span>
+      </div>
+
+      <div class="price-card">
+        <h3>GC Commercial Engine</h3>
+        <p class="card-note">
+          Commercial targeting and outreach support for higher-value
+          contractor relationships and opportunities.
+        </p>
+        <span class="bubble">Coming Soon</span>
+      </div>
+
+      <div class="price-card">
+        <h3>Operational Intelligence</h3>
+        <p class="card-note">
+          Owner-level reporting, KPIs, attribution,
+          visibility, and contractor operational proof.
+        </p>
+        <span class="bubble">Coming Soon</span>
+      </div>
+
+      <div class="price-card">
+        <h3>Universal Outreach</h3>
+        <p class="card-note">
+          Future audience outreach coordination across realtors,
+          adjusters, HOAs, property managers, and more.
+        </p>
+        <span class="bubble">Future Expansion</span>
+      </div>
+
+    </div>
+  </section>
+
 
   <h2 id="how">A System That Runs Your Follow-Up Automatically</h2>
   <div class="steps">
@@ -92,24 +202,24 @@ h2{font-size:28px;margin-top:40px}.steps div{margin-bottom:12px}ul{line-height:1
 <script>
 const modules = {
   autopilot:{
-    title:"AI Follow-Up Engine",
+    title:"AI Follow-Up & After-Hours Assistant",
     body:`<p><strong>Purpose:</strong> Automatically follows up with leads so contractors do not lose jobs due to slow response.</p>
     <p><strong>How it works:</strong> When a lead or job stage changes, the system sends the right text or email based on that stage.</p>
     <p><strong>Connects to:</strong> CRM, estimator, website leads, calls, and future lead engines.</p>`
   },
   crm:{
-    title:"Full CRM Tracking",
+    title:"Contractor Navigator CRM",
     body:`<p><strong>Purpose:</strong> Keeps every lead, job, note, file, and customer interaction in one place.</p>
     <p><strong>How it works:</strong> Leads enter the CRM, move through stages, and every action is logged in a timeline.</p>
     <p><strong>Why it matters:</strong> Nothing gets lost, forgotten, or buried in texts and inboxes.</p>`
   },
   seo:{
-    title:"SEO AI Optimizer",
+    title:"SEO Optimization",
     body:`<p><strong>Purpose:</strong> Builds long-term visibility so contractors are found online without relying only on paid ads.</p>
     <p><strong>How it works:</strong> Creates search-friendly pages and content tied to services, locations, storms, and roofing needs.</p>`
   },
   storm:{
-    title:"Storm Tracking Lead Generator",
+    title:"Weather Event Intelligence",
     body:`<p><strong>Purpose:</strong> Finds real storm-related roofing opportunities.</p>
     <p><strong>How it works:</strong> Uses weather data to identify affected areas, rank ZIP codes, and trigger marketing opportunities.</p>`
   },
@@ -119,7 +229,7 @@ const modules = {
     <p><strong>How it works:</strong> Uses roof-age intelligence and geographic targeting to identify better outreach areas before homeowners start shopping.</p>`
   },
   social:{
-    title:"Automated Social Media Engine",
+    title:"Automated Socials",
     body:`<p><strong>Purpose:</strong> Turns weather, roof-age, and service-area opportunities into marketing posts.</p>
     <p><strong>How it works:</strong> Generates localized content and queues it for approval or posting.</p>`
   },
@@ -139,7 +249,7 @@ const modules = {
     <p><strong>How it works:</strong> Visitors enter project information, receive estimate guidance, and the lead flows into the CRM.</p>`
   },
   workflow:{
-    title:"Event-Driven Workflow Engine",
+    title:"Universal Outreach",
     body:`<p><strong>Purpose:</strong> Makes the platform act automatically when something important happens.</p>
     <p><strong>How it works:</strong> Events like new lead, estimate sent, contract sent, no response, storm detected, or roof-age opportunity trigger follow-up, tasks, alerts, and timeline logs.</p>`
   }
@@ -153,6 +263,29 @@ function openModule(key){
 function closeModule(){
   document.getElementById("modal").style.display = "none";
 }
+
+async function startCheckout(moduleId){
+  try {
+    const response = await fetch("/api/create-checkout-session", {
+      method: "POST",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({ module_id: moduleId })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok || !data.url) {
+      alert(data.error || "Checkout could not be started.");
+      return;
+    }
+
+    window.location.href = data.url;
+  } catch (error) {
+    console.error(error);
+    alert("Checkout could not be started.");
+  }
+}
+
 </script>
 
 <section style="padding:40px 20px;text-align:center;background:#111827;color:white;">
@@ -179,6 +312,22 @@ function closeModule(){
     Watch Founder Video on YouTube
   </a>
 </section>
+
+
+<footer style="padding:32px 20px;text-align:center;border-top:1px solid rgba(255,255,255,.08);color:white;background:#050b18;">
+  <p class="small">
+    Actual Assistant provides contractor automation software, onboarding, and operational support.
+    Services are provided as subscription-based software and implementation support. Results may vary by market,
+    response time, existing lead flow, and contractor execution.
+  </p>
+  <p class="small">
+    <a href="/terms" style="color:#93c5fd;">Terms of Service</a>
+    &nbsp;•&nbsp;
+    <a href="/privacy" style="color:#93c5fd;">Privacy Policy</a>
+    &nbsp;•&nbsp;
+    <a href="mailto:support@actualassistance.com" style="color:#93c5fd;">Contact Support</a>
+  </p>
+</footer>
 
 </body>
 
