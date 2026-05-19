@@ -25,6 +25,42 @@ function escapeHtml(s) {
     .replaceAll("'", "&#039;");
 }
 
+async function saveProspectToSupabase(prospect) {
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!supabaseUrl || !serviceRoleKey) {
+    console.warn("Skipping prospect save: missing Supabase env vars");
+    return null;
+  }
+
+  const resp = await fetch(`${supabaseUrl.replace(/\/$/, "")}/rest/v1/aa_prospects`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      apikey: serviceRoleKey,
+      Authorization: `Bearer ${serviceRoleKey}`,
+      Prefer: "return=representation",
+    },
+    body: JSON.stringify(prospect),
+  });
+
+  const text = await resp.text();
+  let json = null;
+  try {
+    json = JSON.parse(text);
+  } catch {
+    json = { raw: text };
+  }
+
+  if (!resp.ok) {
+    console.error("Prospect save failed", json);
+    return null;
+  }
+
+  return Array.isArray(json) ? json[0] : json;
+}
+
 async function sendResendEmail({ apiKey, from, to, subject, html, replyTo, bcc }) {
   const payload = {
     from,
@@ -195,6 +231,21 @@ module.exports = async (req, res) => {
 
   // Send emails
   try {
+    const savedProspect = await saveProspectToSupabase({
+      company_name: company,
+      contact_name: name,
+      email,
+      phone,
+      website,
+      state,
+      cities,
+      crm,
+      source: "website_demo",
+      interested_modules: ["AI Follow-Up & After-Hours Assistant", "Automated Socials", "Instant Roof Estimator"],
+      status: "New Demo Request",
+      notes: [challenge, notes].filter(Boolean).join("\n\n"),
+    });
+
     // Internal notification
     const internal = await sendResendEmail({
       apiKey,
@@ -221,6 +272,7 @@ module.exports = async (req, res) => {
     console.log("demo email sent", {
       internal_id: internal?.id,
       customer_id: customer?.id,
+      prospect_id: savedProspect?.id || null,
       toEmail,
       fromEmail,
       customerEmail: email,
@@ -228,6 +280,7 @@ module.exports = async (req, res) => {
 
     return res.status(200).json({
       ok: true,
+      prospect_id: savedProspect?.id || null,
       internal_email_id: internal?.id || null,
       customer_email_id: customer?.id || null,
     });
