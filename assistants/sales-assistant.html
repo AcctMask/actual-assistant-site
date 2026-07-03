@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Actual Assistant | Sales Assistant</title>
+<style>
+body{margin:0;font-family:system-ui,sans-serif;background:linear-gradient(to bottom,#0b1f3a,#050b18);color:white}
+.container{max-width:960px;margin:auto;padding:48px 20px}
+a,.btn{color:white}
+.btn{display:inline-block;margin:10px 10px 10px 0;padding:13px 22px;border-radius:12px;text-decoration:none;font-weight:800}
+.primary{background:#3b82f6}.secondary{border:1px solid #3b82f6}
+.card{margin-top:28px;padding:30px;border:1px solid rgba(255,255,255,.1);border-radius:22px;background:rgba(255,255,255,.04)}
+h1{font-size:48px;line-height:1.05;margin-bottom:8px}h2{font-size:28px}p,li{font-size:18px;line-height:1.65;opacity:.88}li{margin-bottom:8px}
+.eyebrow{color:#93c5fd;text-transform:uppercase;letter-spacing:.14em;font-weight:900}
+</style>
+</head>
+<body>
+<div class="container">
+<a href="/" class="btn secondary">← Back to Actual Assistant</a>
+<p class="eyebrow">Actual Assistant</p>
+<h1>Sales Assistant</h1>
+<h2>Turn Customer Interest Into Revenue</h2>
+<div class="card">
+
+<p>The Sales Assistant helps move customers from curiosity to action. It supports instant estimates, estimate follow-up, proposal momentum, contract follow-up, and buying signal detection.</p>
+<p>This is built for contractors who know there is nothing free about a free estimate. The goal is to reduce wasted windshield time, qualify opportunities faster, and keep serious customers moving.</p>
+<ul>
+<li>Supports instant preliminary estimates</li>
+<li>Routes estimate requests into the workflow</li>
+<li>Follows up on estimates automatically</li>
+<li>Watches for buying signals</li>
+<li>Supports proposal and contract progression</li>
+<li>Coordinates with ECO for contract follow-up</li>
+<li>Supports e-sign and auto-save workflows through the operating system</li>
+</ul>
+
+</div>
+<div class="card">
+<h2>Ready to hire this assistant?</h2>
+<p>Start with this assistant individually, or add it as part of a larger AI Workforce coordinated through ECO.</p>
+<a href="#" class="btn primary" onclick="startCheckout('roof-estimator'); return false;">Hire This Assistant</a>
+<a href="/demo" class="btn secondary">Schedule Demo</a>
+</div>
+</div>
+<script>
+async function startCheckout(moduleId){
+  try{
+    const res = await fetch("/api/create-checkout-session",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({module_id:moduleId})
+    });
+    const data = await res.json();
+    if(!res.ok || !data.url) throw new Error(data.error || "Checkout failed");
+    window.location.href = data.url;
+  }catch(err){ alert(err.message || "Checkout unavailable"); }
+}
+</script>
+</body>
+</html>
