@@ -34,7 +34,7 @@ form {
   flex-direction: column;
 }
 
-input, textarea {
+input, textarea, select {
   padding: 14px;
   margin-bottom: 15px;
   border-radius: 10px;
@@ -83,13 +83,32 @@ button:hover {
 
   <form action="/api/demo" method="POST">
 
+    <input type="text" name="company" placeholder="Company Name" required />
+
     <input type="text" name="name" placeholder="Full Name" required />
 
     <input type="email" name="email" placeholder="Email Address" required />
 
     <input type="tel" name="phone" placeholder="Phone Number" required />
 
-    <textarea name="message" placeholder="Tell me about your business (optional)"></textarea>
+    <input type="text" name="state" placeholder="Primary State" required />
+
+    <input type="text" name="cities" placeholder="Primary Cities / Markets" required />
+
+    <select name="crm" required>
+      <option value="">Current CRM / System</option>
+      <option value="None">None</option>
+      <option value="JobNimbus">JobNimbus</option>
+      <option value="AccuLynx">AccuLynx</option>
+      <option value="CompanyCam">CompanyCam</option>
+      <option value="HubSpot">HubSpot</option>
+      <option value="Salesforce">Salesforce</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <input type="url" name="website" placeholder="Website (optional)" />
+
+    <textarea name="challenge" placeholder="Biggest business challenge (optional)"></textarea>
 
     <button type="submit">Request Demo</button>
 
