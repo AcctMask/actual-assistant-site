@@ -6,7 +6,7 @@
  *
  * Env vars (Vercel):
  * - RESEND_API_KEY
- * - DEMO_TO_EMAIL        (e.g. support@actualassistance.com)
+ * - DEMO_TO_EMAIL        (e.g. actualassistant.ai@gmail.com)
  * - DEMO_FROM_EMAIL      (e.g. no-reply@actualassistance.com)
  * Optional:
  * - DEMO_BCC_EMAIL       (e.g. your personal Gmail for early-stage deliverability safety)
@@ -116,10 +116,10 @@ module.exports = async (req, res) => {
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  const toEmail = process.env.DEMO_TO_EMAIL || "support@actualassistance.com";
+  const toEmail = process.env.DEMO_TO_EMAIL || "actualassistant.ai@gmail.com";
   const fromEmail = process.env.DEMO_FROM_EMAIL;
   const bccEmail = process.env.DEMO_BCC_EMAIL; // optional safety
-  const internalToEmails = Array.from(new Set([toEmail, "support@actualassistance.com"].filter(Boolean)));
+  const internalToEmails = Array.from(new Set([toEmail, "actualassistant.ai@gmail.com"].filter(Boolean)));
 
   if (!apiKey || !toEmail || !fromEmail) {
     return res.status(500).json({
