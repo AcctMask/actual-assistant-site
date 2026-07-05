@@ -1,48 +1,18 @@
 const MODULES = {
-  "administrative-assistant": {
-    name: "Actual Assistant — Administrative Assistant",
-    setupPriceId: "price_1Tpp8gCYgC6lPmKT5tZ8lRoH",
-    monthlyPriceId: "price_1TppBXCYgC6lPmKThfqYIvLG",
+  "ai-follow-up": {
+    name: "AI Follow-Up & After-Hours Assistant",
+    setupPriceId: "price_1TY3fICYgC6lPmKTWb2yEyTx",
+    monthlyPriceId: "price_1T2ulXCYgC6lPmKTS1b3hvyi",
   },
-  "sales-assistant": {
-    name: "Actual Assistant — Sales Assistant",
-    setupPriceId: "price_1TppDuCYgC6lPmKT34vyvY5a",
-    monthlyPriceId: "price_1TppESCYgC6lPmKTMyMCvz53",
+  "automated-socials": {
+    name: "Automated Socials",
+    setupPriceId: "price_1TY3vmCYgC6lPmKT68p2Qik9",
+    monthlyPriceId: "price_1TY3yzCYgC6lPmKTFpH7E4xq",
   },
-  "marketing-assistant": {
-    name: "Actual Assistant — Marketing Assistant",
-    setupPriceId: "price_1TppHfCYgC6lPmKTV7EFzFgK",
-    monthlyPriceId: "price_1TppJqCYgC6lPmKTC6VNIm5U",
-  },
-  "operations-manager": {
-    name: "Actual Assistant — Operations Manager",
-    setupPriceId: "price_1TppLECYgC6lPmKTGXp4zJqM",
-    monthlyPriceId: "price_1TppN9CYgC6lPmKTo32yCxyz",
-  },
-  "business-development-assistant": {
-    name: "Actual Assistant — Business Development Assistant",
-    setupPriceId: "price_1TppOMCYgC6lPmKTWZQ0hCNt",
-    monthlyPriceId: "price_1TppPoCYgC6lPmKTGzW3nYUh",
-  },
-  "audience-research-assistant": {
-    name: "Actual Assistant — Audience Research Assistant",
-    setupPriceId: "price_1TppRaCYgC6lPmKTKAlulCM2",
-    monthlyPriceId: "price_1TppShCYgC6lPmKT7hKWLhpS",
-  },
-  "storm-opportunity-assistant": {
-    name: "Actual Assistant — Storm Opportunity Assistant",
-    setupPriceId: "price_1TppTtCYgC6lPmKTtxLEsYVb",
-    monthlyPriceId: "price_1TppVBCYgC6lPmKTVccELRGW",
-  },
-  "weather-evidence-assistant": {
-    name: "Actual Assistant — Weather Evidence Assistant",
-    setupPriceId: "price_1TppWZCYgC6lPmKTujuRa2wK",
-    monthlyPriceId: "price_1TppXkCYgC6lPmKTlsoSyycs",
-  },
-  "business-intelligence-manager": {
-    name: "Actual Assistant — Business Intelligence Manager",
-    setupPriceId: "price_1TppYwCYgC6lPmKTayJ6q28T",
-    monthlyPriceId: "price_1TppaMCYgC6lPmKTEfClzMA4",
+  "roof-estimator": {
+    name: "Instant Roof Estimator",
+    setupPriceId: "price_1TY3l8CYgC6lPmKTBCy5ZGrr",
+    monthlyPriceId: "price_1TY3oBCYgC6lPmKTVv1aDD0F",
   },
 };
 
