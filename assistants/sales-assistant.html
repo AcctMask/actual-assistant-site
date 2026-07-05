@@ -3,59 +3,460 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Actual Assistant | Sales Assistant</title>
+<title>Hire a Sales Assistant | Actual Assistant</title>
+
+<meta name="description"
+content="Hire an AI Sales Assistant for your contracting business. Instantly engage prospects, support preliminary estimates, follow up automatically, detect buying signals, and help move customers from inquiry to signed contract.">
+
 <style>
-body{margin:0;font-family:system-ui,sans-serif;background:linear-gradient(to bottom,#0b1f3a,#050b18);color:white}
-.container{max-width:960px;margin:auto;padding:48px 20px}
-a,.btn{color:white}
-.btn{display:inline-block;margin:10px 10px 10px 0;padding:13px 22px;border-radius:12px;text-decoration:none;font-weight:800}
-.primary{background:#3b82f6}.secondary{border:1px solid #3b82f6}
-.card{margin-top:28px;padding:30px;border:1px solid rgba(255,255,255,.1);border-radius:22px;background:rgba(255,255,255,.04)}
-h1{font-size:48px;line-height:1.05;margin-bottom:8px}h2{font-size:28px}p,li{font-size:18px;line-height:1.65;opacity:.88}li{margin-bottom:8px}
-.eyebrow{color:#93c5fd;text-transform:uppercase;letter-spacing:.14em;font-weight:900}
+
+body{
+margin:0;
+font-family:system-ui,sans-serif;
+background:linear-gradient(to bottom,#0b1f3a,#050b18);
+color:white;
+}
+
+.container{
+max-width:980px;
+margin:auto;
+padding:48px 20px;
+}
+
+.hero{text-align:center;padding:40px 0;}
+
+.eyebrow{
+color:#8ec5ff;
+font-weight:800;
+letter-spacing:.12em;
+text-transform:uppercase;
+}
+
+h1{
+font-size:52px;
+margin:14px 0;
+line-height:1.05;
+}
+
+h2{
+font-size:30px;
+margin-top:36px;
+}
+
+h3{
+margin-bottom:10px;
+}
+
+p,li{
+font-size:18px;
+line-height:1.7;
+opacity:.9;
+}
+
+.section{
+margin-top:30px;
+padding:30px;
+background:rgba(255,255,255,.04);
+border:1px solid rgba(255,255,255,.08);
+border-radius:22px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+.card{
+padding:22px;
+border-radius:18px;
+background:rgba(255,255,255,.03);
+border:1px solid rgba(255,255,255,.08);
+}
+
+.btn{
+display:inline-block;
+padding:14px 22px;
+margin:8px 10px 8px 0;
+border-radius:12px;
+font-weight:700;
+text-decoration:none;
+color:white;
+}
+
+.primary{background:#3b82f6;}
+.secondary{border:1px solid #3b82f6;}
+
+.price{
+font-size:34px;
+font-weight:900;
+}
+
+.quote{
+text-align:center;
+font-size:24px;
+font-weight:900;
+}
+
+@media(max-width:850px){
+.grid{grid-template-columns:1fr;}
+h1{font-size:40px;}
+}
+
 </style>
+
 </head>
+
 <body>
+
 <div class="container">
-<a href="/" class="btn secondary">← Back to Actual Assistant</a>
-<p class="eyebrow">Actual Assistant</p>
-<h1>Sales Assistant</h1>
-<h2>Turn Customer Interest Into Revenue</h2>
+
+<a class="btn secondary" href="/">← Back to Actual Assistant</a>
+
+<div class="hero">
+
+<div class="eyebrow">
+Actual Assistant
+</div>
+
+<h1>
+Hire a Sales Assistant for Your Contracting Business
+</h1>
+
+<h2>
+Turn More Opportunities Into Customers.
+</h2>
+
+<p>
+
+Your AI Sales Assistant helps move customers from curiosity to commitment.
+
+It supports preliminary estimates, keeps opportunities moving through automated follow-up, watches for buying signals, and helps ensure interested customers never get forgotten.
+
+</p>
+
+<a href="#" onclick="startCheckout('roof-estimator');return false;" class="btn primary">
+Hire This Assistant
+</a>
+
+<a href="/demo" class="btn secondary">
+Schedule Demo
+</a>
+
+</div>
+
+<div class="section">
+
+<h2>
+Built by a contractor who got tired of giving away his time.
+</h2>
+
+<p>
+
+There is nothing free about a free estimate.
+
+Fuel.
+
+Driving.
+
+Time.
+
+Opportunity cost.
+
+Hours spent preparing estimates that never receive another phone call.
+
+Every contractor eventually asks the same question.
+
+<b>
+
+How do I know who's actually serious?
+
+</b>
+
+</p>
+
+<p>
+
+The Sales Assistant was built to help answer that question.
+
+</p>
+
+</div>
+
+<div class="section">
+
+<h2>
+Meet ECO
+</h2>
+
+<p>
+
+While your Sales Assistant focuses on helping opportunities move toward a signed contract, ECO quietly coordinates information behind the scenes so everyone stays informed.
+
+You remain the owner.
+
+ECO helps keep your workforce synchronized.
+
+</p>
+
+</div>
+
+<div class="section">
+
+<h2>
+Meet Your Sales Assistant
+</h2>
+
+<p>
+
+Your Sales Assistant helps ensure opportunities continue moving forward instead of quietly disappearing.
+
+Whether a homeowner requests an instant estimate, asks questions, or simply needs another follow-up, your Sales Assistant helps keep the conversation alive until a decision is made.
+
+</p>
+
+</div>
+
+<div class="grid">
+
 <div class="card">
 
-<p>The Sales Assistant helps move customers from curiosity to action. It supports instant estimates, estimate follow-up, proposal momentum, contract follow-up, and buying signal detection.</p>
-<p>This is built for contractors who know there is nothing free about a free estimate. The goal is to reduce wasted windshield time, qualify opportunities faster, and keep serious customers moving.</p>
+<h3>Estimate Support</h3>
+
 <ul>
+
 <li>Supports instant preliminary estimates</li>
-<li>Routes estimate requests into the workflow</li>
-<li>Follows up on estimates automatically</li>
-<li>Watches for buying signals</li>
-<li>Supports proposal and contract progression</li>
-<li>Coordinates with ECO for contract follow-up</li>
-<li>Supports e-sign and auto-save workflows through the operating system</li>
+
+<li>Organizes estimate requests</li>
+
+<li>Prepares opportunities for review</li>
+
+<li>Coordinates with ECO</li>
+
 </ul>
 
 </div>
+
 <div class="card">
-<h2>Ready to hire this assistant?</h2>
-<p>Start with this assistant individually, or add it as part of a larger AI Workforce coordinated through ECO.</p>
-<a href="#" class="btn primary" onclick="startCheckout('roof-estimator'); return false;">Hire This Assistant</a>
-<a href="/demo" class="btn secondary">Schedule Demo</a>
+
+<h3>Sales Follow-Up</h3>
+
+<ul>
+
+<li>Automated estimate follow-up</li>
+
+<li>Proposal reminders</li>
+
+<li>Contract follow-up</li>
+
+<li>Buying signal detection</li>
+
+</ul>
+
 </div>
+
+<div class="card">
+
+<h3>Owner Awareness</h3>
+
+<ul>
+
+<li>Highlights serious prospects</li>
+
+<li>Identifies buying signals</li>
+
+<li>Alerts owner when attention is needed</li>
+
+<li>Keeps opportunities organized</li>
+
+</ul>
+
 </div>
+
+<div class="card">
+
+<h3>Works Through ECO</h3>
+
+<ul>
+
+<li>Updates customer records</li>
+
+<li>Coordinates with Operations</li>
+
+<li>Communicates with Administrative Assistant</li>
+
+<li>Supports Business Intelligence reporting</li>
+
+</ul>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>
+Production Proven
+</h2>
+
+<p>
+
+The Sales Assistant participated in Actual Assistant's first complete production sales workflow.
+
+During that workflow it helped:
+
+</p>
+
+<ul>
+
+<li>Support estimate preparation</li>
+
+<li>Continue customer communication</li>
+
+<li>Detect buying signals</li>
+
+<li>Notify the owner</li>
+
+<li>Support contract delivery</li>
+
+<li>Contribute to an $8,500 signed roof replacement contract</li>
+
+</ul>
+
+<p>
+
+Real customer.
+
+Real contractor.
+
+Real production environment.
+
+</p>
+
+</div>
+
+<div class="section">
+
+<h2>
+Why Contractors Hire This Assistant
+</h2>
+
+<p>
+
+Most contractors lose opportunities because life gets busy.
+
+The estimate was sent.
+
+The customer was interested.
+
+Then...
+
+Nothing happened.
+
+The Sales Assistant exists to help make sure opportunities continue moving until the customer makes a decision.
+
+</p>
+
+</div>
+
+<div class="section">
+
+<h2>
+Continue Building Your AI Workforce
+</h2>
+
+<p>
+
+Your Sales Assistant works alongside the rest of your AI Workforce.
+
+Meet the other members of the team.
+
+</p>
+
+<div class="grid">
+
+<div class="card"><h3>Administrative Assistant</h3><a class="btn secondary" href="/assistants/administrative-assistant.html">Meet This Assistant</a></div>
+
+<div class="card"><h3>Marketing Assistant</h3><a class="btn secondary" href="/assistants/marketing-assistant.html">Meet This Assistant</a></div>
+
+<div class="card"><h3>Operations Manager</h3><a class="btn secondary" href="/assistants/operations-manager.html">Meet This Assistant</a></div>
+
+<div class="card"><h3>Business Development Assistant</h3><a class="btn secondary" href="/assistants/business-development-assistant.html">Meet This Assistant</a></div>
+
+<div class="card"><h3>Audience Research Assistant</h3><a class="btn secondary" href="/assistants/audience-research-assistant.html">Meet This Assistant</a></div>
+
+<div class="card"><h3>Storm Opportunity Assistant</h3><a class="btn secondary" href="/assistants/storm-opportunity-assistant.html">Meet This Assistant</a></div>
+
+<div class="card"><h3>Weather Evidence Assistant</h3><a class="btn secondary" href="/assistants/weather-evidence-assistant.html">Meet This Assistant</a></div>
+
+<div class="card"><h3>Business Intelligence Manager</h3><a class="btn secondary" href="/assistants/business-intelligence-manager.html">Meet This Assistant</a></div>
+
+<div class="card"><h3>ECO</h3><a class="btn secondary" href="/assistants/eco.html">Meet ECO</a></div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<h2>
+Hire Your Sales Assistant
+</h2>
+
+<p><b>One-time Setup</b></p>
+
+<div class="price">$1,500</div>
+
+<p>Professional deployment, onboarding, configuration, workflow setup, and training.</p>
+
+<p><b>Monthly Service</b></p>
+
+<div class="price">$150/month</div>
+
+<p>Continuous operation, monitoring, improvements, and support.</p>
+
+<a href="#" onclick="startCheckout('roof-estimator');return false;" class="btn primary">
+Hire This Assistant
+</a>
+
+<a href="/demo" class="btn secondary">
+Schedule Demo
+</a>
+
+</div>
+
 <script>
+
 async function startCheckout(moduleId){
-  try{
-    const res = await fetch("/api/create-checkout-session",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({module_id:moduleId})
-    });
-    const data = await res.json();
-    if(!res.ok || !data.url) throw new Error(data.error || "Checkout failed");
-    window.location.href = data.url;
-  }catch(err){ alert(err.message || "Checkout unavailable"); }
+
+try{
+
+const r=await fetch("/api/create-checkout-session",{
+
+method:"POST",
+
+headers:{"Content-Type":"application/json"},
+
+body:JSON.stringify({module_id:moduleId})
+
+});
+
+const d=await r.json();
+
+if(!r.ok||!d.url)throw new Error();
+
+location.href=d.url;
+
+}catch{
+
+alert("Checkout unavailable.");
+
 }
+
+}
+
 </script>
+
 </body>
+
 </html>
