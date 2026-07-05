@@ -116,9 +116,10 @@ module.exports = async (req, res) => {
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  const toEmail = process.env.DEMO_TO_EMAIL;
+  const toEmail = process.env.DEMO_TO_EMAIL || "support@actualassistance.com";
   const fromEmail = process.env.DEMO_FROM_EMAIL;
   const bccEmail = process.env.DEMO_BCC_EMAIL; // optional safety
+  const internalToEmails = Array.from(new Set([toEmail, "support@actualassistance.com"].filter(Boolean)));
 
   if (!apiKey || !toEmail || !fromEmail) {
     return res.status(500).json({
@@ -197,7 +198,7 @@ module.exports = async (req, res) => {
       </table>
 
       <p style="margin-top:14px;color:#444;">
-        Reply-to is set to ${escapeHtml(toEmail)}.
+        Reply-to is set to ${escapeHtml(email)}.
       </p>
     </div>
   `;
@@ -250,10 +251,10 @@ module.exports = async (req, res) => {
     const internal = await sendResendEmail({
       apiKey,
       from: `Actual Assistance <${fromEmail}>`,
-      to: toEmail,
+      to: internalToEmails,
       subject: internalSubject,
       html: internalHtml,
-      replyTo: toEmail,
+      replyTo: email,
       bcc: bccEmail || undefined,
     });
 
@@ -277,6 +278,13 @@ module.exports = async (req, res) => {
       fromEmail,
       customerEmail: email,
     });
+
+    const acceptsHtml = String(req.headers.accept || "").includes("text/html");
+    if (acceptsHtml) {
+      res.statusCode = 303;
+      res.setHeader("Location", "/demo-thank-you.html");
+      return res.end();
+    }
 
     return res.status(200).json({
       ok: true,
