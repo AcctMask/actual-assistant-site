@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Book a Demo | Actual Assistant</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: linear-gradient(to bottom, #0b1f3a, #050b18);
+  color: white;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 60px 20px;
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+p {
+  opacity: 0.8;
+  margin-bottom: 25px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+input, textarea {
+  padding: 14px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: none;
+  font-size: 14px;
+}
+
+button {
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  background: #3b82f6;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.small {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-top: 15px;
+  line-height: 1.5;
+}
+
+.small a {
+  color: #3b82f6;
+  text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>Book a Demo</h1>
+
+  <p>
+    See how Actual Assistant captures leads, follows up automatically, and helps you close more jobs without chasing customers.
+  </p>
+
+  <form action="/api/demo" method="POST">
+
+    <input type="text" name="name" placeholder="Full Name" required />
+
+    <input type="email" name="email" placeholder="Email Address" required />
+
+    <input type="tel" name="phone" placeholder="Phone Number" required />
+
+    <textarea name="message" placeholder="Tell me about your business (optional)"></textarea>
+
+    <button type="submit">Request Demo</button>
+
+    <!-- 🔥 COMPLIANCE TEXT -->
+    <p class="small">
+      By submitting this form, you agree to be contacted by Actual Assistant via call, text, and email, including automated messaging.
+      Message and data rates may apply. You can opt out at any time by replying STOP.
+    </p>
+
+    <p class="small">
+      See our <a href="/privacy.html">Privacy Policy</a>.
+    </p>
+
+  </form>
+
+</div>
+
+</body>
+</html>
