@@ -61,6 +61,146 @@ async function saveProspectToSupabase(prospect) {
   return Array.isArray(json) ? json[0] : json;
 }
 
+async function createNavigatorDemoRequest({
+  company,
+  name,
+  email,
+  phone,
+  state,
+  cities,
+  crm,
+  website,
+  challenge,
+  notes,
+}) {
+  const navigatorBaseUrl = (
+    process.env.NAVIGATOR_API_BASE_URL ||
+    "https://contractor-navigator.onrender.com"
+  ).replace(/\/$/, "");
+
+  const gatewaySecret =
+    process.env.AA_ACTIVITY_GATEWAY_SECRET;
+
+  if (!gatewaySecret) {
+    console.error(
+      "Navigator demo request skipped: " +
+      "missing AA_ACTIVITY_GATEWAY_SECRET",
+    );
+
+    return {
+      ok: false,
+      skipped: true,
+      reason:
+        "missing_aa_activity_gateway_secret",
+    };
+  }
+
+  const navigatorNotes = [
+    `Company: ${company}`,
+    `Contact: ${name}`,
+    `Primary State: ${state}`,
+    `Primary Cities/Markets: ${cities}`,
+    `CRM: ${crm}`,
+    website
+      ? `Website: ${website}`
+      : null,
+    challenge
+      ? `Biggest Challenge: ${challenge}`
+      : null,
+    notes
+      ? `Additional Notes: ${notes}`
+      : null,
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  const response = await fetch(
+    `${navigatorBaseUrl}` +
+      `/business-development/` +
+      `actual-assistant-llc/intake`,
+    {
+      method: "POST",
+
+      headers: {
+        "Content-Type":
+          "application/json",
+
+        "x-aa-activity-secret":
+          gatewaySecret,
+      },
+
+      body: JSON.stringify({
+        source:
+          "manual_office_entry",
+
+        source_detail:
+          "Website Demo Request",
+
+        customer_name:
+          company
+            ? `${company} — ${name}`
+            : name,
+
+        customer_phone:
+          phone || null,
+
+        customer_email:
+          email || null,
+
+        state:
+          state || null,
+
+        notes:
+          navigatorNotes,
+
+        external_reference:
+          `website-demo-${Date.now()}`,
+      }),
+    },
+  );
+
+  const responseText =
+    await response.text();
+
+  let responseBody = null;
+
+  try {
+    responseBody =
+      JSON.parse(responseText);
+  } catch {
+    responseBody = {
+      raw: responseText,
+    };
+  }
+
+  if (!response.ok) {
+    console.error(
+      "Navigator demo lead creation failed",
+      {
+        status: response.status,
+        response: responseBody,
+      },
+    );
+
+    return {
+      ok: false,
+      status: response.status,
+      response: responseBody,
+    };
+  }
+
+  return {
+    ok: true,
+    status: response.status,
+
+    action:
+      responseBody?.action || null,
+
+    job_id:
+      responseBody?.job_id || null,
+  };
+}
+
 async function sendResendEmail({ apiKey, from, to, subject, html, replyTo, bcc }) {
   const payload = {
     from,
@@ -247,6 +387,36 @@ module.exports = async (req, res) => {
       notes: [challenge, notes].filter(Boolean).join("\n\n"),
     });
 
+    const navigatorDemo =
+      await createNavigatorDemoRequest({
+        company,
+        name,
+        email,
+        phone,
+        state,
+        cities,
+        crm,
+        website,
+        challenge,
+        notes,
+      }).catch((error) => {
+        console.error(
+          "Navigator demo request creation error",
+          {
+            message:
+              error?.message ||
+              String(error),
+          },
+        );
+
+        return {
+          ok: false,
+          error:
+            error?.message ||
+            String(error),
+        };
+      });
+
     // Internal notification
     const internal = await sendResendEmail({
       apiKey,
@@ -274,6 +444,10 @@ module.exports = async (req, res) => {
       internal_id: internal?.id,
       customer_id: customer?.id,
       prospect_id: savedProspect?.id || null,
+      navigator_job_id:
+        navigatorDemo?.job_id || null,
+      navigator_created:
+        navigatorDemo?.ok === true,
       toEmail,
       fromEmail,
       customerEmail: email,
@@ -289,6 +463,10 @@ module.exports = async (req, res) => {
     return res.status(200).json({
       ok: true,
       prospect_id: savedProspect?.id || null,
+      navigator_job_id:
+        navigatorDemo?.job_id || null,
+      navigator_created:
+        navigatorDemo?.ok === true,
       internal_email_id: internal?.id || null,
       customer_email_id: customer?.id || null,
     });
