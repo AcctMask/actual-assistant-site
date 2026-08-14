@@ -70,7 +70,7 @@ module.exports = async (req, res) => {
 
   const params = new URLSearchParams();
   params.append("mode", "subscription");
-  params.append("success_url", `${origin}/?checkout=success&module_id=${encodeURIComponent(moduleId)}`);
+  params.append("success_url", `${origin}/purchase-success.html?module_id=${encodeURIComponent(moduleId)}&session_id={CHECKOUT_SESSION_ID}`);
   params.append("cancel_url", `${origin}/?checkout=cancelled&module_id=${encodeURIComponent(moduleId)}`);
   params.append("metadata[module_id]", moduleId);
   params.append("metadata[module_name]", selectedModule.name);

@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+  <meta name="robots" content="noindex">
+  <title>Purchase Complete | Actual Assistant</title>
+
+  <style>
+    body{
+      margin:0;
+      background:#f5f7fb;
+      color:#172033;
+      font-family:Arial,Helvetica,sans-serif;
+    }
+
+    main{
+      max-width:720px;
+      margin:80px auto;
+      padding:36px;
+      background:#fff;
+      border:1px solid #dce4ef;
+      border-radius:16px;
+      box-shadow:0 12px 30px rgba(0,0,0,.08);
+    }
+
+    h1{
+      margin-top:0;
+      font-size:32px;
+    }
+
+    p{
+      font-size:18px;
+      line-height:1.6;
+    }
+
+    #status{
+      margin-top:24px;
+      padding:18px;
+      border-radius:12px;
+      background:#eef4ff;
+      font-size:17px;
+      line-height:1.5;
+    }
+
+    a{
+      display:inline-block;
+      margin-top:24px;
+      font-weight:700;
+      color:#1d4ed8;
+      text-decoration:none;
+    }
+  </style>
+</head>
+
+<body>
+<main>
+  <h1>Congratulations.</h1>
+
+  <p>
+    Your Actual Assistant purchase was successful.
+  </p>
+
+  <div id="status">
+    Confirming your purchase and starting your onboarding…
+  </div>
+
+  <a href="/">
+    Return to Actual Assistant
+  </a>
+</main>
+
+<script>
+(async function () {
+  const status =
+    document.getElementById("status");
+
+  const params =
+    new URLSearchParams(
+      window.location.search,
+    );
+
+  const sessionId =
+    params.get("session_id");
+
+  if (!sessionId) {
+    status.textContent =
+      "Your payment returned successfully, but the Stripe session identifier is missing. Please contact Actual Assistant.";
+    return;
+  }
+
+  try {
+    const response = await fetch(
+      "/api/complete-purchase",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+        body: JSON.stringify({
+          session_id: sessionId,
+        }),
+      },
+    );
+
+    const result =
+      await response.json();
+
+    if (
+      !response.ok ||
+      result.ok !== true
+    ) {
+      throw new Error(
+        result.details ||
+        result.error ||
+        "Purchase confirmation could not be completed.",
+      );
+    }
+
+    history.replaceState(
+      {},
+      document.title,
+      "/purchase-success.html",
+    );
+
+    const role =
+      result.stripe?.module_name ||
+      "AI Workforce professional";
+
+    status.textContent =
+      `Your ${role} purchase is confirmed. Your Actual Assistant onboarding has started and your Company DNA invitation is being sent.`;
+  } catch (error) {
+    console.error(error);
+
+    status.textContent =
+      "Your payment was received by Stripe, but automated onboarding could not be confirmed. Do not purchase again. Actual Assistant can complete onboarding from the existing payment.";
+  }
+})();
+</script>
+</body>
+</html>
