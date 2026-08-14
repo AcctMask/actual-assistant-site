@@ -24,20 +24,10 @@ const MODULES = {
     setupPriceId: "price_1TppOMCYgC6lPmKTWZQ0hCNt",
     monthlyPriceId: "price_1TppPoCYgC6lPmKTGzW3nYUh",
   },
-  "audience-research-assistant": {
-    name: "Actual Assistant — Audience Research Assistant",
-    setupPriceId: "price_1TppRaCYgC6lPmKTKAlulCM2",
-    monthlyPriceId: "price_1TppShCYgC6lPmKT7hKWLhpS",
-  },
-  "storm-opportunity-assistant": {
-    name: "Actual Assistant — Storm Opportunity Assistant",
+  "weather-analyst": {
+    name: "Actual Assistant — Weather Analyst",
     setupPriceId: "price_1TppTtCYgC6lPmKTtxLEsYVb",
     monthlyPriceId: "price_1TppVBCYgC6lPmKTVccELRGW",
-  },
-  "weather-evidence-assistant": {
-    name: "Actual Assistant — Weather Evidence Assistant",
-    setupPriceId: "price_1TppWZCYgC6lPmKTujuRa2wK",
-    monthlyPriceId: "price_1TppXkCYgC6lPmKTlsoSyycs",
   },
   "business-intelligence-manager": {
     name: "Actual Assistant — Business Intelligence Manager",
