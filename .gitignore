@@ -9,3 +9,5 @@ index.BACKUP.*.html
 app/
 index.BACKUP.*
 index.html.bak
+.env.local
+sitemap.BACKUP.*.xml

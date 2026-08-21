@@ -1,0 +1,10 @@
+.env
+.env.*
+!.env.example
+
+.git
+.gitignore.BACKUP.*
+*.BACKUP.*
+sitemap.BACKUP.*.xml
+
+.DS_Store
