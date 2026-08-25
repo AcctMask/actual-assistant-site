@@ -297,6 +297,8 @@ module.exports = async (req, res) => {
   const website = safeStr(body.website);
   const challenge = safeStr(body.challenge);
   const notes = safeStr(body.notes);
+  const smsConsent =
+    safeStr(body.sms_consent).toLowerCase() === "yes";
 
   const missing = [];
   if (!company) missing.push("company");
@@ -335,6 +337,7 @@ module.exports = async (req, res) => {
         <tr><td><b>Website</b></td><td>${website ? `<a href="${escapeHtml(website)}">${escapeHtml(website)}</a>` : "(none)"}</td></tr>
         <tr><td><b>Biggest Challenge</b></td><td>${escapeHtml(challenge || "(none)")}</td></tr>
         <tr><td><b>Notes</b></td><td>${escapeHtml(notes || "(none)")}</td></tr>
+        <tr><td><b>SMS Consent</b></td><td>${smsConsent ? "YES" : "NO"}</td></tr>
       </table>
 
       <p style="margin-top:14px;color:#444;">
@@ -384,7 +387,11 @@ module.exports = async (req, res) => {
       source: "website_demo",
       interested_modules: ["AI Follow-Up & After-Hours Assistant", "Automated Socials", "Instant Roof Estimator"],
       status: "New Demo Request",
-      notes: [challenge, notes].filter(Boolean).join("\n\n"),
+      notes: [
+        challenge,
+        notes,
+        `SMS Consent: ${smsConsent ? "YES" : "NO"}`
+      ].filter(Boolean).join("\n\n"),
     });
 
     const navigatorDemo =
@@ -398,7 +405,10 @@ module.exports = async (req, res) => {
         crm,
         website,
         challenge,
-        notes,
+        notes: [
+          notes,
+          `SMS Consent: ${smsConsent ? "YES" : "NO"}`
+        ].filter(Boolean).join("\n\n"),
       }).catch((error) => {
         console.error(
           "Navigator demo request creation error",
