@@ -1,0 +1,7 @@
+{
+  "name": "actual-assistant-site",
+  "private": true,
+  "dependencies": {
+    "@aws-sdk/client-marketplace-metering": "3.1116.0"
+  }
+}
