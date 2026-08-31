@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>See the Actual Assistant AI Workforce in Action</title>
+  <meta name="description" content="See how the Actual Assistant AI Workforce works independently, collaborates across departments, documents activity, notifies the right people, and learns from results." />
+  <style>
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Arial,Helvetica,sans-serif;
+      background:#081120;
+      color:#f8fafc;
+      line-height:1.5;
+    }
+    a{text-decoration:none}
+    .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+    header{
+      padding:24px 0;
+      border-bottom:1px solid rgba(148,163,184,.18);
+      background:rgba(8,17,32,.96);
+      position:sticky;
+      top:0;
+      z-index:20;
+    }
+    .nav{display:flex;justify-content:space-between;align-items:center;gap:16px}
+    .brand{font-weight:700;font-size:20px;color:#fff}
+    .back{color:#cbd5e1}
+    .hero{
+      padding:70px 0 42px;
+      text-align:center;
+    }
+    .eyebrow{
+      display:inline-block;
+      padding:7px 12px;
+      border-radius:999px;
+      border:1px solid rgba(96,165,250,.45);
+      color:#bfdbfe;
+      margin-bottom:16px;
+      font-size:14px;
+    }
+    h1{
+      font-size:54px;
+      line-height:1.05;
+      margin:0 auto 18px;
+      max-width:900px;
+    }
+    .hero p{
+      max-width:820px;
+      margin:0 auto;
+      color:#cbd5e1;
+      font-size:20px;
+    }
+    .stage{
+      margin:30px auto 0;
+      border:1px solid rgba(96,165,250,.22);
+      border-radius:24px;
+      background:rgba(15,23,42,.78);
+      overflow:hidden;
+      box-shadow:0 20px 60px rgba(0,0,0,.24);
+    }
+    .stage-head{
+      padding:18px 20px;
+      border-bottom:1px solid rgba(148,163,184,.15);
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+      color:#cbd5e1;
+    }
+    .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px}
+    .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;background:#60a5fa}
+    .timeline{position:relative;padding:22px}
+    .lane{
+      display:grid;
+      grid-template-columns:210px 1fr;
+      gap:14px;
+      align-items:stretch;
+      margin-bottom:12px;
+    }
+    .role{
+      border:1px solid rgba(148,163,184,.18);
+      border-radius:15px;
+      padding:15px;
+      background:rgba(15,23,42,.86);
+      font-weight:700;
+      display:flex;
+      align-items:center;
+    }
+    .track{
+      position:relative;
+      min-height:78px;
+      border-radius:15px;
+      border:1px solid rgba(148,163,184,.12);
+      background:
+        linear-gradient(90deg,
+        rgba(148,163,184,.05) 0 24.8%,
+        rgba(148,163,184,.13) 25% 25.2%,
+        rgba(148,163,184,.05) 25.4% 49.8%,
+        rgba(148,163,184,.13) 50% 50.2%,
+        rgba(148,163,184,.05) 50.4% 74.8%,
+        rgba(148,163,184,.13) 75% 75.2%,
+        rgba(148,163,184,.05) 75.4% 100%);
+      overflow:hidden;
+    }
+    .event{
+      position:absolute;
+      top:10px;
+      height:58px;
+      min-width:170px;
+      max-width:260px;
+      border-radius:12px;
+      padding:8px 10px;
+      background:#172554;
+      border:1px solid rgba(96,165,250,.55);
+      box-shadow:0 7px 18px rgba(0,0,0,.18);
+      opacity:.16;
+      transform:translateY(10px) scale(.98);
+      transition:all .5s ease;
+      font-size:12px;
+      color:#dbeafe;
+    }
+    .event strong{display:block;color:#fff;font-size:13px;margin-bottom:2px}
+    .event.active{
+      opacity:1;
+      transform:translateY(0) scale(1);
+      box-shadow:0 0 0 2px rgba(96,165,250,.14),0 10px 30px rgba(0,0,0,.26);
+    }
+    .event.done{opacity:.62;transform:none}
+    .event .trail{
+      display:block;
+      color:#93c5fd;
+      margin-top:3px;
+      font-size:11px;
+    }
+    .narrative{
+      padding:0 22px 24px;
+      text-align:center;
+    }
+    .narrative-box{
+      min-height:120px;
+      border-radius:18px;
+      border:1px solid rgba(148,163,184,.16);
+      background:#0f172a;
+      padding:18px 22px;
+    }
+    .narrative h2{margin:0 0 7px;font-size:24px}
+    .narrative p{margin:0;color:#cbd5e1;font-size:16px}
+    .progress{
+      height:4px;
+      background:rgba(148,163,184,.12);
+      margin-top:18px;
+      border-radius:999px;
+      overflow:hidden;
+    }
+    .progress span{
+      display:block;
+      height:100%;
+      width:0%;
+      background:#60a5fa;
+      transition:width .5s linear;
+    }
+    .controls{
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      padding:0 22px 28px;
+      flex-wrap:wrap;
+    }
+    button,.btn{
+      appearance:none;
+      border:0;
+      border-radius:12px;
+      padding:13px 19px;
+      cursor:pointer;
+      font-weight:700;
+      font-size:15px;
+    }
+    .primary{background:#2563eb;color:#fff}
+    .secondary{background:#1e293b;color:#fff;border:1px solid rgba(148,163,184,.22)}
+    .learn{
+      max-width:900px;
+      margin:48px auto 0;
+      text-align:center;
+      padding:34px;
+      border-radius:22px;
+      background:rgba(30,41,59,.7);
+      border:1px solid rgba(96,165,250,.25);
+    }
+    .learn h2{font-size:34px;margin:0 0 10px}
+    .learn p{color:#cbd5e1;font-size:18px;margin:0}
+    .cta{
+      padding:70px 0 90px;
+      text-align:center;
+    }
+    .cta h2{font-size:42px;margin:0 0 12px}
+    .cta p{color:#cbd5e1;max-width:720px;margin:0 auto 24px;font-size:18px}
+    .cta-row{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+    .price{margin:18px 0;color:#dbeafe}
+    .price strong{font-size:27px;color:#fff}
+    .status{
+      font-size:13px;
+      color:#94a3b8;
+      margin-top:10px;
+      min-height:20px;
+    }
+    footer{
+      border-top:1px solid rgba(148,163,184,.14);
+      color:#94a3b8;
+      padding:30px 0;
+      text-align:center;
+    }
+    @media(max-width:850px){
+      h1{font-size:38px}
+      .lane{grid-template-columns:1fr}
+      .role{min-height:50px}
+      .track{min-height:96px}
+      .event{min-width:145px;max-width:210px;font-size:11px}
+      .event strong{font-size:12px}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <div class="brand">Actual Assistant</div>
+    <a class="back" href="/#workforce">← Back to AI Workforce</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <span class="eyebrow">THE AI WORKFORCE IN ACTION</span>
+    <h1>Seven specialists. One company. One shared intelligence.</h1>
+    <p>Watch work enter the company, move across departments, create a permanent operational record, notify the right people, and feed better decisions back into the workforce.</p>
+  </section>
+
+  <section class="wrap">
+    <div class="stage">
+      <div class="stage-head">
+        <strong>Live Operational Timeline</strong>
+        <div class="legend">
+          <span><span class="dot"></span>Work performed</span>
+          <span><span class="dot"></span>Detailed note created</span>
+          <span><span class="dot"></span>AA notification sent</span>
+        </div>
+      </div>
+
+      <div class="timeline" id="timeline">
+        <div class="lane">
+          <div class="role">Administrative Assistant</div>
+          <div class="track">
+            <div class="event" data-step="0" style="left:2%;width:23%">
+              <strong>Phone rings</strong>
+              Customer captured. Job created.
+              <span class="trail">✓ Detailed note · ✓ Sales notified</span>
+            </div>
+            <div class="event" data-step="1" style="left:30%;width:22%">
+              <strong>Customer acknowledged</strong>
+              Conversation documented.
+              <span class="trail">✓ Note updated · ✓ Owner visibility</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lane">
+          <div class="role">Sales Assistant</div>
+          <div class="track">
+            <div class="event" data-step="2" style="left:19%;width:23%">
+              <strong>Lead received</strong>
+              Follow-up begins automatically.
+              <span class="trail">✓ Activity note · ✓ Next action scheduled</span>
+            </div>
+            <div class="event" data-step="3" style="left:46%;width:24%">
+              <strong>Estimate → Contract</strong>
+              Customer kept moving.
+              <span class="trail">✓ Detailed notes · ✓ Operations notified</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lane">
+          <div class="role">Operations Manager</div>
+          <div class="track">
+            <div class="event" data-step="4" style="left:55%;width:24%">
+              <strong>Workflow oversight</strong>
+              Status, documents and exceptions monitored.
+              <span class="trail">✓ Operational note · ✓ Action alerts</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lane">
+          <div class="role">Business Development Assistant</div>
+          <div class="track">
+            <div class="event" data-step="5" style="left:5%;width:28%">
+              <strong>Audience acquired + cleaned</strong>
+              Quality prospects identified.
+              <span class="trail">✓ Source note · ✓ Marketing notified</span>
+            </div>
+            <div class="event" data-step="6" style="left:36%;width:24%">
+              <strong>Professional outreach</strong>
+              Responses routed to Sales.
+              <span class="trail">✓ Response note · ✓ Sales notified</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lane">
+          <div class="role">Marketing Assistant</div>
+          <div class="track">
+            <div class="event" data-step="7" style="left:22%;width:28%">
+              <strong>Evergreen activity</strong>
+              Content stays active and visible.
+              <span class="trail">✓ Publish note · ✓ Engagement recorded</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lane">
+          <div class="role">Weather Analyst</div>
+          <div class="track">
+            <div class="event" data-step="8" style="left:10%;width:25%">
+              <strong>Weather opportunity detected</strong>
+              Relevant area identified.
+              <span class="trail">✓ Evidence note · ✓ BD + Marketing notified</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lane">
+          <div class="role">Business Intelligence Manager</div>
+          <div class="track">
+            <div class="event" data-step="9" style="left:68%;width:27%">
+              <strong>Results quantified</strong>
+              Response → estimate → contract measured.
+              <span class="trail">✓ Executive note · ✓ Improvement signals shared</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="narrative">
+        <div class="narrative-box">
+          <h2 id="storyTitle">A customer calls.</h2>
+          <p id="storyText">The Administrative Assistant captures the customer, creates the job, writes a detailed operational note, and automatically notifies Sales.</p>
+          <div class="progress"><span id="progressBar"></span></div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="secondary" id="restartBtn">Restart</button>
+        <button class="primary" id="nextBtn">Next Event</button>
+      </div>
+    </div>
+
+    <div class="learn">
+      <h2>Work. Collaborate. Learn. Work better.</h2>
+      <p>Every meaningful event becomes part of the company record. Actual Assistant keeps the work moving, preserves detailed notes, sends the right notifications, measures outcomes, and uses what happened to improve what happens next.</p>
+    </div>
+  </section>
+
+  <section class="cta wrap">
+    <h2>This is what happens when you hire the team.</h2>
+    <p>You are not buying seven disconnected AI tools. You are hiring a coordinated AI workforce built around one Company DNA.</p>
+
+    <div class="price">
+      <strong>$10,500 setup + $1,050/month</strong>
+    </div>
+
+    <div class="cta-row">
+      <button class="primary" onclick="startCheckout('full-ai-workforce')">Hire the Entire AI Workforce</button>
+      <a class="btn secondary" href="/demo.html">Schedule a Live Demo</a>
+    </div>
+    <div class="status" id="checkoutStatus"></div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Actual Assistant — AI professionals working as one coordinated workforce.</div>
+</footer>
+
+<script>
+const stories = [
+  {
+    title:"A customer calls.",
+    text:"The Administrative Assistant captures the customer, creates the job, writes a detailed operational note, and automatically notifies Sales."
+  },
+  {
+    title:"The customer is acknowledged.",
+    text:"The conversation is documented automatically, the job record stays current, and the right people have immediate visibility."
+  },
+  {
+    title:"Sales takes over.",
+    text:"The Sales Assistant receives the opportunity, begins follow-up, writes each activity to the job, and schedules the next action."
+  },
+  {
+    title:"The opportunity keeps moving.",
+    text:"Estimate activity, follow-up, contract delivery and customer decisions are documented automatically, with Operations notified when coordination is needed."
+  },
+  {
+    title:"Operations sees the whole process.",
+    text:"The Operations Manager watches status, documents, handoffs and exceptions so work does not disappear between departments."
+  },
+  {
+    title:"Business Development creates tomorrow's opportunities.",
+    text:"Audiences are acquired, cleaned and qualified. The source and qualification trail are documented, and Marketing receives the usable audience."
+  },
+  {
+    title:"Qualified outreach becomes Sales activity.",
+    text:"Responses are recorded as detailed notes and handed directly to Sales with an Actual Assistant notification."
+  },
+  {
+    title:"Marketing keeps the company visible.",
+    text:"Evergreen activity is published consistently. Each action is recorded and engagement becomes another measurable business signal."
+  },
+  {
+    title:"Weather creates a new opportunity.",
+    text:"The Weather Analyst identifies a relevant event, records the evidence, and automatically notifies Business Development and Marketing."
+  },
+  {
+    title:"Business Intelligence closes the learning loop.",
+    text:"Results are quantified across the workforce. What worked, what did not, and what deserves attention becomes useful intelligence for the next decision."
+  }
+];
+
+let current = 0;
+let timer = null;
+
+const events = [...document.querySelectorAll(".event")];
+const title = document.getElementById("storyTitle");
+const text = document.getElementById("storyText");
+const progress = document.getElementById("progressBar");
+
+function showStep(step){
+  current = step;
+
+  events.forEach((el, idx) => {
+    el.classList.remove("active","done");
+    if(idx < step) el.classList.add("done");
+    if(idx === step) el.classList.add("active");
+  });
+
+  title.textContent = stories[step].title;
+  text.textContent = stories[step].text;
+  progress.style.width = (((step + 1) / stories.length) * 100) + "%";
+}
+
+function nextStep(){
+  if(current >= stories.length - 1){
+    current = 0;
+  } else {
+    current++;
+  }
+  showStep(current);
+}
+
+function restart(){
+  clearInterval(timer);
+  showStep(0);
+  timer = setInterval(nextStep, 4200);
+}
+
+document.getElementById("nextBtn").addEventListener("click", () => {
+  clearInterval(timer);
+  nextStep();
+});
+
+document.getElementById("restartBtn").addEventListener("click", restart);
+
+showStep(0);
+timer = setInterval(nextStep, 4200);
+
+async function startCheckout(moduleId){
+  const status = document.getElementById("checkoutStatus");
+  status.textContent = "Opening secure checkout...";
+
+  try{
+    const res = await fetch("/api/create-checkout-session",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({module_id:moduleId})
+    });
+
+    const data = await res.json();
+
+    if(!res.ok || !data.url){
+      throw new Error(data.error || "Unable to create checkout.");
+    }
+
+    window.location.href = data.url;
+  }catch(err){
+    status.textContent = err.message || "Checkout could not be opened.";
+  }
+}
+</script>
+</body>
+</html>

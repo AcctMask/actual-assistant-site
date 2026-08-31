@@ -6,6 +6,7 @@ const WORKFORCE_ROLES = new Set([
   "business-development-assistant",
   "weather-analyst",
   "business-intelligence-manager",
+  "full-ai-workforce",
 ]);
 
 function clean(value) {

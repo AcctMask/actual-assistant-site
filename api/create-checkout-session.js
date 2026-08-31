@@ -34,6 +34,11 @@ const MODULES = {
     setupPriceId: "price_1TppYwCYgC6lPmKTayJ6q28T",
     monthlyPriceId: "price_1TppaMCYgC6lPmKTEfClzMA4",
   },
+  "full-ai-workforce": {
+    name: "Actual Assistant — Full AI Workforce",
+    setupPriceId: "price_1UAWnnCYgC6lPmKThB4kBZfJ",
+    monthlyPriceId: "price_1UAWsPCYgC6lPmKTHjbJB9Dz",
+  },
 };
 
 module.exports = async (req, res) => {
