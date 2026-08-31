@@ -351,6 +351,7 @@
       </div>
 
       <div class="controls">
+        <button class="secondary" id="pauseBtn">Pause</button>
         <button class="secondary" id="restartBtn">Restart</button>
         <button class="primary" id="nextBtn">Next Event</button>
       </div>
@@ -372,6 +373,7 @@
 
     <div class="cta-row">
       <button class="primary" onclick="startCheckout('full-ai-workforce')">Hire the Entire AI Workforce</button>
+      <a class="btn secondary" href="/workforce-follow-up.html">Want to see more? →</a>
       <a class="btn secondary" href="/demo.html">Schedule a Live Demo</a>
     </div>
     <div class="status" id="checkoutStatus"></div>
@@ -428,6 +430,7 @@ const stories = [
 
 let current = 0;
 let timer = null;
+let playing = true;
 
 const events = [...document.querySelectorAll(".event")];
 const title = document.getElementById("storyTitle");
@@ -460,11 +463,29 @@ function nextStep(){
 function restart(){
   clearInterval(timer);
   showStep(0);
+  playing = true;
+  document.getElementById("pauseBtn").textContent = "Pause";
   timer = setInterval(nextStep, 4200);
 }
 
+document.getElementById("pauseBtn").addEventListener("click", () => {
+  if(playing){
+    clearInterval(timer);
+    timer = null;
+    playing = false;
+    document.getElementById("pauseBtn").textContent = "Play";
+  } else {
+    timer = setInterval(nextStep, 4200);
+    playing = true;
+    document.getElementById("pauseBtn").textContent = "Pause";
+  }
+});
+
 document.getElementById("nextBtn").addEventListener("click", () => {
   clearInterval(timer);
+  timer = null;
+  playing = false;
+  document.getElementById("pauseBtn").textContent = "Play";
   nextStep();
 });
 
