@@ -176,32 +176,76 @@
       border:1px solid rgba(96,165,250,.2);
       border-radius:18px;
       background:#0f172a;
-      padding:18px;
+      padding:16px;
       align-self:start;
       position:sticky;
       top:96px;
+      overflow:hidden;
     }
     .meanwhile .label{
-      font-size:13px;
+      font-size:12px;
       color:#93c5fd;
       text-transform:uppercase;
       letter-spacing:.08em;
-      margin-bottom:10px;
+      margin-bottom:4px;
     }
     .meanwhile h3{
-      margin:0 0 8px;
+      margin:0 0 6px;
       font-size:20px;
     }
-    .meanwhile p{
-      margin:0;
+    .meanwhile-intro{
+      margin:0 0 14px;
+      color:#94a3b8;
+      font-size:12px;
+      line-height:1.4;
+    }
+    .activity-stream{
+      display:flex;
+      flex-direction:column;
+      gap:9px;
+      min-height:430px;
+      max-height:430px;
+      overflow:hidden;
+      position:relative;
+    }
+    .activity-item{
+      border:1px solid rgba(148,163,184,.14);
+      border-radius:12px;
+      background:rgba(30,41,59,.72);
+      padding:10px 11px;
+      opacity:1;
+      transform:translateY(0);
+      transition:all .45s ease;
+    }
+    .activity-item.entering{
+      opacity:0;
+      transform:translateY(-18px);
+    }
+    .activity-item.leaving{
+      opacity:0;
+      transform:translateY(16px);
+    }
+    .activity-role{
+      color:#fff;
+      font-weight:700;
+      font-size:12px;
+      margin-bottom:3px;
+    }
+    .activity-action{
       color:#cbd5e1;
-      min-height:72px;
-      transition:opacity .25s ease;
+      font-size:12px;
+      line-height:1.35;
+    }
+    .activity-result{
+      color:#93c5fd;
+      font-size:10px;
+      margin-top:4px;
     }
     .meanwhile small{
       display:block;
-      margin-top:14px;
+      margin-top:12px;
       color:#64748b;
+      line-height:1.35;
     }
 
     .narrative{
@@ -500,10 +544,17 @@
         </div>
 
         <aside class="meanwhile">
-          <div class="label">Meanwhile...</div>
-          <h3 id="railRole">Marketing Assistant</h3>
-          <p id="railActivity">Social content published.</p>
-          <small>The rest of the workforce keeps working while this opportunity develops.</small>
+          <div class="label">Meanwhile — the company keeps working</div>
+          <h3>Live Company Activity</h3>
+          <p class="meanwhile-intro">
+            While the lead on the left develops over time, the rest of the workforce continues working across the company.
+          </p>
+
+          <div class="activity-stream" id="activityStream"></div>
+
+          <small>
+            Representative workforce activity. No fake counts — just the kinds of work continuing across the ecosystem.
+          </small>
         </aside>
 
       </div>
@@ -654,40 +705,96 @@ const stories = [
 ];
 
 const railItems = [
-  ["Marketing Assistant","Social content published."],
-  ["Marketing Assistant","Daily email outreach performed."],
-  ["Marketing Assistant","Evergreen content prepared."],
-  ["Marketing Assistant","SEO activity reviewed."],
-
-  ["Business Development Assistant","Agent outreach performed."],
-  ["Business Development Assistant","Vendor outreach performed."],
-  ["Business Development Assistant","License-holder outreach performed."],
-  ["Business Development Assistant","Qualified audience prepared."],
-  ["Business Development Assistant","Outreach response routed."],
-
-  ["Sales Assistant","New lead followed up."],
-  ["Sales Assistant","Estimate followed up."],
-  ["Sales Assistant","Contract followed up."],
-  ["Sales Assistant","Buying signal reviewed."],
-  ["Sales Assistant","Owner notified."],
-
-  ["Administrative Assistant","Incoming customer handled."],
-  ["Administrative Assistant","Customer reply received."],
-  ["Administrative Assistant","Past-customer follow-up performed."],
-  ["Administrative Assistant","Job created."],
-  ["Administrative Assistant","Detailed note added."],
-
-  ["Operations Manager","Job status reviewed."],
-  ["Operations Manager","Handoff recorded."],
-  ["Operations Manager","Exception identified."],
-  ["Operations Manager","Documents organized."],
-
-  ["Weather Analyst","Weather activity monitored."],
-  ["Weather Analyst","Opportunity identified."],
-  ["Weather Analyst","Historical weather evidence prepared."],
-
-  ["Business Intelligence Manager","Operational activity summarized."],
-  ["Business Intelligence Manager","Executive visibility updated."]
+  {
+    role:"Administrative Assistant",
+    action:"Incoming customer handled.",
+    result:"✓ Job created · ✓ Sales notified"
+  },
+  {
+    role:"Business Development Assistant",
+    action:"Agent outreach performed.",
+    result:"✓ Responses monitored"
+  },
+  {
+    role:"Marketing Assistant",
+    action:"Social content published.",
+    result:"✓ Activity recorded"
+  },
+  {
+    role:"Sales Assistant",
+    action:"Estimate follow-up performed.",
+    result:"✓ Next action scheduled"
+  },
+  {
+    role:"Weather Analyst",
+    action:"Weather opportunity identified.",
+    result:"✓ Evidence prepared"
+  },
+  {
+    role:"Administrative Assistant",
+    action:"Past-customer follow-up performed.",
+    result:"✓ Response documented"
+  },
+  {
+    role:"Business Development Assistant",
+    action:"Vendor outreach performed.",
+    result:"✓ Qualified response routed"
+  },
+  {
+    role:"Operations Manager",
+    action:"Job status reviewed.",
+    result:"✓ Handoff maintained"
+  },
+  {
+    role:"Marketing Assistant",
+    action:"Evergreen content prepared.",
+    result:"✓ Publishing activity continues"
+  },
+  {
+    role:"Sales Assistant",
+    action:"Contract follow-up performed.",
+    result:"✓ Customer history updated"
+  },
+  {
+    role:"Sales Assistant",
+    action:"Buying signal detected.",
+    result:"✓ Detailed note · ✓ Owner notified"
+  },
+  {
+    role:"Business Development Assistant",
+    action:"License-holder outreach performed.",
+    result:"✓ Contact activity recorded"
+  },
+  {
+    role:"Administrative Assistant",
+    action:"Customer reply received.",
+    result:"✓ Job updated · ✓ Sales sees response"
+  },
+  {
+    role:"Operations Manager",
+    action:"Exception identified.",
+    result:"✓ Operational visibility updated"
+  },
+  {
+    role:"Weather Analyst",
+    action:"Historical weather evidence prepared.",
+    result:"✓ Customer-ready support available"
+  },
+  {
+    role:"Marketing Assistant",
+    action:"SEO activity reviewed.",
+    result:"✓ Visibility work continues"
+  },
+  {
+    role:"Business Development Assistant",
+    action:"Qualified audience prepared.",
+    result:"✓ Outreach-ready opportunity"
+  },
+  {
+    role:"Business Intelligence Manager",
+    action:"Operational activity summarized.",
+    result:"✓ Executive visibility updated"
+  }
 ];
 
 let current = 0;
@@ -766,20 +873,69 @@ document.getElementById("prevBtn").addEventListener("click", () => {
 
 document.getElementById("restartBtn").addEventListener("click", restart);
 
-function updateRail(){
-  const role = document.getElementById("railRole");
-  const activity = document.getElementById("railActivity");
+const activityStream = document.getElementById("activityStream");
 
-  role.textContent = railItems[railIndex][0];
-  activity.textContent = railItems[railIndex][1];
+function makeActivityItem(item){
+  const el = document.createElement("div");
+  el.className = "activity-item entering";
+
+  const role = document.createElement("div");
+  role.className = "activity-role";
+  role.textContent = item.role;
+
+  const action = document.createElement("div");
+  action.className = "activity-action";
+  action.textContent = item.action;
+
+  const result = document.createElement("div");
+  result.className = "activity-result";
+  result.textContent = item.result;
+
+  el.appendChild(role);
+  el.appendChild(action);
+  el.appendChild(result);
+
+  return el;
+}
+
+function addActivity(){
+  const item = railItems[railIndex];
+  const el = makeActivityItem(item);
+
+  activityStream.prepend(el);
+
+  requestAnimationFrame(() => {
+    el.classList.remove("entering");
+  });
+
+  const items = [...activityStream.querySelectorAll(".activity-item")];
+
+  if(items.length > 5){
+    const oldest = items[items.length - 1];
+    oldest.classList.add("leaving");
+
+    setTimeout(() => {
+      oldest.remove();
+    }, 450);
+  }
 
   railIndex = (railIndex + 1) % railItems.length;
 }
 
+function seedActivityStream(){
+  for(let i = 0; i < 5; i++){
+    const item = railItems[railIndex];
+    const el = makeActivityItem(item);
+    el.classList.remove("entering");
+    activityStream.appendChild(el);
+    railIndex = (railIndex + 1) % railItems.length;
+  }
+}
+
 showStep(0);
 startPlayback();
-updateRail();
-setInterval(updateRail, 2400);
+seedActivityStream();
+setInterval(addActivity, 2200);
 
 async function startCheckout(moduleId){
   const status = document.getElementById("checkoutStatus");
