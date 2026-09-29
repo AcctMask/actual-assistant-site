@@ -16,6 +16,64 @@ function safeStr(v) {
   return (typeof v === "string" ? v.trim() : "");
 }
 
+const ALLOWED_CRM_VALUES = new Set([
+  "None",
+  "JobNimbus",
+  "AccuLynx",
+  "CompanyCam",
+  "HubSpot",
+  "Salesforce",
+  "Other",
+]);
+
+function looksLikeHumanText(value, { min = 2, max = 120 } = {}) {
+  const text = safeStr(value);
+
+  if (text.length < min || text.length > max) return false;
+
+  // Keep this deliberately conservative. Bot protection should come from
+  // request integrity, honeypot, timing, and structured field validation;
+  // legitimate names and company acronyms must not be rejected as gibberish.
+  if (!/[A-Za-z]/.test(text)) return false;
+
+  return true;
+}
+
+function validEmail(value) {
+  const email = safeStr(value);
+  if (email.length > 254) return false;
+
+  return /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email);
+}
+
+function validPhone(value) {
+  const phone = safeStr(value);
+  const digits = phone.replace(/\\D/g, "");
+
+  return digits.length >= 10 && digits.length <= 15;
+}
+
+function requestIsFromActualAssistance(req) {
+  const allowedHosts = new Set([
+    "actualassistance.com",
+    "www.actualassistance.com",
+  ]);
+
+  for (const header of ["origin", "referer"]) {
+    const raw = safeStr(req.headers?.[header]);
+    if (!raw) continue;
+
+    try {
+      const hostname = new URL(raw).hostname.toLowerCase();
+      if (allowedHosts.has(hostname)) return true;
+    } catch {
+      return false;
+    }
+  }
+
+  return false;
+}
+
 function escapeHtml(s) {
   return String(s || "")
     .replaceAll("&", "&amp;")
@@ -284,6 +342,51 @@ module.exports = async (req, res) => {
   }
   body = body || {};
 
+  // ------------------------------------------------------------------
+  // Public demo ingress protection.
+  //
+  // IMPORTANT:
+  // This gate runs before Supabase, Navigator, or Resend side effects.
+  // Rejected traffic must not create prospects/jobs or send email.
+  // ------------------------------------------------------------------
+
+  const honeypot = safeStr(body.company_website_confirm);
+  const formStartedAt = Number(body.form_started_at || 0);
+  const formAgeMs =
+    Number.isFinite(formStartedAt) && formStartedAt > 0
+      ? Date.now() - formStartedAt
+      : 0;
+
+  if (honeypot) {
+    console.warn("Rejected demo submission: honeypot");
+    return res.status(400).json({
+      ok: false,
+      error: "Invalid submission",
+    });
+  }
+
+  if (!requestIsFromActualAssistance(req)) {
+    console.warn("Rejected demo submission: origin");
+    return res.status(403).json({
+      ok: false,
+      error: "Invalid submission origin",
+    });
+  }
+
+  // A real person cannot reasonably complete this form in under 3 seconds.
+  // Reject missing, future, stale (>2 hours), or implausibly fast timestamps.
+  if (
+    !formStartedAt ||
+    formAgeMs < 3000 ||
+    formAgeMs > 2 * 60 * 60 * 1000
+  ) {
+    console.warn("Rejected demo submission: timing");
+    return res.status(400).json({
+      ok: false,
+      error: "Invalid submission",
+    });
+  }
+
   // Required fields
   const company = safeStr(body.company);
   const name = safeStr(body.name);
@@ -314,6 +417,60 @@ module.exports = async (req, res) => {
       ok: false,
       error: "Missing required fields",
       missing,
+    });
+  }
+
+  const invalid = [];
+
+  if (!looksLikeHumanText(company, { min: 2, max: 120 })) {
+    invalid.push("company");
+  }
+
+  if (!looksLikeHumanText(name, { min: 2, max: 120 })) {
+    invalid.push("name");
+  }
+
+  if (!validEmail(email)) {
+    invalid.push("email");
+  }
+
+  if (!validPhone(phone)) {
+    invalid.push("phone");
+  }
+
+  if (!looksLikeHumanText(state, { min: 2, max: 80 })) {
+    invalid.push("state");
+  }
+
+  if (!looksLikeHumanText(cities, { min: 2, max: 200 })) {
+    invalid.push("cities");
+  }
+
+  if (!ALLOWED_CRM_VALUES.has(crm)) {
+    invalid.push("crm");
+  }
+
+  if (website && website.length > 300) {
+    invalid.push("website");
+  }
+
+  if (challenge.length > 2000) {
+    invalid.push("challenge");
+  }
+
+  if (notes.length > 4000) {
+    invalid.push("notes");
+  }
+
+  if (invalid.length) {
+    console.warn("Rejected demo submission: validation", {
+      invalid,
+    });
+
+    return res.status(400).json({
+      ok: false,
+      error: "Invalid submission",
+      invalid,
     });
   }
 

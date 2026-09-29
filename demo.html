@@ -113,6 +113,33 @@ button:hover {
 
   <form action="/api/demo" method="POST">
 
+    <!--
+      Anti-bot fields.
+      company_website_confirm is intentionally invisible to people.
+      Automated form fillers commonly populate every text input.
+    -->
+    <div
+      aria-hidden="true"
+      style="position:absolute;left:-10000px;top:auto;width:1px;height:1px;overflow:hidden;"
+    >
+      <label>
+        Leave this field empty
+        <input
+          type="text"
+          name="company_website_confirm"
+          tabindex="-1"
+          autocomplete="off"
+        />
+      </label>
+    </div>
+
+    <input
+      type="hidden"
+      name="form_started_at"
+      id="form_started_at"
+      value=""
+    />
+
     <input type="text" name="company" placeholder="Company Name" required />
 
     <input type="text" name="name" placeholder="Full Name" required />
@@ -159,6 +186,13 @@ button:hover {
     <button type="submit">Request Demo</button>
 
   </form>
+
+  <script>
+    (function () {
+      var field = document.getElementById("form_started_at");
+      if (field) field.value = String(Date.now());
+    })();
+  </script>
 
 </div>
 
