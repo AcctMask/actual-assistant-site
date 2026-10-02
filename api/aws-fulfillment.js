@@ -3,6 +3,11 @@ const {
   ResolveCustomerCommand,
 } = require("@aws-sdk/client-marketplace-metering");
 
+const {
+  MarketplaceEntitlementServiceClient,
+  GetEntitlementsCommand,
+} = require("@aws-sdk/client-marketplace-entitlement-service");
+
 const OWNER_CONTROLS_URL =
   "https://actual-assistant-owner-controls.vercel.app/api/commercial-agreements/complete";
 
@@ -251,6 +256,44 @@ async function resolveMarketplaceCustomer(token) {
   }
 }
 
+async function verifyMarketplaceEntitlement(awsIdentity) {
+  const client = new MarketplaceEntitlementServiceClient({
+    region: "us-east-1",
+  });
+
+  try {
+    const result = await client.send(
+      new GetEntitlementsCommand({
+        ProductCode: awsIdentity.productCode,
+        Filter: {
+          CUSTOMER_AWS_ACCOUNT_ID: [
+            awsIdentity.customerAwsAccountId,
+          ],
+        },
+        MaxResults: 25,
+      }),
+    );
+
+    const entitlements = Array.isArray(
+      result.Entitlements,
+    )
+      ? result.Entitlements
+      : [];
+
+    if (entitlements.length === 0) {
+      const error = new Error(
+        "AWS Marketplace returned no entitlements for this customer",
+      );
+      error.code = "NO_MARKETPLACE_ENTITLEMENT";
+      throw error;
+    }
+
+    return entitlements;
+  } finally {
+    client.destroy();
+  }
+}
+
 function registrationPage() {
   return page(
     "Complete your registration",
@@ -450,6 +493,31 @@ Support: support@actualassistance.com
       400,
       errorPage(
         "AWS Marketplace could not verify this subscription.",
+      ),
+    );
+  }
+
+  try {
+    await verifyMarketplaceEntitlement(
+      awsIdentity,
+    );
+  } catch (error) {
+    console.error(
+      "AWS GetEntitlements failed",
+      {
+        name: error?.name || null,
+        code: error?.code || null,
+        status:
+          error?.$metadata?.httpStatusCode ||
+          null,
+      },
+    );
+
+    return sendHtml(
+      res,
+      400,
+      errorPage(
+        "AWS Marketplace could not verify this subscription entitlement.",
       ),
     );
   }
